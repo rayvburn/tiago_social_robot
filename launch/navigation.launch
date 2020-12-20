@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- based on `tiago_simulation/tiago_2dnav_gazebo/launch/tiago_navigation.launch` -->
 <launch>
   <arg name="namespace" default="/"/>
   <!-- launching with `false` throws a dependency issue of `ResourceNotFound: pal_pcl_points_throttle_and_filter` -->
