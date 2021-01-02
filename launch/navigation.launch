@@ -16,6 +16,7 @@
   <arg name="tuck_arm"  default="true"/>
 
   <arg name="lost" default="false"/>
+  <!-- initial_pose_a: -0.000729, initial_pose_x: -0.000033, initial_pose_y: 0.000132} -->
   <arg name="gzpose" default="-x 0.0  -y   0.0 -z  0.0   -R 0.0 -P 0.0 -Y  0.0" unless="$(arg lost)"/>
   <arg name="gzpose" default="-x 0.78 -y -11.1 -z -0.003 -R 0.0 -P 0.0 -Y 70.0" if="$(arg lost)"/>
 
@@ -70,13 +71,13 @@
       <arg name="config_base_path" value="$(find tiago_scenarios)/config/pal_navigation_cfg_tiago"/>
     </include>
 
-   <group if="$(arg advanced_navigation)">
+    <group if="$(arg advanced_navigation)">
       <node name="rviz" pkg="rviz" type="rviz" if="$(arg rviz)"
             args="-d $(find tiago_2dnav)/config/rviz/advanced_navigation.rviz"/>
-  </group>
-     <group unless="$(arg advanced_navigation)">
-      <node name="rviz" pkg="rviz" type="rviz" if="$(arg rviz)"
-            args="-d $(find tiago_2dnav)/config/rviz/navigation$(arg sim_sufix).rviz"/>
+    </group>
+    <group unless="$(arg advanced_navigation)">
+      <!-- <node name="rviz" pkg="rviz" type="rviz" if="$(arg rviz)" args="-d $(find tiago_2dnav)/config/rviz/navigation$(arg sim_sufix).rviz"/> -->
+      <node name="rviz" pkg="rviz" type="rviz" if="$(arg rviz)" args="-d $(find tiago_scenarios)/rviz/nav_merged_scans_obstacles.rviz"/>
     </group>
   </group>
 
