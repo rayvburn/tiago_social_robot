@@ -1,32 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
 
+  <arg name="costmap_converter" default="false"/>
+
   <!-- name of the topic that merged scans will be published on -->
   <arg name="scan_laser_rgbd_topic"   default="/scan_combined"/>
 
-  <!-- NOTE: the `laserscan_multi_merger` node requires an `active` topic during constructor call (which gazebo bringup does not guarantee) -->
-  <node pkg="rostopic" type="rostopic" name="rgbd_scan_init" args="pub /rgbd_scan sensor_msgs/LaserScan '{header: {seq: 0, stamp: now, frame_id: 'map'}, angle_min: 0.0, angle_max: 0.0, angle_increment: 0.0, time_increment: 0.0, scan_time: 0.0, range_min: 0.0, range_max: 0.0, ranges: [0], intensities: [0]}'" output="screen"/>
-
   <!-- not sure if necessary - see `simple_office_with_people` and `tiago_scenarios_maps/configurations` directory -->
-  <node name="cp_maps_to_home" pkg="pal_navigation_sm" type="cp_maps_to_home.sh" args="tiago_maps"/>
+  <node name="cp_maps_to_home" pkg="pal_navigation_sm" type="cp_maps_to_home.sh" args="tiago_maps" />
+
+  <node name="rqt_robot_steering"    pkg="rqt_robot_steering"    type="rqt_robot_steering" />
 
   <include file="$(find tiago_scenarios)/launch/navigation.launch">
-    <arg name="world"    value="simple_office_with_people"/>
-    <arg name="map"      value="$(find tiago_scenarios_maps)/configurations/pal_simple_office_with_people"/>
+    <arg name="world"    value="small_office"/> <!-- simple_office_with_people 
+    <arg name="map"      value="$(find tiago_scenarios_maps)/configurations/pal_simple_office_with_people"/> -->
     <arg name="lost"     value="false"/>
     <arg name="gzpose"   default="-x 0.0 -y 0.0 -z 0.0   -R 0.0 -P 0.0 -Y 0.0"/>
   </include>
   
-  <!-- Tested, main drawback is that is creates multiple polygons from straight wall and this cannot be tuned by provided parameters
-  <node pkg="costmap_converter" type="standalone_converter" name="costmap_standalone_converter" ns="costmap_converter">
-    <param name="costmap_topic"         type="string"   value="/move_base/local_costmap/costmap" />
-    <param name="costmap_update_topic"  type="string"   value="/move_base/local_costmap/costmap_updates" />
-    <param name="obstacles_topic"       type="string"   value="costmap_obstacles" />
-    <param name="polygon_marker_topic"  type="string"   value="costmap_polygon_markers" />
-    <param name="occupied_min_value"    type="int"      value="100" />
-    <param name="odom_topic"            type="string"   value="/odom" />
-  </node>
-  -->
+  <!-- Tested, main drawback is that is creates multiple polygons from straight wall and this cannot be tuned by provided parameters -->
+  <group if="$(eval arg('costmap_converter') == true)">
+    <node pkg="costmap_converter" type="standalone_converter" name="costmap_standalone_converter" ns="costmap_converter" >
+      <!-- possibilities:
+      - "costmap_converter::CostmapToPolygonsDBSMCCH" (this is default)
+      - "costmap_converter::CostmapToLinesDBSRANSAC"
+      - "costmap_converter::CostmapToLinesDBSMCCH"
+      - "costmap_converter::CostmapToPolygonsDBSConcaveHull"
+      -->
+      <param name="converter_plugin"      type="string"   value="costmap_converter::CostmapToLinesDBSMCCH" />
+      <param name="costmap_topic"         type="string"   value="/move_base/local_costmap/costmap" />
+      <param name="costmap_update_topic"  type="string"   value="/move_base/local_costmap/costmap_updates" />
+      <param name="obstacles_topic"       type="string"   value="costmap_obstacles" />
+      <param name="polygon_marker_topic"  type="string"   value="costmap_polygon_markers" />
+      <param name="occupied_min_value"    type="int"      value="100" />
+      <param name="odom_topic"            type="string"   value="/mobile_base_controller/odom" />
+    </node>
+  </group>
 
   <!-- syntax: http://wiki.ros.org/tf#static_transform_publisher -->
   <arg name="tf_map_world_defined" default="false"/>
@@ -45,20 +54,12 @@
     <arg name="extractor_scan_topic"  default="$(arg scan_laser_rgbd_topic)"/>
   </include>
 
-  <!-- laser-specific parameters copied from TiAGO's /scan_raw topic data -->
-  <node pkg="ira_laser_tools" name="laserscan_multi_merger" type="laserscan_multi_merger" output="screen">
-    <param name="destination_frame" value="map"/>
-    <param name="cloud_destination_topic" value="/pcl_combined"/>
-    <param name="scan_destination_topic" value="$(arg scan_laser_rgbd_topic)"/>
-    <param name="laserscan_topics" value ="/scan /rgbd_scan"/>
-    <param name="angle_min" value="-1.9198600053787231"/>
-    <param name="angle_max" value="+1.9198600053787231"/>
-    <param name="angle_increment" value="0.005774015095084906"/>
-    <param name="scan_time" value="0.0333333"/>
-    <param name="range_min" value="0.05"/>
-    <param name="range_max" value="25.0"/>
+  <node pkg="laser_plane_merger" name="laser_plane_merger_node" type="laser_plane_merger_node" output="screen">
+    <remap from="/scan1" to="/scan"/>
+    <remap from="/scan2" to="/rgbd_scan"/>
+    <remap from="/scan_merged" to="$(arg scan_laser_rgbd_topic)"/>
   </node>
-
+  
   <include file="$(find people_extraction)/launch/people_extraction.launch"></include>
 
 </launch>
