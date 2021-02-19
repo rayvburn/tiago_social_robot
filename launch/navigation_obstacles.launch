@@ -27,7 +27,7 @@
       - "costmap_converter::CostmapToLinesDBSMCCH"
       - "costmap_converter::CostmapToPolygonsDBSConcaveHull"
       -->
-      <param name="converter_plugin"      type="string"   value="costmap_converter::CostmapToLinesDBSMCCH" />
+      <param name="converter_plugin"      type="string"   value="costmap_converter::CostmapToLinesDBSRANSAC" />
       <param name="costmap_topic"         type="string"   value="/move_base/local_costmap/costmap" />
       <param name="costmap_update_topic"  type="string"   value="/move_base/local_costmap/costmap_updates" />
       <param name="obstacles_topic"       type="string"   value="costmap_obstacles" />
@@ -59,7 +59,7 @@
     <remap from="/scan2" to="/rgbd_scan"/>
     <remap from="/scan_merged" to="$(arg scan_laser_rgbd_topic)"/>
   </node>
-  
+
   <include file="$(find people_extraction)/launch/people_extraction.launch"></include>
 
 </launch>
