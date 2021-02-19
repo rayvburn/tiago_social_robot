@@ -22,7 +22,11 @@
 
   <arg name="planner"        default="base"/>
   <arg name="global_planner" default="global_planner"/>
-  <arg name="local_planner"  default="$(eval 'teb' if arg('public_sim') else 'pal')"/>
+
+  <!-- PAL default:
+  <arg name="local_planner"  default="$(eval 'teb' if arg('public_sim') else 'pal')"/> -->
+  <!-- Custom local planner: -->
+  <arg name="local_planner"  default="hubero"/>
   <arg name="localization"   default="amcl"/>
   <arg name="map"            default="$(env HOME)/.pal/tiago_maps/configurations/$(arg world)"/>
 
