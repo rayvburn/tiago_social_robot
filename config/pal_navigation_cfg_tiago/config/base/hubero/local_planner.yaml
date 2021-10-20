@@ -1,30 +1,41 @@
 base_local_planner: hubero_local_planner/HuberoPlannerROS
 
 HuberoPlannerROS:
-  # DWA params
-  acc_lim_th: 1.5
+  # Local Planner limits
+  acc_lim_theta: 1.5
   acc_lim_x: 0.8
   acc_lim_y: 0.0
 
   max_vel_x: 1.5
-  min_vel_x: 0.0
+  min_vel_x: -0.1
 
   max_vel_y: 0.0
   min_vel_y: 0.0
 
-  max_vel_trans: 1.5
-  min_vel_trans: 0.1
+  max_trans_vel: 1.5
+  min_trans_vel: 0.1
 
-  max_vel_theta: 2.0
-  min_vel_theta: 0.4
+  max_rot_vel: 2.0
+  min_rot_vel: 0.4
 
+  xy_goal_tolerance: 0.2
+  yaw_goal_tolerance: 0.4
+
+  rot_stopped_vel: 0.01
+  trans_stopped_vel: 0.01
+
+  # Robot footprint
+  is_footprint_dynamic: true
+  footprint_model:
+    type: "circular"
+    radius: 0.275
+
+  # General
   sim_time: 1.7
   sim_granularity: 0.025
+  sim_period: 0.05 # how often planner should plan
 
-  goal_distance_bias: 24.0
-  path_distance_bias: 32.0
-  occdist_scale: 0.01
-
+  # Operation-related
   stop_time_buffer: 0.2
   oscillation_reset_dist: 0.1
 
@@ -36,14 +47,6 @@ HuberoPlannerROS:
   vx_samples: 10
   vy_samples: 0
   vtheta_samples: 20
-
-  sim_period: 0.1
-
-  xy_goal_tolerance: 0.2
-  yaw_goal_tolerance: 0.2
-
-  theta_stopped_vel: 0.01
-  trans_stopped_vel: 0.01
 
   meter_scoring: true
   publish_cost_grid: true
