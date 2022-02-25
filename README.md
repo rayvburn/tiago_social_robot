@@ -5,14 +5,20 @@ Package that runs TiAGO robot (simulation) system to execute certain scenarios
 Launch whole system with:
 
 ```bash
-roslaunch tiago_scenarios navigation.launch
+roslaunch tiago_scenarios gazebo_sim_and_nav.launch
 ```
 
 Or run robot simulation and navigation in separate tabs:
 
 ```bash
-roslaunch tiago_scenarios robot_simulation.launch
-roslaunch tiago_scenarios navigation.launch
+roslaunch tiago_scenarios gazebo_sim.launch
+roslaunch tiago_scenarios gazebo_nav.launch
+```
+
+## Spawn TIAGo in a custom world
+
+```bash
+roslaunch tiago_scenarios gazebo_spawn.launch
 ```
 
 ## Configuration parameters
