@@ -3,10 +3,10 @@
   <!-- Based on: pal_navigation_cfg_public/pal_navigation_cfg_tiago/launch/mapping_gmapping.launch -->
   <arg name="scan" default="scan"/>
   <arg name="laser_model" default="sick-571"/>
-  <!-- TODO: add param file arg -->
+  <arg name="param_file" default="$(find pal_navigation_cfg_tiago)/config/mapping/gmapping.yaml"/>
 
   <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
     <remap from="scan" to="$(arg scan)"/>
-    <rosparam file="$(find pal_navigation_cfg_tiago)/config/mapping/gmapping.yaml" command="load"/>
+    <rosparam file="$(arg param_file)" command="load"/>
   </node>
 </launch>
