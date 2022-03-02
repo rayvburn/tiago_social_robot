@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
   <!-- Based on: tiago_navigation/tiago_2dnav/launch/localization.launch -->
+  <!-- Define localization method -->
   <arg name="localization" default="amcl"/>
+
+  <arg name="scan_topic" default="scan_raw"/>
+  <arg name="map_topic" default="vo_map"/>
   <arg name="multiple" default="false"/>
   <arg name="robot_namespace" default=""/>
-  <arg name="base_type"     default="pmb2"/>
+  <arg name="base_type" default="pmb2"/>
+
+  <!-- File suffixes -->
+  <arg name="base_type_suffix" value="" unless="$(eval arg('base_type') == 'omni_base')"/>
+  <arg name="base_type_suffix" value="_omni" if="$(eval arg('base_type') == 'omni_base')"/>
+
+  <!-- File with initial pose estimate -->
+  <arg name="pose_estimate_file" default="$(env HOME)/.pal/pose.yaml"/>
+  <!-- Configuration file -->
+  <arg name="config_file" default="$(find pal_navigation_cfg_tiago)/config/localization/$(arg localization)$(arg base_type_suffix).yaml"/>
 
   <include file="$(find tiago_social_navigation)/launch/localization_$(arg localization).launch">
+    <arg name="scan_topic" default="$(arg scan_topic)"/>
+    <arg name="map_topic" default="$(arg map_topic)"/>
     <arg name="multiple" value="$(arg multiple)"/>
     <arg name="robot_namespace" value="$(arg robot_namespace)"/>
     <arg name="base_type" value="$(arg base_type)"/>
+    <arg name="pose_estimate_file" value="$(arg pose_estimate_file)"/>
+    <arg name="config_file" value="$(arg config_file)"/>
   </include>
 
 </launch>

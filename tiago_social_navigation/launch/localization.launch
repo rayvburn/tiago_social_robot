@@ -4,11 +4,23 @@
   <!-- Source: tiago_simulation/tiago_2dnav_gazebo/launch/localization.launch -->
   <arg name="localization" default="amcl"/>
 
+  <arg name="scan_topic" default="scan_raw"/>
+  <arg name="map_topic" default="vo_map"/>
+
   <!-- Full path to the map configuration file. NOTE: if set to 'none', map server will not be started -->
   <arg name="map" default="$(env HOME)/.pal/tiago_maps/config/map.yaml"/>
   <arg name="multiple" default="false"/>
   <arg name="robot_namespace" default=""/>
   <arg name="base_type" default="pmb2"/>
+
+  <!-- File suffixes -->
+  <arg name="base_type_suffix" value="" unless="$(eval arg('base_type') == 'omni_base')"/>
+  <arg name="base_type_suffix" value="_omni" if="$(eval arg('base_type') == 'omni_base')"/>
+
+  <!-- File with initial pose estimate -->
+  <arg name="pose_estimate_file" default="$(env HOME)/.pal/pose.yaml"/>
+  <!-- Configuration file -->
+  <arg name="config_file" default="$(find pal_navigation_cfg_tiago)/config/localization/$(arg localization)$(arg base_type_suffix).yaml"/>
 
   <!-- Map loading section - contents taken from: pal_navigation_sm/launch/map.launch -->
   <!-- Setup map (pal_navigation_sm/map_setup.py) is omitted here, but may be required by e.g. cartographer -->
@@ -16,11 +28,16 @@
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map)" unless="$(eval arg('map') == 'none')"/>
 
   <!-- Localization -->
-  <include file="$(find tiago_2dnav)/launch/localization.launch">
+  <!-- TODO: take 2dnav loc contents here -->
+  <include file="$(find tiago_social_navigation)/launch/2dnav_localization.launch">
     <arg name="localization" value="$(arg localization)"/>
+    <arg name="scan_topic" default="$(arg scan_topic)"/>
+    <arg name="map_topic" default="$(arg map_topic)"/>
     <arg name="multiple" value="$(arg multiple)"/>
     <arg name="robot_namespace" value="$(arg robot_namespace)"/>
     <arg name="base_type" value="$(arg base_type)"/>
+    <arg name="pose_estimate_file" value="$(arg pose_estimate_file)"/>
+    <arg name="config_file" value="$(arg config_file)"/>
   </include>
 
 </launch>
