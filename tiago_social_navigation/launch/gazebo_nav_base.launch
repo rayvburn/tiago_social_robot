@@ -16,18 +16,21 @@
   <arg name="robot_namespace" default=""/>
   <arg name="multiple" default="false"/>
   <arg name="scan_topic" default="scan_raw"/>
-  <!-- basically state machine file suffix -->
-  <arg if="$(arg public_sim)" name="sim_suffix" value="_public_sim"/>
-  <arg unless="$(arg public_sim)" name="sim_suffix" value=""/>
+
   <arg name="config_base_path" default="$(find tiago_social_navigation)/config/pal_navigation_cfg_tiago"/>
   <!-- specific robot model setup -->
   <arg name="laser_model" default="sick-571"/>
   <!-- NOTE: 'omni_base' will require different config and will likely not run properly -->
   <arg name="base_type" default="pmb2"/>
-
-  <!-- localization prerequisites -->
-  <!-- <arg name="map" default="$(env HOME)/.pal/tiago_maps/config"/> -->
-  <arg name="map" default="none"/>
+  
+  <!-- localization prerequisites. NOTE: if set to 'none', map server will not be started -->
+  <arg name="map" default="$(env HOME)/.pal/tiago_maps/config/map.yaml"/>
+  
+  <!-- file suffixes -->
+  <arg name="base_type_suffix" value="" unless="$(eval arg('base_type') == 'omni_base')"/>
+  <arg name="base_type_suffix" value="_omni" if="$(eval arg('base_type') == 'omni_base')"/>
+  <arg name="sim_suffix" value="" unless="$(arg public_sim)"/>
+  <arg name="sim_suffix" value="_public_sim" if="$(arg public_sim)"/>
 
   <!-- === NODES ============================================================================== -->
   <!-- Localization or Mapping state -->
@@ -38,10 +41,10 @@
   <include file="$(find tiago_social_navigation)/launch/2dnav_state_machine.launch">
     <arg name="state" value="$(arg state)"/>
     <arg name="public_sim" value="$(arg public_sim)"/>
-    <arg if="$(arg multiple)" name="map_frame" value="/$(arg robot_namespace)/map"/>
     <arg if="$(arg multiple)" name="base_frame" value="/$(arg robot_namespace)/base_footprint"/>
-    <arg name="base_type"     value="$(arg base_type)"/>
-	<arg name="config"        value="$(arg config_base_path)/config/state_machine/state_machine$(arg sim_suffix).yaml"/>
+    <arg if="$(arg multiple)" name="map_frame" value="/$(arg robot_namespace)/map"/>
+    <arg name="base_type" value="$(arg base_type)"/>
+	<arg name="config" value="$(arg config_base_path)/config/state_machine/state_machine$(arg sim_suffix)$(arg base_type_suffix).yaml"/>
   </include>
 
   <!-- Planning -->
