@@ -1,3 +1,7 @@
+# VSCode
+.vscode/settings.json
 build/
+
+# misc
 integration.md
 ignore/
