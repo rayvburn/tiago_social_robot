@@ -14,6 +14,14 @@ if [ $# -lt 1 ]; then
 else
   ROBOT=$1
 fi
+
+skip_map_operations="0"
+
+echo "[tiago_social_navigation/navigation.sh] Starting tiago_social_navigation script. Arguments are: "
+for i in $*; do 
+  echo "\t$i" 
+done
+
 if [ $# -lt 2 ]; then
   STATE=localization
 else
@@ -34,6 +42,10 @@ fi
 
 if [ $# -lt 5 ]; then
   MAP=$HOME/.pal/${ROBOT}_maps/config
+elif [ "$5" = "none" ]; then
+  skip_map_operations="1"
+  echo "[tiago_social_navigation/navigation.sh] Skipping map operations" 
+  MAP="none"
 else
   MAP=$5
 fi
@@ -48,7 +60,7 @@ if [ $# -lt 7 ]; then
 else 
   if [ "$7" = "true" ]; then
     if [ $# -lt 8 ]; then
-      echo "If MULTI is true I need the robot_namespace"
+      echo "[tiago_social_navigation/navigation.sh] If MULTI is true I need the robot_namespace"
       exit 1
     else
       MULTI="true"
@@ -61,12 +73,14 @@ else
 fi
 
 # Ensure target directory exists
-if [ ! -d "$MAP" ]; then
-  mkdir -p $MAP
-  if [ $? -ne 0 ]; then
-   echo "Error: Failed to create path $MAP"
-    exit 3
-  fi
+if [ "$skip_map_operations" = "0" ]; then
+    if [ ! -d "$MAP" ]; then
+    mkdir -p $MAP
+    if [ $? -ne 0 ]; then
+        echo "[tiago_social_navigation/navigation.sh] Error: Failed to create path $MAP"
+        exit 3
+    fi
+    fi
 fi
 
 if [ ! -f "$HOME/.pal/pose.yaml" ]; then
@@ -74,4 +88,5 @@ if [ ! -f "$HOME/.pal/pose.yaml" ]; then
 fi
 
 # Run localization/mapping
-roslaunch ${ROBOT}_2dnav_gazebo $STATE.launch localization:=$LOCALIZATION mapping:=$MAPPING map:=$MAP multiple:=$MULTI robot_namespace:=$ROBOT_NAMESPACE
+echo "[tiago_social_navigation/navigation.sh] Invoking: 'roslaunch ${ROBOT}_social_navigation $STATE.launch localization:=$LOCALIZATION mapping:=$MAPPING map:=$MAP multiple:=$MULTI robot_namespace:=$ROBOT_NAMESPACE'"
+roslaunch ${ROBOT}_social_navigation $STATE.launch localization:=$LOCALIZATION mapping:=$MAPPING map:=$MAP multiple:=$MULTI robot_namespace:=$ROBOT_NAMESPACE
