@@ -4,7 +4,7 @@
   <arg name="mapping" default="karto"/>
 
   <!-- SLAM -->
-  <include file="$(find tiago_2dnav)/launch/mapping.launch">
+  <include file="$(find tiago_social_navigation)/launch/2dnav_mapping.launch">
     <arg name="mapping" value="$(arg mapping)"/>
   </include>
 
