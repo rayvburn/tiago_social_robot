@@ -2,23 +2,24 @@
 <launch>
   <!-- Based on: tiago_simulation/tiago_2dnav_gazebo/launch/tiago_navigation.launch -->
   <!-- === ARGUMENTS ========================================================================== -->
-  <arg name="namespace"      default="/"/>
+  <arg name="namespace" default="/"/>
   <!-- launching with `false` throws a dependency issue of `ResourceNotFound: pal_pcl_points_throttle_and_filter` -->
-  <arg name="public_sim"     default="true"/>
-  <!-- move_<planner>, 'base' should not be changed -->
-  <arg name="planner"        default="base"/>
+  <arg name="public_sim" default="true"/>
+  <!-- move_<planner>; 'base' is related to 'pal_navigation_cfg_tiago/launch/move_BASE.launch' -->
+  <arg name="planner" default="base"/>
   <!-- Global planner module -->
   <arg name="global_planner" default="global_planner"/>
   <!-- Custom `local_planner`: -->
-  <arg name="local_planner"  default="$(eval 'teb' if arg('public_sim') else 'pal')"/>
+  <arg name="local_planner" default="$(eval 'teb' if arg('public_sim') else 'pal')"/>
   <!-- Module used for localization -->
-  <arg name="localization"   default="amcl"/>
+  <arg name="localization" default="amcl"/>
 
   <!-- specific robot model setup -->
-  <arg name="laser_model"    default="sick-571"/>
-
+  <arg name="laser_model" default="sick-571"/>
+  <!-- path to the directory with configuration files -->
+  <arg name="config_base_path" default="$(find tiago_social_navigation)/config/pal_navigation_cfg_tiago"/>
   <!-- Map server parameter -->
-  <arg name="map"            default="$(env HOME)/.pal/tiago_maps/configurations/small_office"/>
+  <arg name="map" default="$(env HOME)/.pal/tiago_maps/configurations/small_office/map.yaml"/>
 
   <!-- Run visualization by default -->
   <arg name="rviz" default="true"/>
@@ -26,6 +27,10 @@
   <arg name="advanced_navigation" default="false"/>
   <!-- Environment variable -->
   <env name="PAL_HOST" value="tiago"/>
+
+  <!-- file suffixes -->
+  <arg name="sim_suffix" value="" unless="$(arg public_sim)"/>
+  <arg name="sim_suffix" value="_public_sim" if="$(arg public_sim)"/>
 
   <!-- === NODES ============================================================================== -->
   <group ns="$(arg namespace)">
@@ -39,7 +44,7 @@
       <arg name="public_sim"     value="$(arg public_sim)"/>
       <arg name="rgbd_sensors"   value="$(arg advanced_navigation)"/>
       <arg name="laser_model"    value="$(arg laser_model)"/>
-      <arg name="config_base_path" value="$(find tiago_social_navigation)/config/pal_navigation_cfg_tiago"/>
+      <arg name="config_base_path" value="$(arg config_base_path)"/>
     </include>
 
     <!-- will potentially run second instance of rviz -->
@@ -49,7 +54,7 @@
     </group>
     <group unless="$(arg advanced_navigation)">
       <node name="rviz" pkg="rviz" type="rviz" if="$(arg rviz)"
-            args="-d $(find tiago_2dnav)/config/rviz/navigation$(arg sim_sufix).rviz"/>
+            args="-d $(find tiago_2dnav)/config/rviz/navigation$(arg sim_suffix).rviz"/>
     </group>
     
     <group if="$(arg advanced_navigation)">
