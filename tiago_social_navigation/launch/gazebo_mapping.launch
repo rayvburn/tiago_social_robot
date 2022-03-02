@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <!-- Source: tiago_simulation/tiago_2dnav_gazebo/launch/mapping.launch -->
+  <arg name="mapping" default="karto"/>
+
+  <!-- SLAM -->
+  <include file="$(find tiago_2dnav)/launch/mapping.launch">
+    <arg name="mapping" value="$(arg mapping)"/>
+  </include>
+
+</launch>
