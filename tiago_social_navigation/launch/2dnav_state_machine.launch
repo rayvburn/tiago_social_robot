@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
   <!-- Based on: tiago_navigation/tiago_2dnav/launch/state_machine.launch -->
+  <!-- added 'config' arg to this launch file -->
   <arg name="state" default="localization"/>
   <arg name="public_sim" default="false"/>
   <arg name="base_frame" default="/base_footprint"/>
   <arg name="map_frame" default="/map"/>
   <arg name="base_type" default="pmb2"/>
+  <arg name="config" default="$(find tiago_social_navigation)/config/pal_navigation_cfg_tiago/config/state_machine/state_machine$(arg sim_sufix)$(arg base_type_suffix).yaml"/>
 
   <include file="$(find pal_navigation_cfg_tiago)/launch/state_machine.launch">
     <arg name="state" value="$(arg state)"/>
