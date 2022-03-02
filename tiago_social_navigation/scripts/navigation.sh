@@ -72,21 +72,30 @@ else
   fi
 fi
 
-# Ensure target directory exists
-if [ "$skip_map_operations" = "0" ]; then
-    if [ ! -d "$MAP" ]; then
-    mkdir -p $MAP
-    if [ $? -ne 0 ]; then
-        echo "[tiago_social_navigation/navigation.sh] Error: Failed to create path $MAP"
-        exit 3
-    fi
-    fi
+if [ $# -lt 11 ]; then
+  MAP_TOPIC="map"
+else
+  MAP_TOPIC=$11
 fi
 
-if [ ! -f "$HOME/.pal/pose.yaml" ]; then
+if [ $# -lt 12 ]; then
+  if [ ! -f "$HOME/.pal/pose.yaml" ]; then
+    echo "[tiago_social_navigation/navigation.sh] '$HOME/.pal/pose.yaml' not found and will be created"
     rosrun pal_navigation_sm cp_pose_to_home.sh
+  fi
+  LOCALIZATION_POSE_ESTIMATE="$HOME/.pal/pose.yaml"
+else
+  LOCALIZATION_POSE_ESTIMATE=$12
+fi
+
+# Ensure target file exists
+if [ "$skip_map_operations" = "0" ]; then
+    if [ ! -f "$MAP" ]; then
+        echo "[tiago_social_navigation/navigation.sh] Error: Cannot find path: $MAP"
+        exit 3
+    fi
 fi
 
 # Run localization/mapping
-echo "[tiago_social_navigation/navigation.sh] Invoking: 'roslaunch ${ROBOT}_social_navigation $STATE.launch localization:=$LOCALIZATION mapping:=$MAPPING map:=$MAP multiple:=$MULTI robot_namespace:=$ROBOT_NAMESPACE'"
-roslaunch ${ROBOT}_social_navigation $STATE.launch localization:=$LOCALIZATION mapping:=$MAPPING map:=$MAP multiple:=$MULTI robot_namespace:=$ROBOT_NAMESPACE
+echo "[tiago_social_navigation/navigation.sh] Invoking: 'roslaunch ${ROBOT}_social_navigation $STATE.launch localization:=$LOCALIZATION mapping:=$MAPPING map:=$MAP multiple:=$MULTI robot_namespace:=$ROBOT_NAMESPACE map_topic:=$MAP_TOPIC pose_estimate_file:=$LOCALIZATION_POSE_ESTIMATE'"
+roslaunch ${ROBOT}_social_navigation $STATE.launch localization:=$LOCALIZATION mapping:=$MAPPING map:=$MAP multiple:=$MULTI robot_namespace:=$ROBOT_NAMESPACE map_topic:=$MAP_TOPIC pose_estimate_file:=$LOCALIZATION_POSE_ESTIMATE
