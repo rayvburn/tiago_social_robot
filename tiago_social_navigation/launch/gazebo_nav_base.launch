@@ -39,10 +39,14 @@
   <arg name="sim_suffix" value="" unless="$(arg public_sim)"/>
   <arg name="sim_suffix" value="_public_sim" if="$(arg public_sim)"/>
 
+  <!-- Paths to configuration files -->
+  <arg name="localization_config" default="$(arg config_base_path)/config/localization/$(arg localization)$(arg base_type_suffix).yaml"/>
+  <arg name="mapping_config" default="$(arg config_base_path)/config/mapping/$(arg mapping)$(arg base_type_suffix).yaml"/>
+
   <!-- === NODES ============================================================================== -->
   <!-- Localization or Mapping state -->
   <node pkg="tiago_social_navigation" type="navigation.sh" name="navigation"
-        args="tiago $(arg state) $(arg localization) $(arg mapping) $(arg map) $(arg octomap) $(arg scan_topic) $(arg laser_model) $(arg base_type) $(arg multiple) $(arg robot_namespace) $(arg map_topic) $(arg localization_pose_estimate)" output="screen"/>
+        args="tiago $(arg state) $(arg localization) $(arg mapping) $(arg map) $(arg octomap) $(arg scan_topic) $(arg laser_model) $(arg base_type) $(arg multiple) $(arg robot_namespace) $(arg map_topic) $(arg localization_pose_estimate) $(arg localization_config) $(arg mapping_config)" output="screen"/>
 
   <!-- Navigation State Machine -->
   <!-- Custom '2dnav_state_machine' to allow override of 'config' parameter -->
