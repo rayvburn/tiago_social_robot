@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <!-- Source: tiago_simulation/tiago_2dnav_gazebo/launch/localization.launch -->
+  <arg name="localization" default="amcl"/>
+
+  <!-- Full path to the map configuration file. NOTE: if set to 'none', map server will not be started -->
+  <arg name="map" default="$(env HOME)/.pal/tiago_maps/config/map.yaml"/>
+  <arg name="multiple" default="false"/>
+  <arg name="robot_namespace" default=""/>
+  <arg name="base_type" default="pmb2"/>
+
+  <!-- Map loading section - contents taken from: pal_navigation_sm/launch/map.launch -->
+  <!-- Setup map (pal_navigation_sm/map_setup.py) is omitted here, but may be required by e.g. cartographer -->
+  <!-- Run the map server -->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map)" unless="$(eval arg('map') == 'none')"/>
+
+  <!-- Localization -->
+  <include file="$(find tiago_2dnav)/launch/localization.launch">
+    <arg name="localization" value="$(arg localization)"/>
+    <arg name="multiple" value="$(arg multiple)"/>
+    <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+    <arg name="base_type" value="$(arg base_type)"/>
+  </include>
+
+</launch>
