@@ -31,7 +31,7 @@ global_costmap:
       data_type: LaserScan
       topic: scan
       expected_update_rate: 0.3
-      observation_persistence: 1.0
+      observation_persistence: 0.0
       inf_is_valid: true
       marking: true
       clearing: true
