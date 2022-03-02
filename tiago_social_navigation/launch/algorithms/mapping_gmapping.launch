@@ -3,6 +3,7 @@
   <!-- Based on: pal_navigation_cfg_public/pal_navigation_cfg_tiago/launch/mapping_gmapping.launch -->
   <arg name="scan" default="scan"/>
   <arg name="laser_model" default="sick-571"/>
+  <arg name="base_type" default="pmb2"/>
 
   <!-- File suffixes -->
   <arg name="base_type_suffix" value="" unless="$(eval arg('base_type') == 'omni_base')"/>

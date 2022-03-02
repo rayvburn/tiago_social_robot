@@ -7,8 +7,14 @@
   <arg name="base_frame" default="/base_footprint"/>
   <arg name="map_frame" default="/map"/>
   <arg name="base_type" default="pmb2"/>
-  <!-- NOTE: state machine YAML name composed from '$(arg sim_suffix)$(arg base_type_suffix)' -->
-  <arg name="config" default="$(find tiago_social_navigation)/config/pal_navigation_cfg_tiago/config/state_machine/state_machine_public_sim.yaml"/>
+
+  <!-- file suffixes -->
+  <arg name="base_type_suffix" value="" unless="$(eval arg('base_type') == 'omni_base')"/>
+  <arg name="base_type_suffix" value="_omni" if="$(eval arg('base_type') == 'omni_base')"/>
+  <arg name="sim_suffix" value="" unless="$(arg public_sim)"/>
+  <arg name="sim_suffix" value="_public_sim" if="$(arg public_sim)"/>
+
+  <arg name="config" default="$(find pal_navigation_cfg_tiago)/config/state_machine/state_machine$(arg sim_suffix)$(arg base_type_suffix).yaml"/>
 
   <include file="$(find pal_navigation_cfg_tiago)/launch/state_machine.launch">
     <arg name="state" value="$(arg state)"/>
