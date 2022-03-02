@@ -1,4 +1,4 @@
-# tiago_social
+# tiago_social_robot
 
 Packages for social navigation based on TIAGo robot.
 
