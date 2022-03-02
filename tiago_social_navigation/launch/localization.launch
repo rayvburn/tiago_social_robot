@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Main launch that sets up the navigation in the localization mode. This is called by 'scripts/navigation.sh' -->
 <launch>
   <!-- Source: tiago_simulation/tiago_2dnav_gazebo/launch/localization.launch -->
   <arg name="localization" default="amcl"/>
