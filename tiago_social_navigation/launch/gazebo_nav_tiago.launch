@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- based on `tiago_simulation/tiago_2dnav_gazebo/launch/tiago_navigation.launch` -->
 <launch>
-  <!-- *** ARGUMENTS -->
+  <!-- Based on: tiago_simulation/tiago_2dnav_gazebo/launch/tiago_navigation.launch -->
+  <!-- === ARGUMENTS ========================================================================== -->
   <arg name="namespace"      default="/"/>
-  <!-- launching with `false` throws a dependency issue of"
-  `ResourceNotFound: pal_pcl_points_throttle_and_filter` -->
+  <!-- launching with `false` throws a dependency issue of `ResourceNotFound: pal_pcl_points_throttle_and_filter` -->
   <arg name="public_sim"     default="true"/>
-
+  <!-- move_<planner>, 'base' should not be changed -->
   <arg name="planner"        default="base"/>
+  <!-- Global planner module -->
   <arg name="global_planner" default="global_planner"/>
-  <!-- PAL default `local_planner`:
-  <arg name="local_planner"  default="$(eval 'teb' if arg('public_sim') else 'pal')"/>
-  -->
   <!-- Custom `local_planner`: -->
-  <arg name="local_planner"  default="hubero"/>
+  <arg name="local_planner"  default="$(eval 'teb' if arg('public_sim') else 'pal')"/>
+  <!-- Module used for localization -->
   <arg name="localization"   default="amcl"/>
 
+  <!-- specific robot model setup -->
   <arg name="laser_model"    default="sick-571"/>
-  <arg name="world"          default="small_office"/>
-  <arg name="map"            default="$(env HOME)/.pal/tiago_maps/configurations/$(arg world)"/>
 
+  <!-- Map server parameter -->
+  <arg name="map"            default="$(env HOME)/.pal/tiago_maps/configurations/small_office"/>
+
+  <!-- Run visualization by default -->
+  <arg name="rviz" default="true"/>
   <!-- Usage of `true` requires extra software from PAL Robotics-->
   <arg name="advanced_navigation" default="false"/>
-  <arg name="rviz" default="true"/>
+  <!-- Environment variable -->
   <env name="PAL_HOST" value="tiago"/>
 
-  <!-- *** NODES -->
+  <!-- === NODES ============================================================================== -->
   <group ns="$(arg namespace)">
-    <include file="$(find tiago_2dnav_gazebo)/launch/navigation.launch">
+    <include file="$(find tiago_social_navigation)/launch/gazebo_nav_base.launch">
       <arg name="state"          value="localization"/>
       <arg name="planner"        value="$(arg planner)"/>
       <arg name="global_planner" value="$(arg global_planner)"/>
@@ -37,7 +39,7 @@
       <arg name="public_sim"     value="$(arg public_sim)"/>
       <arg name="rgbd_sensors"   value="$(arg advanced_navigation)"/>
       <arg name="laser_model"    value="$(arg laser_model)"/>
-      <arg name="config_base_path" value="$(find tiago_scenarios)/config/pal_navigation_cfg_tiago"/>
+      <arg name="config_base_path" value="$(find tiago_social_navigation)/config/pal_navigation_cfg_tiago"/>
     </include>
 
     <!-- will potentially run second instance of rviz -->
@@ -45,10 +47,22 @@
       <node name="rviz" pkg="rviz" type="rviz" if="$(arg rviz)"
             args="-d $(find tiago_2dnav)/config/rviz/advanced_navigation.rviz"/>
     </group>
+    <group unless="$(arg advanced_navigation)">
+      <node name="rviz" pkg="rviz" type="rviz" if="$(arg rviz)"
+            args="-d $(find tiago_2dnav)/config/rviz/navigation$(arg sim_sufix).rviz"/>
+    </group>
+    
+    <group if="$(arg advanced_navigation)">
+      <node name="rviz" pkg="rviz" type="rviz" if="$(arg rviz)"
+            args="-d $(find tiago_2dnav)/config/rviz/advanced_navigation.rviz"/>
+    </group>
   </group>
 
+  <!-- NOTE: pal_loc_measure started by gazebo_spawn launch -->
+  <!-- NOTE: pointcloud to laserscan started by gazebo_spawn launch -->
+
+  <!-- PAL advanced navigation -->
   <group if="$(arg advanced_navigation)">
-    <!-- Advanced navigation -->
     <include file="$(find pal_head_manager)/launch/tiago_head_manager.launch"/>
     <node pkg="tiago_2dnav" type="navigation_camera_mgr.py" name="navigation_camera_mgr" />
     <node pkg="pal_zoi_detector" type="zoi_detector_node" name="zoi_detector" />
