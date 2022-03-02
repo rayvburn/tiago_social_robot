@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Launch designated for TIAGo task execution (assuming that 'gazebo_nav_base' provides basic navigation skills) -->
 <launch>
   <!-- Based on: tiago_simulation/tiago_2dnav_gazebo/launch/tiago_navigation.launch -->
   <!-- === ARGUMENTS ========================================================================== -->
   <arg name="namespace" default="/"/>
   <!-- launching with `false` throws a dependency issue of `ResourceNotFound: pal_pcl_points_throttle_and_filter` -->
   <arg name="public_sim" default="true"/>
+
   <!-- move_<planner>; 'base' is related to 'pal_navigation_cfg_tiago/launch/move_BASE.launch' -->
   <arg name="planner" default="base"/>
   <!-- Global planner module -->
   <arg name="global_planner" default="global_planner"/>
-  <!-- Custom `local_planner`: -->
+  <!-- Custom `local_planner` -->
   <arg name="local_planner" default="$(eval 'teb' if arg('public_sim') else 'pal')"/>
   <!-- Module used for localization -->
   <arg name="localization" default="amcl"/>
 
   <!-- specific robot model setup -->
   <arg name="laser_model" default="sick-571"/>
-  <!-- path to the directory with configuration files -->
-  <arg name="config_base_path" default="$(find tiago_social_navigation)/config/pal_navigation_cfg_tiago"/>
   <!-- Map server parameter -->
   <arg name="map" default="$(env HOME)/.pal/tiago_maps/configurations/small_office/map.yaml"/>
 
@@ -44,10 +44,8 @@
       <arg name="public_sim"     value="$(arg public_sim)"/>
       <arg name="rgbd_sensors"   value="$(arg advanced_navigation)"/>
       <arg name="laser_model"    value="$(arg laser_model)"/>
-      <arg name="config_base_path" value="$(arg config_base_path)"/>
     </include>
 
-    <!-- will potentially run second instance of rviz -->
     <group if="$(arg advanced_navigation)">
       <node name="rviz" pkg="rviz" type="rviz" if="$(arg rviz)"
             args="-d $(find tiago_2dnav)/config/rviz/advanced_navigation.rviz"/>
@@ -55,11 +53,6 @@
     <group unless="$(arg advanced_navigation)">
       <node name="rviz" pkg="rviz" type="rviz" if="$(arg rviz)"
             args="-d $(find tiago_2dnav)/config/rviz/navigation$(arg sim_suffix).rviz"/>
-    </group>
-    
-    <group if="$(arg advanced_navigation)">
-      <node name="rviz" pkg="rviz" type="rviz" if="$(arg rviz)"
-            args="-d $(find tiago_2dnav)/config/rviz/advanced_navigation.rviz"/>
     </group>
   </group>
 
