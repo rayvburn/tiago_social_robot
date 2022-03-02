@@ -4,16 +4,22 @@
   <!-- Based on: tiago_simulation/tiago_2dnav_gazebo/launch/mapping.launch -->
   <arg name="scan" default="scan"/>
   <arg name="laser_model" default="sick-571"/>
-  <!-- gmapping or kartographer (PAL advanced, must also adjust `param_file` then) -->
+  <!-- gmapping or kartographer (PAL advanced, make sure that method is supported) -->
   <arg name="mapping" default="gmapping"/>
-  <arg name="param_file" default="$(find pal_navigation_cfg_tiago)/config/mapping/gmapping.yaml"/>
+  <arg name="base_type" default="pmb2"/>
+
+  <!-- File suffixes -->
+  <arg name="base_type_suffix" value="" unless="$(eval arg('base_type') == 'omni_base')"/>
+  <arg name="base_type_suffix" value="_omni" if="$(eval arg('base_type') == 'omni_base')"/>
+
+  <arg name="config_file" default="$(find pal_navigation_cfg_tiago)/config/mapping/$(arg mapping)$(arg base_type_suffix).yaml"/>
 
   <!-- SLAM -->
-  <include file="$(find tiago_social_navigation)/launch/2dnav_mapping.launch">
+  <!-- Taken from 'tiago_navigation/tiago_2dnav/launch/mapping.launch' internals -->
+  <include file="$(find tiago_social_navigation)/launch/algorithms/mapping_$(arg mapping).launch">
     <arg name="scan" value="$(arg scan)"/>
     <arg name="laser_model" value="$(arg laser_model)"/>
-    <arg name="mapping" value="$(arg mapping)"/>
-    <arg name="param_file" value="$(arg param_file)"/>
+    <arg name="config_file" value="$(arg config_file)"/>
   </include>
 
 </launch>
