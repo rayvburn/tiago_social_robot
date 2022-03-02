@@ -42,6 +42,7 @@
   <!-- Paths to configuration files -->
   <arg name="localization_config" default="$(arg config_base_path)/config/localization/$(arg localization)$(arg base_type_suffix).yaml"/>
   <arg name="mapping_config" default="$(arg config_base_path)/config/mapping/$(arg mapping)$(arg base_type_suffix).yaml"/>
+  <arg name="state_machine_config" default="$(arg config_base_path)/config/state_machine/state_machine$(arg sim_suffix)$(arg base_type_suffix).yaml"/>
 
   <!-- === NODES ============================================================================== -->
   <!-- Localization or Mapping state -->
@@ -56,7 +57,7 @@
     <arg if="$(arg multiple)" name="base_frame" value="/$(arg robot_namespace)/base_footprint"/>
     <arg if="$(arg multiple)" name="map_frame" value="/$(arg robot_namespace)/map"/>
     <arg name="base_type" value="$(arg base_type)"/>
-	<arg name="config" value="$(arg config_base_path)/config/state_machine/state_machine$(arg sim_suffix)$(arg base_type_suffix).yaml"/>
+	<arg name="config" value="$(arg state_machine_config)"/>
   </include>
 
   <!-- Planning -->
