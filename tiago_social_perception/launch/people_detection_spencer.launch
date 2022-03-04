@@ -1,9 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
     <!-- Based on: spencer_people_tracking/launch/spencer_people_tracking_launch/launch/tracking_on_robot.launch (detection part) -->
-    <arg name="use_upper_body_detector" default="true"/> <!-- use depth-template-based upper-body detector? -->
-    <arg name="use_pcl_detector" default="false"/> <!-- use ROI-HOG detector from PCL library? cannot be used with upper-body detector at the same time! -->
-    <arg name="use_hog_detector" value="false"/> <!-- use RGB groundHOG detector? Requires cudaHOG library-->
+    <!-- Common arguments -->
+    <arg name="base_frame" default="base_footprint"/>
+
+    <!-- Laser - Common -->
+    <arg name="nodes_namespace" default="/spencer/perception_internal/people_detection"/>
+    <arg name="laser_detection_id_increment" default="20"/>
+    <arg name="laser_min_distance" default="0.0"/>
+    <arg name="laser_max_distance" default="15"/>
+    <arg name="laser_topic" default="/spencer/sensors/laser_front/echo0"/>
+
+    <!-- Laser - Adaboost detector -->
+    <arg name="laser_detector_model" default="lms500_0.25deg_height70cm_fr_rathausgasse"/>
+    <arg name="laser_detector_type" default="random_forest"/>
+    <arg name="laser_learned_detector_people_topic" default="/spencer/perception_internal/detected_persons/laser_front"/>
+
+    <!-- Laser - Blob detector -->
+    <arg name="laser_low_confidence_detections" default="true"/>
+    <arg name="laser_low_confidence_people_detections_topic" default="/spencer/perception_internal/detected_persons/laser_front_high_recall"/>
+
+    <!-- Detector arguments  -->
+    <!-- use depth-template-based upper-body detector? -->
+    <arg name="use_upper_body_detector" default="true"/>
+    <!-- use ROI-HOG detector from PCL library? cannot be used with upper-body detector at the same time! -->
+    <arg name="use_pcl_detector" default="false"/>
+    <!-- use RGB groundHOG detector? Requires cudaHOG library-->
+    <arg name="use_hog_detector" value="false"/>
+
+    <!-- RGBD -->
+
+    <!-- NODES -->
+    <!-- Laser detectors -->
+    <include file="$(find tiago_social_perception)/launch/detection/spencer_laser_detectors.launch">
+        <arg name="rear" value="false"/>
+        <arg name="namespace" value="$(arg nodes_namespace)"/>
+        <arg name="detection_id_increment" value="$(arg laser_detection_id_increment)"/>
+        <arg name="laser_min_distance" value="$(arg laser_min_distance)"/>
+        <arg name="laser_max_distance" value="$(arg laser_max_distance)"/>
+        <arg name="laser_topic" value="$(arg laser_topic)"/>
+        <arg name="detector_model" value="$(arg laser_detector_model)"/>
+        <arg name="detector_type" value="$(arg laser_detector_type)"/>
+        <arg name="learned_detector_people_topic" value="$(arg laser_learned_detector_people_topic)"/>
+        <arg name="low_confidence_detections" value="$(arg laser_low_confidence_detections)"/>
+        <arg name="low_confidence_people_detections_topic" value="$(arg laser_low_confidence_people_detections_topic)"/>
+    </include>
 
     <!-- RGB-D detectors -->
     <include file="$(find spencer_people_tracking_launch)/launch/detectors/front_rgbd_detectors.launch">
