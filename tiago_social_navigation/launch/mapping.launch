@@ -2,7 +2,7 @@
 <!-- Main launch that sets up the navigation in the mapping mode. This is called by 'scripts/navigation.sh' -->
 <launch>
   <!-- Based on: tiago_simulation/tiago_2dnav_gazebo/launch/mapping.launch -->
-  <arg name="scan" default="scan"/>
+  <arg name="scan" default="scan_raw"/>
   <arg name="laser_model" default="sick-571"/>
   <!-- gmapping or kartographer (PAL advanced, make sure that method is supported) -->
   <arg name="mapping" default="gmapping"/>
