@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <!-- Based on: spencer_people_tracking/launch/spencer_people_tracking_launch/launch/tracking_on_robot.launch (tracking part) -->
+    <!-- People tracking -->
+    <include file="$(find spencer_people_tracking_launch)/launch/tracking/freiburg_people_tracking.launch">
+        <arg name="rgbd" default="true"/>
+        <arg name="laser_low_confidence_detections" default="true"/>
+    </include>
+
+    <!-- Group tracking -->
+    <include file="$(find spencer_people_tracking_launch)/launch/tracking/group_tracking.launch"/>
+</launch>
