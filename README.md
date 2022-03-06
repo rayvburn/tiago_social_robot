@@ -75,3 +75,42 @@ then start with a system reset. At the next startup you'll probably see this kin
 ```
 
 This mostly happens once robot is spawned along with navigation modules and then navigation modules are killed and then started again.
+
+### Chaining multiple ROS workspaces
+
+Assuming that you have workspaces designated for:
+
+- robot software and controllers
+- perception stuff
+- social navigation stuff that is under heavy development
+
+you have to compile workspaces in that order:
+
+- robot software
+
+  ```bash
+  cd ~/ros_workspace/ws_tiago
+  source /opt/ros/melodic/setup.bash
+  catkin build
+  source devel/setup.bash
+  ```
+
+- perception
+
+  ```bash
+  cd ~/ros_workspace/ws_perception
+  source ../ws_tiago/devel/setup.bash
+  catkin build
+  source devel/setup.bash
+  ```
+
+- development stuff
+
+  ```bash
+  cd ~/ros_workspace/ws_social_navigation/
+  source ../ws_perception/devel/setup.bash
+  catkin build
+  source devel/setup.bash
+  ```
+
+That's it. [Reference](http://wiki.ros.org/catkin/Tutorials/workspace_overlaying).
