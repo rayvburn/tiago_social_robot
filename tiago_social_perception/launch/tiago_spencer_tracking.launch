@@ -13,6 +13,7 @@
     <arg name="rgbd_camera_frame" value="xtion_depth_optical_frame"/>
 
     <arg name="visualization" default="true"/>
+    <arg name="people_topic" default="/people"/>
 
     <include file="$(find spencer_people_tracking_launch)/launch/tracking_on_robot.launch">
         <arg name="base_frame" value="$(arg base_frame)"/>
@@ -35,5 +36,9 @@
     </include>
 
     <node name="rviz_tiago_spencer_tracking" pkg="rviz" type="rviz" if="$(arg visualization)" args="-d $(find tiago_social_perception)/rviz/spencer_tracking.rviz"/>
+
+    <node name="spencer_to_people_msg_conversion" pkg="spencer_tracking_conversion" type="tracked_groups_to_people_msgs.py">
+        <remap from="/people/grouped" to="$(arg people_topic)"/>
+    </node>
 
 </launch>
