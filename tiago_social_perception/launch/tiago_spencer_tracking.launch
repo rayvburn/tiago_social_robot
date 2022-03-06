@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <!-- Contains TIAGo configuration for perception modules -->
+    <arg name="base_frame" default="base_footprint"/>
+    <arg name="world_frame" default="odom"/>
+    <arg name="laser_topic" default="/scan"/>
+    <arg name="use_upper_body_detector" default="true"/>
+
+    <arg name="rgbd_camera_namespace" value="/xtion"/>
+    <arg name="rgbd_camera_rgb_image" value="/rgb/image_raw"/>
+    <arg name="rgbd_camera_camera_info_depth" value="/depth_registered/camera_info"/>
+    <arg name="rgbd_camera_depth_image" value="/depth_registered/image_raw"/>
+    <arg name="rgbd_camera_frame" value="xtion_depth_optical_frame"/>
+
+    <arg name="visualization" default="true"/>
+
+    <include file="$(find spencer_people_tracking_launch)/launch/tracking_on_robot.launch">
+        <arg name="base_frame" value="$(arg base_frame)"/>
+        <arg name="world_frame" value="$(arg world_frame)"/>
+        <arg name="use_upper_body_detector" value="$(arg use_upper_body_detector)"/>
+
+        <arg name="rgbd_rear_available" value="false"/>
+
+        <arg name="rgbd_camera_front_namespace" value="$(arg rgbd_camera_namespace)"/>
+        <arg name="rgbd_camera_front_rgb_image" value="$(arg rgbd_camera_rgb_image)"/>
+        <arg name="rgbd_camera_front_camera_info_depth" value="$(arg rgbd_camera_camera_info_depth)"/>
+        <arg name="rgbd_camera_front_depth_image" value="$(arg rgbd_camera_depth_image)"/>
+        <arg name="rwth_camera_frame_front" value="$(arg rgbd_camera_frame)"/>
+
+        <arg name="laser_front_topic" value="$(arg laser_topic)"/>
+        <arg name="laser_rear_available" value="false"/>
+        <!-- 'False' here is crucial to allow start of static people tracking -->
+        <!-- https://github.com/spencer-project/spencer_people_tracking/issues/98 -->
+        <arg name="nnt_use_track_initiation_logic" value="false"/>
+    </include>
+
+    <node name="rviz_tiago_spencer_tracking" pkg="rviz" type="rviz" if="$(arg visualization)" args="-d $(find tiago_social_perception)/rviz/spencer_tracking.rviz"/>
+
+</launch>
