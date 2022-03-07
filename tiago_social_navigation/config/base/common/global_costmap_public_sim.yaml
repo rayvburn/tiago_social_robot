@@ -72,3 +72,11 @@ global_costmap:
     enabled            : true
     inflation_radius   : 0.55
     cost_scaling_factor: 25.0
+
+  proxemic_layer:
+    enabled: true
+    keep_time: 5.0
+
+  passing_layer:
+    enabled: true
+    keep_time: 5.0
