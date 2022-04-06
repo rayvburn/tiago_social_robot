@@ -71,9 +71,18 @@ local_costmap:
     cost_scaling_factor: 5.0
 
   proxemic_layer:
-    enabled: false
+    enabled: true
+    amplitude: 180
+    covariance: 0.25
+    cutoff: 15
+    factor: 5.0
     keep_time: 5.0
 
   passing_layer:
     enabled: true
+    amplitude: 115
+    covariance: 0.3
+    cutoff: 15
+    enabled: false
+    factor: 5.0
     keep_time: 5.0
