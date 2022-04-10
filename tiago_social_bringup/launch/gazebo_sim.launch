@@ -50,7 +50,7 @@
 			<arg name="use_dynamic_footprint" value="false"/>
 		</include>
 		<!-- <node name="rviz" pkg="rviz" type="rviz" if="$(arg rviz)" args="-d $(find tiago_2dnav)/config/rviz/navigation$(arg sim_sufix).rviz"/> -->
-		<node name="rviz" pkg="rviz" type="rviz" if="$(arg rviz)" args="-d $(find tiago_social_navigation)/rviz/nav_merged_scans_obstacles.rviz"/>
+		<node name="rviz" pkg="rviz" type="rviz" if="$(arg rviz)" args="-d $(find tiago_social_navigation)/rviz/tiago_navigation.rviz"/>
 	</group>
 
 	<group unless="$(arg public_sim)">
