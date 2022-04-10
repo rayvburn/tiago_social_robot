@@ -8,7 +8,7 @@
   <!-- localization / mapping -->
   <arg name="state" default="localization"/>
   <arg name="planner" default="base"/>
-  <arg name="global_planner" default="global_planner"/>
+  <arg name="global_planner" default="navfn"/>
   <arg name="local_planner"  default="$(eval 'teb' if (arg('public_sim') or arg('base_type')=='omni_base') else 'pal')"/>
   <arg name="localization" default="amcl"/>
   <arg name="mapping" default="gmapping"/>
