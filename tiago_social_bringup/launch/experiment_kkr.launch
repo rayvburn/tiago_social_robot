@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <!-- Pre-launch: `source /usr/share/gazebo-9/setup.sh && source ../ws_tiago/devel/setup.bash && source devel/setup.bash` -->
+    <arg name="people_sim" default="true"/>
+    <arg name="perception" default="false"/>
+    <arg name="perception_viz" default="false"/>
+    <arg name="local_planner" default="hubero"/>
+    <arg name="map_frame" default="map"/>
+
+    <group if="$(arg people_sim)">
+        <!-- roslaunch hubero_bringup_gazebo_ros example.launch world:=living_room rviz:=false -->
+        <include file="$(find hubero_bringup_gazebo_ros)/launch/example.launch">
+            <arg name="world" value="living_room"/>
+            <arg name="rviz" value="false"/>
+        </include>
+    </group>
+    <group unless="$(arg people_sim)">
+        <include file="$(find gazebo_ros)/launch/empty_world.launch">
+            <arg name="world_name" value="$(find hubero_bringup_gazebo_ros)/worlds/living_room_no_ppl.world"/>
+            <arg name="paused" value="false"/>
+            <arg name="use_sim_time" value="true"/>
+            <arg name="gui" value="true"/>
+            <arg name="headless" value="false"/>
+            <arg name="debug" value="false"/>
+            <arg name="verbose" value="true"/>
+        </include>
+    </group>
+
+    <!-- roslaunch tiago_social_bringup gazebo_spawn.launch -->
+    <include file="$(find tiago_social_bringup)/launch/gazebo_spawn.launch"></include>
+
+    <!-- roslaunch tiago_social_navigation gazebo_nav_base.launch state:=localization map:=none local_planner:=hubero -->
+    <include file="$(find tiago_social_navigation)/launch/gazebo_nav_base.launch">
+        <arg name="state" value="localization"/>
+        <arg name="map" if="$(arg people_sim)" value="none"/>
+        <arg name="map" unless="$(arg people_sim)" value="$(find hubero_bringup_gazebo_ros)/maps/living_room.yaml"/>
+        <arg name="local_planner" value="$(arg local_planner)"/>
+    </include>
+
+    <!-- rviz -d $(rospack find tiago_social_navigation)/rviz/tiago_navigation.rviz -->
+    <node pkg="rviz" name="rviz_nav" type="rviz" output="screen" args="-d $(find tiago_social_navigation)/rviz/tiago_navigation.rviz"></node>
+
+    <group if="$(arg people_sim)">
+        <group if="$(arg perception)">
+            <!-- roslaunch tiago_social_perception tiago_spencer_tracking.launch -->
+            <include file="$(find tiago_social_perception)/launch/tiago_spencer_tracking.launch">
+                <arg name="visualization" value="$(arg perception_viz)"/>
+            </include>
+        </group>
+    </group>
+
+    <!-- rosrun rqt_reconfigure rqt_reconfigure -->
+    <node pkg="rqt_reconfigure" name="rqt_reconfigure" type="rqt_reconfigure"></node>
+
+    <!-- rosrun rqt_plot rqt_plot -->
+    <node pkg="rqt_plot" name="rqt_plot" type="rqt_plot"></node>
+</launch>
