@@ -1,0 +1,2 @@
+# valid for e.g. ROS Melodic running at Ubuntu 18.04
+- git: {local-name: hubero_local_planner, uri: 'https://github.com/rayvburn/hubero_local_planner.git', version: 'melodic'}
