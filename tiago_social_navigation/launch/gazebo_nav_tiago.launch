@@ -10,7 +10,7 @@
   <!-- move_<planner>; 'base' is related to 'pal_navigation_cfg_tiago/launch/move_BASE.launch' -->
   <arg name="planner" default="base"/>
   <!-- Global planner module -->
-  <arg name="global_planner" default="global_planner"/>
+  <arg name="global_planner" default="navfn"/>
   <!-- Custom `local_planner` -->
   <arg name="local_planner" default="$(eval 'teb' if arg('public_sim') else 'pal')"/>
   <!-- Module used for localization -->
