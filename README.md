@@ -40,6 +40,16 @@ source ../ws_tiago/devel/setup.bash && source devel/setup.bash
   roslaunch tiago_social_navigation gazebo_nav_base.launch state:=mapping map:=none
   ```
 
+Alternatively, navigation modules can be ran using this command (will also open special `rviz` config provided by `PAL`):
+```bash
+roslaunch tiago_social_navigation gazebo_nav_tiago.launch map:=none
+```
+
+Custom rviz config:
+```bash
+rviz -d $(rospack find tiago_social_navigation)/rviz/tiago_navigation.rviz
+```
+
 NOTE: `tiago_social_navigation/gazebo_nav_tiago.launch` can only be used for localization.
 
 ## Troubleshooting
