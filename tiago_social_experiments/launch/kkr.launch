@@ -7,6 +7,8 @@
     <arg name="perception" default="false"/>
     <arg name="perception_viz" default="false"/>
 
+    <arg name="navigation_benchmark" default="true"/>
+
     <arg name="local_planner" default="hubero"/>
     <arg name="map_frame" default="map"/>
     <arg name="nav_state" default="localization"/>
@@ -77,6 +79,7 @@
         <arg name="map" unless="$(arg people_sim)" value="$(arg map_file)"/>
         <arg name="local_planner" value="$(arg local_planner)"/>
         <arg name="localization_config" value="$(arg localization_config)"/>
+        <arg name="benchmark" value="$(arg navigation_benchmark)"/>
     </include>
 
     <!-- rviz -d $(rospack find tiago_social_navigation)/rviz/tiago_navigation.rviz -->
