@@ -29,7 +29,7 @@ global_costmap:
     base_scan:
       sensor_frame: base_laser_link
       data_type: LaserScan
-      topic: scan
+      topic: scan_nav
       expected_update_rate: 0.3
       observation_persistence: 0.0
       inf_is_valid: true
