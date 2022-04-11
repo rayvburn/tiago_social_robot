@@ -14,3 +14,17 @@ Launch `KKR` world with:
 ```bash
 roslaunch gazebo_ros empty_world.launch world_name:=$(rospack find tiago_sim_integration)/worlds/lab_012_v2_actor.world
 ```
+
+## Evaluation
+
+To evaluate local planner, [MRPB 1.0](https://github.com/NKU-MobFly-Robotics/local-planning-benchmark) by Wen et al. is used. Once `csv` with experiment data is generated follow these steps:
+
+```bash
+cd <ROS_WORKSPACE_DIRECTORY>
+source devel/setup.bash
+cd $(rospack find move_base_benchmark)/doc
+g++ metrics.cpp -o metrics_evaluator
+./metrics_evaluator <PATH_TO_LOG_FILE>
+```
+
+After that planner's score should be printed in the console.
