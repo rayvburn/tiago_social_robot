@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
   <!-- Based on: pal_navigation_cfg_public/pal_navigation_cfg_tiago/launch/move_base.launch -->
+  <!-- Provide capabilities to run `move_base`-like node from other package than the default one -->
+  <arg name="move_base_pkg" default="move_base"/>
+  <arg name="move_base_type" default="move_base"/>
+
   <arg name="global_planner" default="global_planner"/>
   <arg name="local_planner"  default="pal"/>
 
@@ -28,7 +32,11 @@
   <arg name="multiple" default="false"/>
   <arg name="robot_namespace" default=""/>
 
-  <node pkg="move_base" type="move_base" name="move_base" clear_params="true" output="screen" respawn="true" launch-prefix="$(arg launch_prefix)">
+  <!-- Since `social_navigation` can use planner benchmarking, default log file will be placed in `HOME` directory -->
+  <arg name="benchmark_log_file" default="$(env HOME)/log_$(arg global_planner)_$(arg local_planner).txt" unless="$(arg multiple)"/>
+  <arg name="benchmark_log_file" default="$(env HOME)/log_$(arg robot_namespace)_$(arg global_planner)_$(arg local_planner).txt" if="$(arg multiple)"/>
+
+  <node pkg="$(arg move_base_pkg)" type="$(arg move_base_type)" name="move_base" clear_params="true" output="screen" respawn="true" launch-prefix="$(arg launch_prefix)">
     <remap from="odom"    to="$(arg odom)"/>
     <remap from="cmd_vel" to="$(arg cmd_vel)"/>
 
@@ -65,6 +73,9 @@
     <param if="$(arg multiple)" name="local_planner/base_frame" value="$(arg robot_namespace)/base_link"/>
 
     <param if="$(arg multiple)" name="local_planner/base_frame" value="$(arg robot_namespace)/base_link"/>
+
+    <!-- In case of planner benchmarking -->
+    <param name="log_filename" value="$(arg benchmark_log_file)"/>
   </node>
 
   <arg name="debug_rgbd" default="false"/>
