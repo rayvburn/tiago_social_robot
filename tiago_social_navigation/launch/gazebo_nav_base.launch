@@ -20,6 +20,15 @@
   <arg name="scan_topic_raw" default="scan_raw"/>
   <!-- Filtered scan -->
   <arg name="scan_topic_filtered" default="scan"/>
+  <!-- Scan used for navigation, eliminates readings that shoot into base -->
+  <arg name="scan_topic_nav" default="scan_nav"/>
+  <!-- Set to true if `scan_topic_filtered` should be used for navigation. Otherwise scan processed with
+  `lidar_shrunker_node` will be used instead. -->
+  <arg name="scan_filtered_for_nav" default="false"/>
+  <!-- Evaluate which scan topic should be used for navigation -->
+  <arg name="scan_topic" value="$(arg scan_topic_filtered)" if="$(arg scan_filtered_for_nav)"/>
+  <arg name="scan_topic" value="$(arg scan_topic_nav)" unless="$(arg scan_filtered_for_nav)"/>
+
   <arg name="map_topic" default="map"/>
 
   <!-- path to the directory under 'config' and YAML files are placed in -->
@@ -50,7 +59,7 @@
   <!-- === NODES ============================================================================== -->
   <!-- Localization or Mapping state -->
   <node pkg="tiago_social_navigation" type="navigation.sh" name="navigation"
-        args="tiago $(arg state) $(arg localization) $(arg mapping) $(arg map) $(arg octomap) $(arg scan_topic_filtered) $(arg laser_model) $(arg base_type) $(arg multiple) $(arg robot_namespace) $(arg map_topic) $(arg localization_pose_estimate) $(arg localization_config) $(arg mapping_config)" output="screen"/>
+        args="tiago $(arg state) $(arg localization) $(arg mapping) $(arg map) $(arg octomap) $(arg scan_topic) $(arg laser_model) $(arg base_type) $(arg multiple) $(arg robot_namespace) $(arg map_topic) $(arg localization_pose_estimate) $(arg localization_config) $(arg mapping_config)" output="screen"/>
 
   <!-- Navigation State Machine -->
   <!-- Custom '2dnav_state_machine' to allow override of 'config' parameter -->
@@ -114,5 +123,10 @@
     <remap from="scan"          to="$(arg scan_topic_raw)"/>
     <remap from="scan_filtered" to="$(arg scan_topic_filtered)"/>
   </node>
+
+  <!-- Prevents robot current pose from being treated as occupied by obstacle. Caused by LiDAR pointing straight
+  into the edges of the mobile base. Ran only when `scan_filtered_for_nav` is not set to True -->
+  <node pkg="tiago_social_navigation" type="lidar_shrunker_node.py" name="lidar_shrunker_node"
+        args="$(arg scan_topic_filtered) $(arg scan_topic_nav)" output="screen" unless="$(arg scan_filtered_for_nav)"/>
 
 </launch>
