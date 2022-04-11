@@ -6,16 +6,21 @@ project(tiago_social_navigation)
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS
     tiago_2dnav_gazebo
+    rospy
+    sensor_msgs
 )
 
 ## catkin specific configuration
 # No packages marked as CATKIN_DEPENDS since this package does not require compilation
-catkin_package()
+catkin_package(
+  CATKIN_DEPENDS rospy sensor_msgs
+)
 
 ## Install
 install(
   PROGRAMS
     scripts/navigation.sh
+    scripts/lidar_shrunker_node.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
