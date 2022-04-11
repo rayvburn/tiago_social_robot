@@ -6,7 +6,7 @@ Launch experiment (Ubuntu 18 & ROS Melodic) with:
 ```bash
 cd ~/ros_workspace/ws_social_navigation
 source /usr/share/gazebo-9/setup.sh && source ../ws_tiago/devel/setup.bash && source devel/setup.bash
-roslaunch tiago_social_experiments kkr.launch people_sim:=true perception:=true local_planner:=hubero
+roslaunch tiago_social_experiments kkr.launch people_sim:=true perception:=true local_planner:=hubero publish_goal:=true
 ```
 
 Launch `KKR` world with:
