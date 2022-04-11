@@ -12,12 +12,16 @@
 
   <build_depend>tiago_2dnav_gazebo</build_depend>
   <build_depend>tiago_gazebo</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>sensor_msgs</build_depend>
 
   <build_export_depend>tiago_2dnav_gazebo</build_export_depend>
   <build_export_depend>tiago_gazebo</build_export_depend>
 
   <exec_depend>tiago_2dnav_gazebo</exec_depend>
   <exec_depend>tiago_gazebo</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
