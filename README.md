@@ -52,6 +52,13 @@ rviz -d $(rospack find tiago_social_navigation)/rviz/tiago_navigation.rviz
 
 NOTE: `tiago_social_navigation/gazebo_nav_tiago.launch` can only be used for localization.
 
+## Benchmarking
+First install dependencies of `NKU-MobFly-Robotics/local-planning-benchmark`:
+
+```bash
+sudo apt install libceres-dev
+```
+
 ## Troubleshooting
 
 ### Frame names
