@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <!-- Contains TIAGo configuration for perception modules -->
+    <include file="$(find tiago_social_perception)/launch/people_detection_spencer.launch">
+        <!-- method selection -->
+        <arg name="laser_low_confidence_detections" value="true"/>
+        <arg name="use_upper_body_detector" value="true"/>
+        <arg name="use_pcl_detector" value="false"/>
+
+        <!-- algorithm params -->
+        <arg name="laser_detection_id_increment" value="20"/>
+        <arg name="laser_min_distance" value="0.0"/>
+        <arg name="laser_max_distance" value="15"/>
+        <arg name="laser_detector_model" value="lms500_0.25deg_height70cm_fr_rathausgasse"/>
+        <arg name="laser_detector_type" value="random_forest"/>
+        <arg name="rwth_rate" value="30.0"/>
+        <arg name="rgbd_detection_id_increment" value="20"/>
+
+        <!-- topics -->
+        <arg name="nodes_namespace" value="/people_detection"/>
+        <arg name="rgbd_upper_body_detector_ns" value="/upper_body_detector"/>
+        <!-- topics - input -->
+        <arg name="laser_topic" value="/scan"/>
+        <arg name="rgbd_camera_namespace" value="/xtion"/>
+        <arg name="rgbd_camera_rgb_image" default="/rgb/image_raw"/> <!-- part of topic name -->
+        <arg name="rgbd_camera_camera_info_depth" default="/depth_registered/camera_info"/> <!-- part of topic name -->
+        <arg name="rgbd_camera_depth_image" default="/depth_registered/image_raw"/> <!-- part of topic name -->
+        <arg name="pcl_input_topic" value="/xtion/depth_registered/points"/>
+        <arg name="pcl_camera_info_topic" value="/xtion/rgb/camera_info"/>
+        <!-- topics - output -->
+        <arg name="laser_learned_detector_people_topic" value="/people_detection/detections/laser/learned"/>
+        <arg name="laser_low_confidence_people_detections_topic" value="/people_detection/detections/laser/blob"/>
+        <arg name="ground_plane" value="/xtion/ground_plane"/>
+        <arg name="rgbd_detected_persons" value="/people_detection/detections/rgbd/upper_body"/>
+        <arg name="rgbd_upper_body_detections" value="/people_detection/upper_body_detector/detections"/>
+        <arg name="rgbd_upper_body_bb_centres" value="/people_detection/upper_body_detector/bounding_box_centres"/>
+        <arg name="rgbd_upper_body_image" value="image"/> <!-- part of full topic name -->
+        <arg name="rgbd_upper_body_markers" value="/people_detection/upper_body_detector/marker_array"/>
+        <arg name="rgbd_upper_body_roi" value="/people_detection/upper_body_detector/roi"/>
+        <arg name="rgbd_upper_body_closest_bb_centres" value="/people_detection/upper_body_detector/closest_bounding_box_centre"/>
+        <arg name="pcl_detector_people_topic" value="/people_detection/detections/rgbd/upper_body"/> <!-- typically the same as `rgbd_detected_persons` -->
+
+        <!-- frames -->
+        <arg name="base_frame" value="base_footprint"/>
+        <arg name="rwth_camera_frame" value="xtion_depth_optical_frame"/>
+        <arg name="pcl_detection_frame" value="xtion_depth_optical_frame"/> <!-- DEF: pcl_people_detector_front_link -->
+    </include>
+</launch>

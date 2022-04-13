@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <!-- Contains minimal working example of TIAGo configuration for perception modules (without much customization) -->
+    <include file="$(find tiago_social_perception)/launch/people_detection_spencer.launch">
+        <arg name="laser_topic" value="/scan"/>
+        <arg name="rgbd_camera_namespace" value="/xtion"/>
+        <arg name="rgbd_camera_rgb_image" value="/rgb/image_raw"/>
+        <arg name="rgbd_camera_camera_info_depth" value="/depth_registered/camera_info"/>
+        <arg name="rgbd_camera_depth_image" value="/depth_registered/image_raw"/>
+        <arg name="rwth_camera_frame" value="xtion_depth_optical_frame"/>
+    </include>
+
+    <!-- TODO: make camera height optional -->
+    <!-- TODO: refer to tracking_single_rgbd_sensor -->
+    <include file="$(find spencer_people_tracking_launch)/launch/tracking/freiburg_people_tracking.launch">
+        <arg name="rgbd" default="true"/>
+        <arg name="laser_low_confidence_detections" default="true"/>
+    </include>
+
+    <include file="$(find spencer_people_tracking_launch)/launch/tracking/group_tracking.launch"/>
+</launch>

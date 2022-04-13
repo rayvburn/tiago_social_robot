@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <!-- Based on: spencer_people_tracking/launch/spencer_people_tracking_launch/launch/detectors/front_rgbd_detectors.launch -->
+    <arg name="upper_body" default="true"/>
+    <arg name="pcl_detector" default="false"/> <!-- do not use at the same time with upper-body detector! -->
+    <arg name="hog" default="false"/>
+
+    <!-- Common -->
+    <arg name="namespace" default="/spencer/perception_internal/people_detection"/>
+    <arg name="ground_plane" default="/spencer/sensors/rgbd_front_top/ground_plane"/>
+    <arg name="base_footprint_frame_id" default="base_footprint"/>
+    <arg name="detection_id_increment" default="20"/>
+
+    <!-- RWTH tf based groundplane -->
+    <arg name="rwth_camera_frame" default="rgbd_front_top_depth_optical_frame"/>
+    <arg name="rwth_rate" default="30.0"/>
+
+    <!-- Front RGB-D upper body -->
+    <arg name="rgbd_upper_body_detector_ns" default="rgbd_front_top"/>
+
+    <arg name="rgbd_detected_persons" default="/spencer/perception_internal/detected_persons/rgbd_front_top/upper_body"/>
+    <arg name="rgbd_camera_namespace" default="/spencer/sensors/rgbd_front_top"/>
+    <arg name="rgbd_camera_rgb_image" default="/rgb/image_rect_color"/>
+    <arg name="rgbd_camera_camera_info_depth" default="/depth/camera_info"/>
+    <arg name="rgbd_camera_depth_image" default="/depth/image_rect"/>
+    <arg name="rgbd_upper_body_detections" default="upper_body_detector/detections"/>
+    <arg name="rgbd_upper_body_bb_centres" default="upper_body_detector/bounding_box_centres"/>
+    <arg name="rgbd_upper_body_image" default="image"/>
+    <arg name="rgbd_upper_body_markers" default="/upper_body_detector/marker_array"/>
+    <arg name="rgbd_upper_body_roi" default="/upper_body_detector/roi"/>
+    <arg name="rgbd_upper_body_closest_bb_centres" default="/upper_body_detector/closest_bounding_box_centre"/>
+
+    <!-- Front PCL detector -->
+    <arg name="pcl_detector_people_topic" default="/spencer/perception_internal/detected_persons/rgbd_front_top/upper_body"/>
+    <arg name="pcl_input_topic" default="/spencer/sensors/rgbd_front_top/depth_registered/points"/>
+    <arg name="pcl_camera_info_topic" default="/spencer/sensors/rgbd_front_top/rgb/camera_info"/>
+    <arg name="pcl_detection_frame" default="pcl_people_detector_front_link"/>
+
+    <group ns="$(arg namespace)">
+
+        <!-- RWTH tf based groundplane -->
+        <node pkg="rwth_ground_plane" type="ground_plane_tf_based_fixed" name="ground_plane_front_top" output="screen">
+            <param name="base_footprint" value="$(arg base_footprint_frame_id)" type="string"/>
+            <param name="camera_frame" value="$(arg rwth_camera_frame)" type="string"/>
+            <param name="ground_plane" value="$(arg ground_plane)" type="string"/>
+            <param name="rate" value="$(arg rwth_rate)"/>
+        </node>
+
+        <!-- Front RGB-D upper body -->
+        <include file="$(find rwth_upper_body_detector)/launch/upper_body_detector.launch" ns="$(arg rgbd_upper_body_detector_ns)" if="$(arg upper_body)">
+            <arg name="detected_persons" value="$(arg rgbd_detected_persons)"/>
+            <arg name="camera_namespace" value="$(arg rgbd_camera_namespace)"/>
+            <arg name="rgb_image" value="$(arg rgbd_camera_rgb_image)"/>
+            <arg name="camera_info_depth" value="$(arg rgbd_camera_camera_info_depth)"/>
+            <arg name="depth_image" value="$(arg rgbd_camera_depth_image)"/>
+            <arg name="upper_body_detections" value="$(arg rgbd_upper_body_detections)"/>
+            <arg name="upper_body_bb_centres" value="$(arg rgbd_upper_body_bb_centres)"/>
+            <arg name="upper_body_image" value="$(arg rgbd_upper_body_image)"/>
+            <arg name="upper_body_markers" default="$(arg rgbd_upper_body_markers)"/>
+            <arg name="upper_body_roi" default="$(arg rgbd_upper_body_roi)"/>
+            <arg name="upper_body_closest_bb_centres" default="$(arg rgbd_upper_body_closest_bb_centres)" />
+            <arg name="ground_plane" value="$(arg ground_plane)"/>
+            <arg name="detection_id_offset" value="3"/>
+            <arg name="detection_id_increment" value="$(arg detection_id_increment)"/>
+        </include>
+
+        <!-- Front PCL detector (publishes on same topic as upper-body detector) -->
+        <group if="$(arg pcl_detector)">
+            <!-- replaces upper-body detections -->
+            <remap from="/spencer/perception/detected_persons" to="$(arg pcl_detector_people_topic)"/>
+            <include file="$(find pcl_people_detector)/launch/start.launch" ns="rgbd_front_top">
+                <arg name="input_topic" value="$(arg pcl_input_topic)"/>
+                <arg name="camera_info_topic" value="$(arg pcl_camera_info_topic)"/>
+                <arg name="base_link_frame" value="$(arg base_footprint_frame_id)"/>
+                <arg name="detection_frame" value="$(arg pcl_detection_frame)"/>
+                <arg name="ground_coeffs" value="0 0 -1 0"/>
+                <arg name="detection_id_offset" value="11"/>
+                <arg name="detection_id_increment" value="$(arg detection_id_increment"/>
+            </include>
+        </group>
+
+        <!-- NOTE: Front RGB-D HOG is not used -->     
+    </group>
+</launch>
