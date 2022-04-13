@@ -24,7 +24,7 @@ cd <ROS_WORKSPACE_DIRECTORY>
 source devel/setup.bash
 cd $(rospack find move_base_benchmark)/doc
 g++ metrics.cpp -o metrics_evaluator
-./metrics_evaluator <PATH_TO_LOG_FILE>
+./metrics_evaluator <PATH_TO_LOG_FILE> <SAFETY_DISTANCE>
 ```
 
 After that planner's score should be printed in the console.
