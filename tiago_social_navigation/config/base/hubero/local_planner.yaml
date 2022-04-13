@@ -2,6 +2,11 @@
 base_local_planner: hubero_local_planner/HuberoPlannerROS
 
 HuberoPlannerROS:
+  # costmap_converter - http://wiki.ros.org/costmap_converter
+  costmap_converter_plugin: "costmap_converter::CostmapToPolygonsDBSConcaveHull"
+  costmap_converter_rate: 2.0
+  costmap_converter_spin_thread: true
+
   # Robot footprint
   is_footprint_dynamic: true
   footprint_model:
