@@ -1,4 +1,4 @@
 # valid for e.g. ROS Melodic running at Ubuntu 18.04
 - git: {local-name: hubero_local_planner, uri: 'https://github.com/rayvburn/hubero_local_planner.git', version: 'melodic'}
 - git: {local-name: tiago_sim_integration, uri: 'https://github.com/rayvburn/tiago_sim_integration.git', version: '012-hubero-integration'}
-- git: {local-name: local-planning-benchmark, uri: https://github.com/NKU-MobFly-Robotics/local-planning-benchmark.git, version: 'melodic-devel'}
+- git: {local-name: local-planning-benchmark, uri: https://github.com/rayvburn/local-planning-benchmark.git, version: 'configurable-safety-distance'}
