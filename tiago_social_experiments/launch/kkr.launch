@@ -32,7 +32,6 @@
 
     <!-- === NODES ============================================================================== -->
     <group if="$(arg people_sim)">
-        <!-- roslaunch hubero_bringup_gazebo_ros example.launch world:=living_room rviz:=false -->
         <include file="$(find hubero_bringup_gazebo_ros)/launch/example.launch">
             <arg name="world_file" value="$(arg world_file_people)"/>
             <arg name="map_file" value="$(arg map_file)"/>
@@ -67,12 +66,10 @@
         </include>
     </group>
 
-    <!-- roslaunch tiago_social_bringup gazebo_spawn.launch -->
     <include file="$(find tiago_social_bringup)/launch/gazebo_spawn.launch">
         <arg name="gzpose" value="$(arg pose_sim)"/>
     </include>
 
-    <!-- roslaunch tiago_social_navigation gazebo_nav_base.launch state:=localization map:=none local_planner:=hubero -->
     <include file="$(find tiago_social_navigation)/launch/gazebo_nav_base.launch">
         <arg name="state" value="$(arg nav_state)"/>
         <arg name="map" if="$(arg people_sim)" value="none"/>
@@ -82,12 +79,10 @@
         <arg name="benchmark" value="$(arg navigation_benchmark)"/>
     </include>
 
-    <!-- rviz -d $(rospack find tiago_social_navigation)/rviz/tiago_navigation.rviz -->
     <node pkg="rviz" name="rviz_nav" type="rviz" output="screen" args="-d $(find tiago_social_navigation)/rviz/tiago_navigation.rviz"></node>
 
     <group if="$(arg people_sim)">
         <group if="$(arg perception)">
-            <!-- roslaunch tiago_social_perception tiago_spencer_tracking.launch -->
             <include file="$(find tiago_social_perception)/launch/tiago_spencer_tracking.launch">
                 <arg name="visualization" value="$(arg perception_viz)"/>
             </include>
@@ -98,9 +93,7 @@
         args="pub /move_base_simple/goal geometry_msgs/PoseStamped --latch --file=$(arg goal_file)"
     />
 
-    <!-- rosrun rqt_reconfigure rqt_reconfigure -->
     <node pkg="rqt_reconfigure" name="rqt_reconfigure" type="rqt_reconfigure"></node>
 
-    <!-- rosrun rqt_plot rqt_plot -->
     <node pkg="rqt_plot" name="rqt_plot" type="rqt_plot"></node>
 </launch>
