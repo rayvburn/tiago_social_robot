@@ -7,6 +7,9 @@
     <arg name="perception" default="false"/>
     <arg name="perception_viz" default="false"/>
 
+    <!-- Set to true if navigation modules should be launched -->
+    <arg name="navigation_launch" default="true"/>
+
     <arg name="navigation_benchmark" default="true"/>
 
     <arg name="local_planner" default="hubero"/>
@@ -70,7 +73,7 @@
         <arg name="gzpose" value="$(arg pose_sim)"/>
     </include>
 
-    <include file="$(find tiago_social_navigation)/launch/gazebo_nav_base.launch">
+    <include file="$(find tiago_social_navigation)/launch/gazebo_nav_base.launch" if="$(arg navigation_launch)">
         <arg name="state" value="$(arg nav_state)"/>
         <arg name="map" if="$(arg people_sim)" value="none"/>
         <arg name="map" unless="$(arg people_sim)" value="$(arg map_file)"/>
