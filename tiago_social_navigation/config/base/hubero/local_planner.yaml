@@ -2,16 +2,22 @@
 base_local_planner: hubero_local_planner/HuberoPlannerROS
 
 HuberoPlannerROS:
-  # costmap_converter - http://wiki.ros.org/costmap_converter
-  costmap_converter_plugin: "costmap_converter::CostmapToPolygonsDBSConcaveHull"
+  costmap_converter_plugin: "costmap_converter::CostmapToSegmentedPolygonsDBSMCCH"
   costmap_converter_rate: 2.0
   costmap_converter_spin_thread: true
+  costmap_converter:
+    # NOTE: basic CC section remains default
+    # CostmapToPolygonsDBSMCCH:
+    CostmapToSegmentedPolygonsDBSMCCHSODR:
+      # Distance adjusted to reduce number of obstacles - cluster them together
+      segmentation_distance: 0.125
 
   # Robot footprint
   is_footprint_dynamic: true
   footprint_model:
     type: "circular"
-    radius: 0.275
+    # NOTE: real radius (0.275) extended slightly to compensate poor costmap resolution in some cases
+    radius: 0.285
 
   # Local Planner limits
   max_vel_trans: 1.00
