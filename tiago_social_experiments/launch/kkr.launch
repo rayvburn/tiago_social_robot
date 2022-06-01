@@ -2,6 +2,7 @@
 <launch>
     <!-- === ARGUMENTS ========================================================================== -->
     <arg name="people_sim" default="true"/>
+    <arg name="people_lite" default="false"/>
     <arg name="people_sim_viz" default="false"/>
 
     <arg name="perception" default="false"/>
@@ -27,6 +28,7 @@
 
     <arg name="world_file_wo_people" default="$(find tiago_sim_integration)/worlds/lab_012_v2.world"/>
     <arg name="world_file_people" default="$(find tiago_sim_integration)/worlds/lab_012_v2_actor.world"/>
+    <arg name="world_file_people_lite" default="$(find tiago_sim_integration)/worlds/lab_012_v2_people.world"/>
     <arg name="map_file" default="$(find tiago_sim_integration)/maps/012_sim_localization/map.yaml"/>
     <arg name="localization_config" default="$(find tiago_social_experiments)/config/kkr_pose_init.yaml"/>
 
@@ -36,7 +38,8 @@
     <!-- === NODES ============================================================================== -->
     <group if="$(arg people_sim)">
         <include file="$(find hubero_bringup_gazebo_ros)/launch/example.launch">
-            <arg name="world_file" value="$(arg world_file_people)"/>
+            <arg name="world_file" value="$(arg world_file_people)" unless="$(arg people_lite)"/>
+            <arg name="world_file" value="$(arg world_file_people_lite)" if="$(arg people_lite)"/>
             <arg name="map_file" value="$(arg map_file)"/>
             <arg name="rviz" value="$(arg people_sim_viz)"/>
         </include>
