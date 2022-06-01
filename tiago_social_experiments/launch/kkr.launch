@@ -5,6 +5,9 @@
     <arg name="people_lite" default="false"/>
     <arg name="people_sim_viz" default="false"/>
 
+    <!-- (titanium|steel|iron) -->
+    <arg name="robot_type" value="titanium"/>
+
     <arg name="perception" default="false"/>
     <arg name="perception_viz" default="false"/>
 
@@ -74,6 +77,7 @@
 
     <include file="$(find tiago_social_bringup)/launch/gazebo_spawn.launch">
         <arg name="gzpose" value="$(arg pose_sim)"/>
+        <arg name="robot" value="$(arg robot_type)"/>
     </include>
 
     <include file="$(find tiago_social_navigation)/launch/gazebo_nav_base.launch" if="$(arg navigation_launch)">
