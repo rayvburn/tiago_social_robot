@@ -1226,10 +1226,10 @@ Visualization Manager:
       Value: false
     - Class: rviz/Marker
       Enabled: true
-      Marker Topic: /costmap_converter/costmap_standalone_converter/costmap_polygon_markers
+      Marker Topic: /move_base/costmap_to_polygons/costmap_polygon_markers
       Name: CostmapConverter
       Namespaces:
-        {}
+        Polygons: true
       Queue Size: 100
       Value: true
     - Class: rviz/Group
@@ -1395,7 +1395,6 @@ Visualization Manager:
               Name: Marker
               Namespaces:
                 behaviour: true
-                closest_dynamic_points: true
                 closest_static_points: true
                 footprint: true
                 force_combined: true
@@ -1419,10 +1418,7 @@ Visualization Manager:
               Marker Topic: /people/grouped/marker_array
               Name: PeopleMarker
               Namespaces:
-                orientation: true
-                shape: true
-                text: true
-                velocity: true
+                {}
               Queue Size: 100
               Value: true
           Enabled: true
@@ -1494,6 +1490,6 @@ Window Geometry:
     collapsed: true
   Views:
     collapsed: true
-  Width: 900
+  Width: 1267
   X: 2115
   Y: 99
