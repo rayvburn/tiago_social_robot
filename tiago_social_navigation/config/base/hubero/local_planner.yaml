@@ -1,6 +1,10 @@
 # Parameters placed here overwrite default values from dynamic reconfigure
 base_local_planner: hubero_local_planner/HuberoPlannerROS
 
+# related to LatchedStopRotateController (helper)
+# This is mandatory to avoid ignoring goals that have similar orientation to the previous goal
+latch_xy_goal_tolerance: false
+
 HuberoPlannerROS:
   costmap_converter_plugin: "costmap_converter::CostmapToSegmentedPolygonsDBSMCCH"
   costmap_converter_rate: 2.0
