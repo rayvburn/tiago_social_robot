@@ -26,4 +26,8 @@ HuberoPlannerROS:
   # Ensures faster positioning at goal position.
   min_vel_x: -0.1
   min_vel_theta: 0.3
+  # TIAGo has non-holonomic drive
+  min_vel_y: 0.0
+  max_vel_y: 0.0
+
   # other than that use default from dynamic reconfigure
