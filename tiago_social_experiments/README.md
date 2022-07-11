@@ -17,12 +17,12 @@ roslaunch gazebo_ros empty_world.launch world_name:=$(rospack find tiago_sim_int
 
 ## Evaluation
 
-To evaluate local planner, [MRPB 1.0](https://github.com/NKU-MobFly-Robotics/local-planning-benchmark) by Wen et al. is used. Once `csv` with experiment data is generated follow these steps:
+To evaluate the local planner, use metrics calculator build on top of the [MRPB 1.0](https://github.com/NKU-MobFly-Robotics/local-planning-benchmark), i.e. [`move_base_benchmark`](https://github.com/rayvburn/move_base_benchmark). Once `csv` with experiment data is generated follow these steps:
 
 ```bash
 cd <ROS_WORKSPACE_DIRECTORY>
 source devel/setup.bash
-cd $(rospack find move_base_benchmark)/doc
+cd $(rospack find move_base_benchmark)/postprocessing
 g++ metrics.cpp -o metrics_evaluator
 ./metrics_evaluator <PATH_TO_LOG_FILE> <SAFETY_DISTANCE>
 ```
