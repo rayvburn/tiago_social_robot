@@ -5,13 +5,17 @@ base_local_planner: hubero_local_planner/HuberoPlannerROS
 # This is mandatory to avoid ignoring goals that have similar orientation to the previous goal
 latch_xy_goal_tolerance: false
 
+controller_frequency: 4.0
+
 HuberoPlannerROS:
+  # NOTE: extended costmap_converter plugin is used here
   costmap_converter_plugin: "costmap_converter::CostmapToSegmentedPolygonsDBSMCCH"
   costmap_converter_rate: 2.0
   costmap_converter_spin_thread: true
   costmap_converter:
-    # NOTE: basic CC section remains default
+    # basic CC section remains default, see below
     # CostmapToPolygonsDBSMCCH:
+      # original costmap_converter plugin parameters with values go here...
     CostmapToSegmentedPolygonsDBSMCCHSODR:
       # Distance adjusted to reduce number of obstacles - cluster them together
       segmentation_distance: 0.125
@@ -20,8 +24,7 @@ HuberoPlannerROS:
   is_footprint_dynamic: true
   footprint_model:
     type: "circular"
-    # NOTE: real radius (0.275) extended slightly to compensate poor costmap resolution in some cases
-    radius: 0.285
+    radius: 0.275
 
   # Local Planner limits
   max_vel_trans: 1.00
