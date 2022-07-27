@@ -4,7 +4,11 @@
   <!-- Based on: tiago_simulation/tiago_2dnav_gazebo/launch/navigation.launch -->
   <!-- === ARGUMENTS ========================================================================== -->
   <arg name="public_sim" default="true"/>
+
+  <arg name="multiple" default="false"/>
+  <!-- If nodes of a certain robot should be put into global namespace, leave the default -->
   <arg name="robot_namespace" default=""/>
+
   <!-- localization / mapping -->
   <arg name="state" default="localization"/>
   <arg name="planner" default="base"/>
@@ -15,7 +19,7 @@
   <arg name="mapping" default="gmapping"/>
   <arg name="octomap" default="false"/>
   <arg name="rgbd_sensors" default="false"/>
-  <arg name="multiple" default="false"/>
+
   <!-- Scan topic name; namespacing (for multiple robots) is handled in other files -->
   <!-- Raw readings -->
   <arg name="scan_topic_raw" default="scan_raw"/>
