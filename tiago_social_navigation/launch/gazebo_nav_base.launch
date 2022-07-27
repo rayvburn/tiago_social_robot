@@ -59,8 +59,11 @@
 
   <!-- === NODES ============================================================================== -->
   <!-- Localization or Mapping state -->
+  <!-- Let the script below recognize empty argument value as a valid one -->
+  <arg name="robot_namespace_nav_script" if="$(eval arg('robot_namespace') == '')" value="/"/>
+  <arg name="robot_namespace_nav_script" unless="$(eval arg('robot_namespace') == '')" value="$(arg robot_namespace)"/>
   <node pkg="tiago_social_navigation" type="navigation.sh" name="navigation"
-        args="tiago $(arg state) $(arg localization) $(arg mapping) $(arg map) $(arg octomap) $(arg scan_topic) $(arg laser_model) $(arg base_type) $(arg multiple) $(arg robot_namespace) $(arg map_topic) $(arg localization_pose_estimate) $(arg localization_config) $(arg mapping_config)" output="screen"/>
+        args="tiago $(arg state) $(arg localization) $(arg mapping) $(arg map) $(arg octomap) $(arg scan_topic) $(arg laser_model) $(arg base_type) $(arg multiple) $(arg robot_namespace_nav_script) $(arg map_topic) $(arg localization_pose_estimate) $(arg localization_config) $(arg mapping_config)" output="screen"/>
 
   <!-- Navigation State Machine -->
   <!-- Custom '2dnav_state_machine' to allow override of 'config' parameter -->
