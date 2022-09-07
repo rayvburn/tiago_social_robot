@@ -13,6 +13,10 @@
     <arg name="rgbd_camera_frame" value="xtion_depth_optical_frame"/>
 
     <arg name="visualization" default="true"/>
+
+    <!-- input topic -->
+    <arg name="tracks_topic" default="/spencer/perception/tracked_persons_confirmed_by_HOG_or_upper_body"/>
+    <!-- output topic -->
     <arg name="people_topic" default="/people"/>
 
     <include file="$(find spencer_people_tracking_launch)/launch/tracking_on_robot.launch">
@@ -39,6 +43,7 @@
 
     <node name="spencer_to_people_msg_conversion" pkg="spencer_tracking_conversion" type="tracked_groups_to_people_msgs.py">
         <remap from="/people/grouped" to="$(arg people_topic)"/>
+        <remap from="/spencer/perception/tracked_persons_confirmed_by_HOG_or_upper_body" to="$(arg tracks_topic)"/>
     </node>
 
 </launch>
