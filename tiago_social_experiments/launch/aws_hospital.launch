@@ -47,6 +47,8 @@
         <arg name="local_planner" value="$(arg local_planner)"/>
         <arg name="nav_state" value="$(arg nav_state)"/>
         <arg name="publish_goal" value="$(arg publish_goal)"/>
+        <!-- `hospital` world loads longer than simpler ones, goal delay must be prolonged -->
+        <arg name="publish_goal_delay" value="$(eval {'titanium': '60', 'steel': '60', 'iron': '25'}.get(arg('robot_type'), '25'))"/>
 
         <arg name="world_file_wo_people" value="$(find aws_robomaker_hospital_world)/worlds/hospital.world"/>
         <arg name="world_file_people" unless="$(arg people_lite)" value="$(find aws_robomaker_hospital_world)/worlds/hospital_hubero.world"/>
