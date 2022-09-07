@@ -86,7 +86,7 @@
     <!-- typical `move_base` node launched if `benchmark` set to false -->
     <arg name="move_base_pkg" value="move_base" unless="$(arg benchmark)"/>
     <arg name="move_base_type" value="move_base" unless="$(arg benchmark)"/>
-    <!-- NKU-MobFly-Robotics' `move_base` node launched if `benchmark` set to true -->
+    <!-- `move_base_benchmark` node (originally by NKU-MobFly-Robotics) will be launched if `benchmark` set to true -->
     <arg name="move_base_pkg" value="move_base_benchmark" if="$(arg benchmark)"/>
     <arg name="move_base_type" value="move_base_benchmark" if="$(arg benchmark)"/>
     <!-- other parameters -->
