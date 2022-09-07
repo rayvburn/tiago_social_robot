@@ -93,6 +93,8 @@
                 <arg name="tf_world_map" value="$(arg tf_world_map)"/>
                 <arg name="map_bounds" value="$(arg map_bounds)"/>
             </include>
+            <!-- scenario node - orchestrates actors movements -->
+            <node pkg="tiago_social_scenarios" type="aws_hospital_hubero" name="aws_hospital_hubero" output="screen" args="1"/>
         </group>
     </group>
 </launch>
