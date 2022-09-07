@@ -77,6 +77,7 @@
         <group unless="$(arg people_lite)">
             <include file="$(find hubero_ros)/launch/actor.launch">
                 <arg name="actor_name" value="actor1"/>
+                <arg name="local_planner" value="teb"/>
                 <arg name="map_file" value="$(arg map_file)"/>
                 <arg name="use_shared_map" value="$(arg shared_map)"/>
                 <arg name="map_frame" value="$(arg map_frame)"/>
@@ -85,6 +86,7 @@
             </include>
             <include file="$(find hubero_ros)/launch/actor.launch">
                 <arg name="actor_name" value="actor2"/>
+                <arg name="local_planner" value="teb"/>
                 <arg name="map_file" value="$(arg map_file)"/>
                 <arg name="use_shared_map" value="$(arg shared_map)"/>
                 <arg name="map_frame" value="$(arg map_frame)"/>
