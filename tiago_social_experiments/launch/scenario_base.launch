@@ -13,6 +13,7 @@
 
     <arg name="perception" default="false"/>
     <arg name="perception_viz" default="false"/>
+    <arg name="perception_input_topic" default="/spencer/perception/tracked_persons"/>
 
     <!-- Set to true if navigation modules should be launched -->
     <arg name="navigation_launch" default="true"/>
@@ -101,6 +102,7 @@
         <group if="$(arg perception)">
             <include file="$(find tiago_social_perception)/launch/tiago_spencer_tracking.launch">
                 <arg name="visualization" value="$(arg perception_viz)"/>
+                <arg name="tracks_topic" value="$(arg perception_input_topic)"/>
             </include>
         </group>
     </group>
