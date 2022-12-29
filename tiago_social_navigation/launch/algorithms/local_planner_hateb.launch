@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <!-- people data conversion -->
+    <node pkg="hateb_planner_people_interface" type="tracked_persons_to_hateb_node" name="tracked_persons_to_hateb" output="screen"/>
+
+    <!-- start human pose prediction -->
+    <node pkg="hanp_prediction" type="human_pose_prediction" name="human_pose_prediction" output="screen">
+        <!-- remap required topics -->
+        <remap from="/human_pose_prediction/tracked_humans" to="/tracked_humans"/>
+        <param name="velscale_mul" value="3.0"/>
+        <param name="velobs_mul" value="0.7"/>
+    </node>
+</launch>
