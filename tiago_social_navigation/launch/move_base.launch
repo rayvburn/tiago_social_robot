@@ -91,4 +91,7 @@
     </node>
   </group>
 
+  <!-- Launch extra nodes/interfaces for a specific local planner -->
+  <include file="$(find tiago_social_navigation)/launch/algorithms/local_planner_$(arg local_planner).launch"/>
+
 </launch>
