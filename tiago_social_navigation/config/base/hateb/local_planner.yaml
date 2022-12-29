@@ -1,0 +1,176 @@
+base_local_planner: hateb_local_planner/HATebLocalPlannerROS
+
+# Full list of available parameters can be found at:
+# https://github.com/rayvburn/hateb_local_planner/blob/dev_melodic_rename/src/teb_config.cpp#L49
+#
+# Parameters set based on:
+# https://github.com/sphanit/CoHAN_Navigation/blob/master/cohan_navigation/config/stage_pr2_move_base_config/hateb_local_planner_params.yaml
+HATebLocalPlannerROS:
+  # odom_topic:
+  # map_frame:
+
+  planning_mode: 1
+
+  # Trajectory
+  teb_autosize: True
+  dt_ref: 0.3
+  dt_hysteresis: 0.1
+  # min_samples:
+  # human_min_samples:
+  global_plan_overwrite_orientation: True
+  # via_points_ordered:
+  max_global_plan_lookahead_dist: 0.0
+  # force_reinit_new_goal_dist:
+  feasibility_check_no_poses: 2
+  global_plan_via_point_sep: 0.2
+  # publish_feedback:
+  shrink_horizon_backup: True
+  # horizon_reduction_amount:
+  # teb_init_skip_dist:
+
+  # Robot (nonholonomic)
+  max_vel_x: 0.7
+  min_vel_x: 0.02
+  max_vel_x_backwards: 0.4
+  # min_vel_x_backwards:
+  max_vel_theta: 1.2
+  min_vel_theta: 0.1
+  acc_lim_x: 0.3
+  acc_lim_theta: 0.4
+  min_turning_radius: 0.0
+  # wheelbase:
+  # cmd_angle_instead_rotvel:
+  footprint_model:
+    # types: "point", "circular", "two_circles", "line", "polygon"
+    type: "circular"
+    # for type "circular"
+    radius: 0.34
+    # for type "line"
+    line_start: [-0.3, 0.0]
+    line_end: [0.3, 0.0]
+    # for type "two_circles"
+    front_offset: 0.2
+    front_radius: 0.2
+    rear_offset: 0.2
+    rear_radius: 0.2
+    # for type "polygon"
+    vertices: [[-0.325, -0.325], [-0.325, 0.325], [0.325, 0.325], [0.46, 0.0], [0.325, -0.325]]
+
+  # Humans
+  min_human_robot_dist: 0.6
+  # min_human_human_dist:
+  human_radius: 0.3
+  max_human_vel_x: 1.3
+  # nominal_human_vel_x:
+  max_human_vel_x_backwards: 0.01
+  max_human_vel_theta: 1.1
+  human_acc_lim_x: 0.6
+  human_acc_lim_theta: 0.8
+  use_external_prediction: True
+  predict_human_behind_robot: True
+  ttc_threshold: 5.0
+  # human_pose_prediction_reset_time:
+  # dir_cost_threshold:
+
+  # GoalTolerance
+  xy_goal_tolerance: 0.2
+  yaw_goal_tolerance: 0.1
+  free_goal_vel: True
+
+  # Obstacles
+  min_obstacle_dist: 0.3
+  use_nonlinear_obstacle_penalty: True
+  obstacle_cost_mult: 1.0
+  include_costmap_obstacles: True
+  costmap_obstacles_behind_robot_dist: 0.5
+  obstacle_poses_affected: 1
+  costmap_converter_plugin: "costmap_converter::CostmapToLinesDBSRANSAC"
+  costmap_converter_spin_thread: True
+  costmap_converter_rate: 10
+  costmap_converter/CostmapToLinesDBSRANSAC:
+      cluster_max_distance: 0.8
+      cluster_min_pts: 2
+      ransac_inlier_distance: 0.15
+      ransac_min_inliers: 10
+      ransac_no_iterations: 1500
+      ransac_remainig_outliers: 3
+      ransac_convert_outlier_pts: True
+      ransac_filter_remaining_outlier_pts: False
+      convex_hull_min_pt_separation: 0.1
+
+  # Optimization
+  no_inner_iterations: 8
+  no_outer_iterations: 4
+  optimization_activate: True
+  optimization_verbose: False
+  penalty_epsilon: 0.01
+  # time_penalty_epsilon:
+  cap_optimaltime_penalty: True
+  weight_max_vel_x: 2
+  weight_max_human_vel_x: 2
+  # weight_nominal_human_vel_x:
+  weight_max_vel_theta: 1
+  weight_max_human_vel_theta: 2
+  weight_acc_lim_x: 1
+  weight_human_acc_lim_x: 2
+  weight_acc_lim_theta: 1
+  weight_human_acc_lim_theta: 2
+  weight_kinematics_nh: 1.0
+  weight_kinematics_forward_drive: 1.0
+  weight_kinematics_turning_radius: 0
+  weight_optimaltime: 1.0
+  weight_human_optimaltime: 3.0
+  weight_obstacle: 50.0
+  weight_dynamic_obstacle: 50
+  weight_viapoint: 0.05
+  weight_human_viapoint: 0.5
+  weight_human_robot_safety: 2.0
+  weight_human_human_safety: 2.0
+  weight_human_robot_ttc: 1.0
+  # weight_human_robot_dir:
+  # human_robot_ttc_scale_alpha:
+  # use_human_robot_safety_c:
+  # use_human_human_safety_c:
+  # use_human_robot_ttc_c:
+  # scale_human_robot_ttc_c:
+  # use_human_robot_dir_c:
+  # use_human_elastic_vel:
+  disable_warm_start: True
+  # disable_rapid_omega_chage:
+  # omega_chage_time_seperation:
+
+  # Homotopy Class Planner
+  enable_homotopy_class_planning: False
+  enable_multithreading: True
+  simple_exploration: True
+  max_number_classes: 4
+  # selection_obst_cost_scale:
+  # selection_viapoint_cost_scale:
+  # selection_cost_hysteresis:
+  # selection_alternative_time_cost:
+  roadmap_graph_samples: 15
+  roadmap_graph_area_width: 5
+  h_signature_prescaler: 0.5
+  h_signature_threshold: 0.1
+  obstacle_keypoint_offset: 0.1
+  obstacle_heading_threshold: 0.45
+  # viapoints_all_candidates:
+  visualize_hc_graph: True
+
+  # Visualization
+  publish_robot_global_plan: True
+  publish_robot_local_plan: True
+  publish_robot_local_plan_poses: True
+  publish_robot_local_plan_fp_poses: True
+  publish_human_global_plans: True
+  publish_human_local_plans: True
+  publish_human_local_plan_poses: True
+  publish_human_local_plan_fp_poses: True
+  pose_array_z_scale: 0.5
+
+  # approach
+  approach_id: 1
+  approach_dist: 1.0
+  approach_angle: 3.14
+  # approach_dist_tolerance:
+  # approach_angle_tolerance:
