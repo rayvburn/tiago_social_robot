@@ -51,9 +51,8 @@
         <arg name="publish_goal_delay" value="$(eval {'titanium': '60', 'steel': '60', 'iron': '25'}.get(arg('robot_type'), '25'))"/>
 
         <arg name="world_file_wo_people" value="$(find aws_robomaker_hospital_world)/worlds/hospital.world"/>
-        <arg name="world_file_people" unless="$(arg people_lite)" value="$(find aws_robomaker_hospital_world)/worlds/hospital_hubero.world"/>
-        <!-- there are some people in 'static' version -->
-        <arg name="world_file_people" if="$(arg people_lite)" value="$(arg world_file_wo_people)"/>
+        <arg name="world_file_people" unless="$(arg people_lite)" value="$(find aws_robomaker_hospital_world)/worlds/hospital_crowded_hubero.world"/>
+        <arg name="world_file_people" if="$(arg people_lite)" value="$(find aws_robomaker_hospital_world)/worlds/hospital.world"/>
 
         <arg name="pose_sim" if="$(eval scenario == 'normal')" value="-x -3.2 -y 2.3 -z -0.003 -R 0.0 -P 0.0 -Y -3.1415"/>
         <arg name="localization_config" if="$(eval scenario == 'normal')" value="$(find tiago_social_experiments)/config/aws_hospital_pose_normal.yaml"/>
