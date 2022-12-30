@@ -28,7 +28,7 @@
 
     <arg name="map_file" value="$(find aws_robomaker_hospital_world)/maps/aws_hospital_slam.yaml"/>
     <arg name="map_frame" default="map"/>
-    <arg name="map_bounds" value="[-14.4, +10.09, -18.88, +38.07]"/>
+    <arg name="map_bounds" value="[-13.82, +7.65, -13.08, +36.31]"/>
 
     <!-- resources for the hospital world -->
     <env name="GAZEBO_MODEL_PATH" value="$(find aws_robomaker_hospital_world)/models:$(find aws_robomaker_hospital_world)/fuel_models:$(optenv GAZEBO_MODEL_PATH)"/>
