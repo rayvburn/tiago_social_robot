@@ -4,8 +4,9 @@
 - git: {local-name: move_base_benchmark, uri: https://github.com/rayvburn/move_base_benchmark.git, version: 'melodic-devel-benchmark'}
 # until gets merged to upstream (`melodic-devel`)
 - git: {local-name: navigation, uri: https://github.com/rayvburn/navigation.git, version: 'scored-sampling-planner-fallback-generators-param'}
+- git: {local-name: people_msgs_utils, uri: https://github.com/rayvburn/people_msgs_utils', version: 'master'}
 
-# TEB local planner
+# customized TEB local planner
 - git: {local-name: teb_local_planner, uri: 'https://github.com/rayvburn/teb_local_planner.git', version: 'melodic-devel-robot-footprint-model-access-fix'}
 
 # HATeb local planner
