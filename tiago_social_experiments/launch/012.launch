@@ -9,7 +9,7 @@
     <arg name="people_sim_viz" default="false"/>
 
     <!-- (titanium|steel|iron) -->
-    <arg name="robot_type" default="titanium"/>
+    <arg name="robot_type" default="iron"/>
 
     <arg name="perception" default="true"/>
     <arg name="perception_viz" default="false"/>
