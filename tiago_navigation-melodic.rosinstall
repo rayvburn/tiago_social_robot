@@ -1,22 +1,22 @@
 # valid for e.g. ROS Melodic running at Ubuntu 18.04
-- git: {local-name: costmap_converter, uri: 'https://github.com/rayvburn/costmap_converter.git', version: 'overall-adjustments'}
-- git: {local-name: hubero_local_planner, uri: 'https://github.com/rayvburn/hubero_local_planner.git', version: 'planning-first-attempt'}
-- git: {local-name: move_base_benchmark, uri: 'https://github.com/rayvburn/move_base_benchmark.git', version: 'melodic-devel-benchmark'}
+- git: {local-name: costmap_converter, uri: 'git@github.com:rayvburn/costmap_converter.git', version: 'overall-adjustments'}
+- git: {local-name: hubero_local_planner, uri: 'git@github.com:rayvburn/hubero_local_planner.git', version: 'planning-first-attempt'}
+- git: {local-name: move_base_benchmark, uri: 'git@github.com:rayvburn/move_base_benchmark.git', version: 'melodic-devel-benchmark'}
 # until gets merged to upstream (`melodic-devel`)
-- git: {local-name: navigation, uri: 'https://github.com/rayvburn/navigation.git', version: 'scored-sampling-planner-fallback-generators-param'}
-- git: {local-name: people_msgs_utils, uri: 'https://github.com/rayvburn/people_msgs_utils', version: 'covariances-support'}
+- git: {local-name: navigation, uri: 'git@github.com:rayvburn/navigation.git', version: 'scored-sampling-planner-fallback-generators-param'}
+- git: {local-name: people_msgs_utils, uri: 'git@github.com:rayvburn/people_msgs_utils', version: 'covariances-support'}
 
 # customized TEB local planner
-- git: {local-name: teb_local_planner, uri: 'https://github.com/rayvburn/teb_local_planner.git', version: 'melodic-devel-robot-footprint-model-access-fix'}
+- git: {local-name: teb_local_planner, uri: 'git@github.com:rayvburn/teb_local_planner.git', version: 'melodic-devel-robot-footprint-model-access-fix'}
 
 # HATeb local planner
-- git: {local-name: hateb/hateb_local_planner, uri: 'https://github.com/rayvburn/hateb_local_planner.git', version: 'dev_melodic_rename'}
+- git: {local-name: hateb/hateb_local_planner, uri: 'git@github.com:rayvburn/hateb_local_planner.git', version: 'dev_melodic_rename'}
 - git: {local-name: hateb/hanp_msgs, uri: 'https://github.com/harmishhk/hanp_msgs.git', version: 'time-to-goal'}
 - git: {local-name: hateb/hanp_prediction, uri: 'https://github.com/harmishhk/hanp_prediction.git', version: 'master'}
-- git: {local-name: hateb/hateb_planner_people_interface, uri: 'https://github.com/rayvburn/hateb_planner_people_interface.git', version: 'devel-melodic'}
+- git: {local-name: hateb/hateb_planner_people_interface, uri: 'git@github.com:rayvburn/hateb_planner_people_interface.git', version: 'devel-melodic'}
 
 # CoHAN local planner
-- git: {local-name: cohan/cohan_planner, uri: 'https://github.com/rayvburn/CoHAN_Planner.git', version: 'human-perception-fixes'}
-- git: {local-name: cohan/cohan_planner_people_interface, uri: 'https://github.com/rayvburn/cohan_planner_people_interface.git', version: 'devel-melodic'}
+- git: {local-name: cohan/cohan_planner, uri: 'git@github.com:rayvburn/CoHAN_Planner.git', version: 'human-perception-fixes'}
+- git: {local-name: cohan/cohan_planner_people_interface, uri: 'git@github.com:rayvburn/cohan_planner_people_interface.git', version: 'devel-melodic'}
 # One may also be interested in bringup system of the CoHAN_Planner
 # - git: {local-name: cohan/cohan_navigation, uri: 'https://github.com/sphanit/CoHAN_Navigation.git', version: 'master'}
