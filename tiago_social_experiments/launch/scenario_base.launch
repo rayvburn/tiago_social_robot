@@ -7,7 +7,7 @@
     <!-- Set to true if map already provided by external components (`map_server` running) -->
     <arg name="external_map" default="false"/>
 
-    <arg name="perception" default="false"/>
+    <arg name="perception_launch" default="false"/>
     <arg name="perception_viz" default="false"/>
     <arg name="perception_input_topic" default="/spencer/perception/tracked_persons"/>
 
@@ -20,9 +20,9 @@
     <arg name="global_planner" default="navfn"/>
     <arg name="local_planner" default="teb"/>
     <arg name="nav_state" default="localization"/>
-    <arg name="navigation_viz" default="false"/>
 
     <!-- Run debugging tools -->
+    <arg name="run_nav_viz" default="false"/>
     <arg name="run_reconfigure" default="false"/>
     <arg name="run_plot" default="false"/>
 
@@ -36,32 +36,32 @@
     <arg name="localization_config" default="provide_a_valid_YAML_with_initial_pose_for_AMCL"/>
 
     <!-- === NODES ============================================================================== -->
-    <include file="$(find tiago_social_navigation)/launch/navigation_base.launch" if="$(arg navigation_launch)">
-        <arg name="state" value="$(arg nav_state)"/>
-        <arg name="map" if="$(arg external_map)" value="none"/>
-        <arg name="map" unless="$(arg external_map)" value="$(arg map_file)"/>
-        <arg name="global_planner" value="$(arg global_planner)"/>
-        <arg name="local_planner" value="$(arg local_planner)"/>
-        <arg name="localization_config" value="$(arg localization_config)"/>
-        <arg name="benchmark" value="$(arg navigation_benchmark)"/>
-    </include>
+    <group if="$(arg navigation_launch)">
+        <include file="$(find tiago_social_navigation)/launch/navigation_base.launch">
+            <arg name="state" value="$(arg nav_state)"/>
+            <arg name="map" if="$(arg external_map)" value="none"/>
+            <arg name="map" unless="$(arg external_map)" value="$(arg map_file)"/>
+            <arg name="global_planner" value="$(arg global_planner)"/>
+            <arg name="local_planner" value="$(arg local_planner)"/>
+            <arg name="localization_config" value="$(arg localization_config)"/>
+            <arg name="benchmark" value="$(arg navigation_benchmark)"/>
+        </include>
+        <node pkg="rviz" name="rviz_nav" type="rviz" output="screen" if="$(arg run_nav_viz)"
+            args="-d $(find tiago_social_navigation)/rviz/tiago_navigation.rviz">
+        </node>
+        <node pkg="rostopic" type="rostopic" name="rostopic" if="$(arg publish_goal)" launch-prefix="bash -c 'sleep $(arg publish_goal_delay); $0 $@' " output="screen"
+            args="pub /move_base_simple/goal geometry_msgs/PoseStamped --latch --file=$(arg goal_file)">
+        </node>
+    </group>
 
-    <node pkg="rviz" name="rviz_nav" type="rviz" output="screen" if="$(arg navigation_viz)"
-        args="-d $(find tiago_social_navigation)/rviz/tiago_navigation.rviz">
-    </node>
-
-    <group if="$(arg perception)">
+    <group if="$(arg perception_launch)">
         <include file="$(find tiago_social_perception)/launch/tiago_spencer_tracking.launch">
             <arg name="visualization" value="$(arg perception_viz)"/>
             <arg name="tracks_topic" value="$(arg perception_input_topic)"/>
         </include>
     </group>
 
-    <node pkg="rostopic" type="rostopic" name="rostopic" if="$(arg publish_goal)" launch-prefix="bash -c 'sleep $(arg publish_goal_delay); $0 $@' " output="screen"
-        args="pub /move_base_simple/goal geometry_msgs/PoseStamped --latch --file=$(arg goal_file)">
-    </node>
-
-    <!-- Debugging tools -->
+    <!-- Debugging tools (launched with the recent configuration) -->
     <node pkg="rqt_reconfigure" name="rqt_reconfigure" type="rqt_reconfigure" if="$(arg run_reconfigure)"></node>
 
     <node pkg="rqt_plot" name="rqt_plot" type="rqt_plot" if="$(arg run_plot)"></node>
