@@ -26,13 +26,13 @@
   <!-- Filtered scan -->
   <arg name="scan_topic_filtered" default="scan"/>
   <!-- Scan used for navigation, eliminates readings that shoot into base -->
-  <arg name="scan_topic_nav" default="scan_nav"/>
-  <!-- Set to true if `scan_topic_filtered` should be used for navigation. Otherwise scan processed with
+  <arg name="scan_topic_narrow" default="scan_narrow"/>
+  <!-- Set to false if `scan_topic_filtered` should be used for navigation. Otherwise scan processed with
   `lidar_shrunker_node` will be used instead. -->
-  <arg name="scan_filtered_for_nav" default="false"/>
+  <arg name="narrow_laser_range" default="false"/>
   <!-- Evaluate which scan topic should be used for navigation -->
-  <arg name="scan_topic" value="$(arg scan_topic_filtered)" if="$(arg scan_filtered_for_nav)"/>
-  <arg name="scan_topic" value="$(arg scan_topic_nav)" unless="$(arg scan_filtered_for_nav)"/>
+  <arg name="scan_topic" value="$(arg scan_topic_filtered)" unless="$(arg narrow_laser_range)"/>
+  <arg name="scan_topic" value="$(arg scan_topic_narrow)" if="$(arg narrow_laser_range)"/>
 
   <arg name="map_topic" default="map"/>
 
@@ -98,6 +98,8 @@
     <arg name="multiple"       value="$(arg multiple)"/>
     <arg name="config_base_path" value="$(arg config_base_path)"/>
     <arg name="base_type"       value="$(arg base_type)"/>
+    <!-- dynamically selected sensor topic -->
+    <arg name="scan_topic" value="$(arg scan_topic)"/>
   </include>
 
   <!-- VO map server -->
@@ -141,8 +143,8 @@
   </node>
 
   <!-- Prevents robot current pose from being treated as occupied by obstacle. Caused by LiDAR pointing straight
-  into the edges of the mobile base. Ran only when `scan_filtered_for_nav` is not set to True -->
+  into the edges of the mobile base. Ran only when `narrow_laser_range` is set to True -->
   <node pkg="tiago_social_navigation" type="lidar_shrunker_node.py" name="lidar_shrunker_node"
-        args="$(arg scan_topic_filtered) $(arg scan_topic_nav)" output="screen" unless="$(arg scan_filtered_for_nav)"/>
+        args="$(arg scan_topic_filtered) $(arg scan_topic_narrow)" output="screen" if="$(arg narrow_laser_range)"/>
 
 </launch>

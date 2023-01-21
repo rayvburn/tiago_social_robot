@@ -26,7 +26,7 @@ local_costmap:
     base_scan:
       sensor_frame: base_laser_link
       data_type: LaserScan
-      topic: scan_nav
+      topic: scan_nav # may overwritten by `move_base.launch`
       expected_update_rate: 0.3
       observation_persistence: 0.0
       inf_is_valid: true

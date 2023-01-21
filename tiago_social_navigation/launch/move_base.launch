@@ -32,6 +32,8 @@
   <arg name="multiple" default="false"/>
   <arg name="robot_namespace" default=""/>
 
+  <arg name="scan_topic" default="/scan"/>
+
   <!-- Since `social_navigation` can use planner benchmarking, default log file will be placed in `HOME` directory -->
   <arg name="benchmark_log_file" default="$(env HOME)/log_$(arg global_planner)_$(arg local_planner).txt" unless="$(arg multiple)"/>
   <arg name="benchmark_log_file" default="$(env HOME)/log_$(arg robot_namespace)_$(arg global_planner)_$(arg local_planner).txt" if="$(arg multiple)"/>
@@ -73,6 +75,10 @@
     <param if="$(arg multiple)" name="local_planner/base_frame" value="$(arg robot_namespace)/base_link"/>
 
     <param if="$(arg multiple)" name="local_planner/base_frame" value="$(arg robot_namespace)/base_link"/>
+
+    <!-- sensor topic selection -->
+    <param name="global_costmap/obstacle_laser_layer/base_scan/topic" value="$(arg scan_topic)"/>
+    <param name="local_costmap/obstacle_laser_layer/base_scan/topic" value="$(arg scan_topic)"/>
 
     <!-- In case of planner benchmarking -->
     <param name="log_filename" value="$(arg benchmark_log_file)"/>
