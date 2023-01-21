@@ -1,6 +1,6 @@
 # tiago_social_robot
 
-Packages for social navigation based on TIAGo robot.
+Packages for social navigation experiments based on a TIAGo robot. This repository stores common contents that are required for both real and simulated setups.
 
 ## Run
 
