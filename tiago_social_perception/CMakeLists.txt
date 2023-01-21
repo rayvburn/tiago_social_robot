@@ -10,7 +10,7 @@ catkin_package()
 
 ## Install
 # ref: https://github.com/pal-robotics/tiago_robot/blob/kinetic-devel/tiago_bringup/CMakeLists.txt
-foreach(dir config launch)
+foreach(dir config launch rviz)
     install(DIRECTORY ${dir}/
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dir})
 endforeach(dir)
