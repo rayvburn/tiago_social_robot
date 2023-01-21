@@ -21,6 +21,12 @@
     <arg name="local_planner" default="teb"/>
     <arg name="nav_state" default="localization"/>
 
+    <!--
+        Runs additional node that cuts edge readings so robot does not get stuck during navigation.
+        Should be false for the real robot.
+    -->
+    <arg name="narrow_laser_range" default="false"/>
+
     <!-- Run debugging tools -->
     <arg name="run_nav_viz" default="false"/>
     <arg name="run_reconfigure" default="false"/>
@@ -45,6 +51,7 @@
             <arg name="local_planner" value="$(arg local_planner)"/>
             <arg name="localization_config" value="$(arg localization_config)"/>
             <arg name="benchmark" value="$(arg navigation_benchmark)"/>
+            <arg name="scan_filtered_for_nav" value="$(arg narrow_laser_range)"/>
         </include>
         <node pkg="rviz" name="rviz_nav" type="rviz" output="screen" if="$(arg run_nav_viz)"
             args="-d $(find tiago_social_navigation)/rviz/tiago_navigation.rviz">
