@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Launch designated for TIAGo task execution (assuming that 'gazebo_nav_base' provides basic navigation skills) -->
+<!-- Launch designated for TIAGo task execution (assuming that 'navigation_base' provides basic navigation skills) -->
 <launch>
   <!-- Based on: tiago_simulation/tiago_2dnav_gazebo/launch/tiago_navigation.launch -->
   <!-- === ARGUMENTS ========================================================================== -->
@@ -34,7 +34,7 @@
 
   <!-- === NODES ============================================================================== -->
   <group ns="$(arg namespace)">
-    <include file="$(find tiago_social_navigation)/launch/gazebo_nav_base.launch">
+    <include file="$(find tiago_social_navigation)/launch/navigation_base.launch">
       <arg name="state"          value="localization"/>
       <arg name="planner"        value="$(arg planner)"/>
       <arg name="global_planner" value="$(arg global_planner)"/>

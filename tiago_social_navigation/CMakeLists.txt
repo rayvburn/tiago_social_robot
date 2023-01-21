@@ -5,9 +5,11 @@ project(tiago_social_navigation)
 
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS
-    tiago_2dnav_gazebo
     rospy
     sensor_msgs
+    pal_navigation_cfg_tiago
+    robot_pose
+    laser_filters
 )
 
 ## catkin specific configuration
