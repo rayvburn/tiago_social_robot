@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(tiago_social_experiments)
+project(tiago_social_bringup)
 
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS)
