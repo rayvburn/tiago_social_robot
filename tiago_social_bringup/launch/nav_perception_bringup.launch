@@ -39,7 +39,7 @@
 
     <!-- Map and initial estimate of pose for localization -->
     <arg name="map_file" default="provide_a_valid_YAML_with_map_metadata"/>
-    <arg name="localization_config" default="provide_a_valid_YAML_with_initial_pose_for_AMCL"/>
+    <arg name="localization_pose_estimate" default="provide_a_valid_YAML_with_initial_pose_for_AMCL"/>
 
     <!-- === NODES ============================================================================== -->
     <group if="$(arg navigation_launch)">
@@ -49,7 +49,7 @@
             <arg name="map" unless="$(arg external_map)" value="$(arg map_file)"/>
             <arg name="global_planner" value="$(arg global_planner)"/>
             <arg name="local_planner" value="$(arg local_planner)"/>
-            <arg name="localization_config" value="$(arg localization_config)"/>
+            <arg name="localization_pose_estimate" value="$(arg localization_pose_estimate)"/>
             <arg name="benchmark" value="$(arg navigation_benchmark)"/>
             <arg name="narrow_laser_range" value="$(arg narrow_laser_range)"/>
         </include>
