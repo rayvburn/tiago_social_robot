@@ -17,6 +17,7 @@
   <exec_depend>pal_navigation_cfg_tiago</exec_depend>
   <exec_depend>robot_pose</exec_depend>
   <exec_depend>laser_filters</exec_depend>
+  <exec_depend>social_navigation_layers</exec_depend>
 
   <!-- only for `advanced_navigation` -->
   <!--
