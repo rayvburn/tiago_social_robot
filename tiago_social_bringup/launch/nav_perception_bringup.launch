@@ -8,7 +8,6 @@
     <arg name="external_map" default="false"/>
 
     <arg name="perception_launch" default="false"/>
-    <arg name="perception_viz" default="false"/>
     <arg name="perception_input_topic" default="/spencer/perception/tracked_persons"/>
 
     <!-- Set to true if navigation modules should be launched -->
@@ -28,6 +27,7 @@
     <arg name="narrow_laser_range" default="false"/>
 
     <!-- Run debugging tools -->
+    <arg name="run_perception_viz" default="false"/>
     <arg name="run_nav_viz" default="false"/>
     <arg name="run_reconfigure" default="false"/>
     <arg name="run_plot" default="false"/>
@@ -63,7 +63,7 @@
 
     <group if="$(arg perception_launch)">
         <include file="$(find tiago_social_perception)/launch/tiago_spencer_tracking.launch">
-            <arg name="visualization" value="$(arg perception_viz)"/>
+            <arg name="visualization" value="$(arg run_perception_viz)"/>
             <arg name="tracks_topic" value="$(arg perception_input_topic)"/>
         </include>
     </group>
