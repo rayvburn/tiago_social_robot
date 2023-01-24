@@ -18,6 +18,7 @@
   <exec_depend>robot_pose</exec_depend>
   <exec_depend>laser_filters</exec_depend>
   <exec_depend>social_navigation_layers</exec_depend>
+  <exec_depend>tiago_laser_sensors</exec_depend>
 
   <!-- only for `advanced_navigation` -->
   <!--
@@ -27,7 +28,6 @@
   <exec_depend>pal_zoi_detector</exec_depend>
   <exec_depend>pal_waypoint</exec_depend>
   <exec_depend>pal_navigation_manager</exec_depend>
-  <exec_depend>tiago_laser_sensors</exec_depend>
   <exec_depend>pal_map_utils</exec_depend>
   -->
 

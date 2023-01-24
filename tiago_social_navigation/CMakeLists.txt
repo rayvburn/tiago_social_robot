@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
     robot_pose
     laser_filters
     social_navigation_layers
+    tiago_laser_sensors
 )
 
 ## catkin specific configuration
