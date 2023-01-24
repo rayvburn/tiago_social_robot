@@ -29,14 +29,14 @@ HATebLocalPlannerROS:
   # teb_init_skip_dist:
 
   # Robot (nonholonomic)
-  max_vel_x: 0.7
-  min_vel_x: 0.02
+  max_vel_x: 0.5
+  min_vel_x: 0.0
   max_vel_x_backwards: 0.4
   # min_vel_x_backwards:
-  max_vel_theta: 1.2
-  min_vel_theta: 0.1
-  acc_lim_x: 0.3
-  acc_lim_theta: 0.4
+  max_vel_theta: !degrees 60.0
+  min_vel_theta: !degrees 23.0
+  acc_lim_x: 0.2
+  acc_lim_theta: !degrees 60.0
   min_turning_radius: 0.0
   # wheelbase:
   # cmd_angle_instead_rotvel:
@@ -44,7 +44,7 @@ HATebLocalPlannerROS:
     # types: "point", "circular", "two_circles", "line", "polygon"
     type: "circular"
     # for type "circular"
-    radius: 0.34
+    radius: 0.275
     # for type "line"
     line_start: [-0.3, 0.0]
     line_end: [0.3, 0.0]
@@ -74,7 +74,7 @@ HATebLocalPlannerROS:
 
   # GoalTolerance
   xy_goal_tolerance: 0.2
-  yaw_goal_tolerance: 0.1
+  yaw_goal_tolerance: !degrees 11.5
   free_goal_vel: True
 
   # Obstacles

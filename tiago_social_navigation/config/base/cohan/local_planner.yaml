@@ -22,15 +22,15 @@ CoHANLocalPlannerROS:
 
   # Robot
   holonomic_robot: False
-  max_vel_y: 0.7
-  acc_lim_y: 0.3
-  max_vel_x: 0.7
-  min_vel_x: 0.02
+  max_vel_y: 0.0
+  acc_lim_y: 0.0
+  max_vel_x: 0.5
+  min_vel_x: 0.0
   max_vel_x_backwards: 0.4
-  max_vel_theta: 1.2
-  min_vel_theta: 0.1
-  acc_lim_x: 0.3
-  acc_lim_theta: 0.4
+  max_vel_theta: !degrees 60.0
+  min_vel_theta: !degrees 23.0
+  acc_lim_x: 0.2
+  acc_lim_theta: !degrees 60.0
   min_turning_radius: 0.0
   footprint_model:
     # types: "point", "circular", "two_circles", "line", "polygon"
@@ -86,7 +86,7 @@ CoHANLocalPlannerROS:
 
   # GoalTolerance
   xy_goal_tolerance: 0.2
-  yaw_goal_tolerance: 0.1
+  yaw_goal_tolerance: !degrees 11.5
   free_goal_vel: True
 
   # Obstacles
