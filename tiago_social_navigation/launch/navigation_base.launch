@@ -147,4 +147,16 @@
   <node pkg="tiago_social_navigation" type="lidar_shrunker_node.py" name="lidar_shrunker_node"
         args="$(arg scan_topic_filtered) $(arg scan_topic_narrow)" output="screen" if="$(arg narrow_laser_range)"/>
 
+  <!-- sensor processing  -->
+  <group if="$(arg public_sim)">
+    <!-- pointcloud to laserscan - common for the simulated and real setups -->
+    <include file="$(find tiago_laser_sensors)/launch/rgbd_cloud_laser.launch">
+      <arg name="cloud" value="/xtion/depth_registered/points"/>
+    </include>
+  </group>
+  <group unless="$(arg public_sim)">
+    <include file="$(find pal_loc_measure)/launch/pal_loc_measure.launch">
+      <arg name="training" value="False"/>
+    </include>
+  </group>
 </launch>
