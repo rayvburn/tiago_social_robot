@@ -70,7 +70,7 @@ global_costmap:
 
   inflation_layer:
     enabled            : true
-    inflation_radius   : 0.55
+    inflation_radius   : 0.60
     cost_scaling_factor: 25.0
 
   proxemic_layer:
