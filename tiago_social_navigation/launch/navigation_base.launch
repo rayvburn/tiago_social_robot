@@ -77,7 +77,7 @@
     <arg if="$(arg multiple)" name="base_frame" value="/$(arg robot_namespace)/base_footprint"/>
     <arg if="$(arg multiple)" name="map_frame" value="/$(arg robot_namespace)/map"/>
     <arg name="base_type" value="$(arg base_type)"/>
-	<arg name="config" value="$(arg state_machine_config)"/>
+    <arg name="config" value="$(arg state_machine_config)"/>
   </include>
 
   <!-- Planning -->
