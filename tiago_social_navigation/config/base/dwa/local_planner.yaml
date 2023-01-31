@@ -2,7 +2,8 @@ base_local_planner: dwa_local_planner/DWAPlannerROS
 
 DWAPlannerROS:
   # Robot Configuration Parameters
-  acc_lim_x: 0.2
+  # acc_lim_x must be kept at >= 1.0, otherwise `DWA planner fails to produce path`
+  acc_lim_x: 1.0
   acc_lim_theta: !degrees 60.0
   acc_lim_y: 0.0
 
