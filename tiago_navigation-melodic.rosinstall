@@ -1,10 +1,16 @@
 # valid for e.g. ROS Melodic running at Ubuntu 18.04
+# benchmark and dependencies
+- git: {local-name: benchmark/srpb_move_base, uri: 'git@github.com:rayvburn/srpb_move_base.git', version: 'melodic-devel-srpb'}
+- git: {local-name: benchmark/srpb, uri: 'git@github.com:rayvburn/srpb.git', version: 'srpb-melodic-devel'}
+
+# common dependencies
+- git: {local-name: social_nav_utils, uri: 'git@github.com:rayvburn/social_nav_utils.git', version: 'devel'}
+- git: {local-name: people_msgs_utils, uri: 'git@github.com:rayvburn/people_msgs_utils', version: 'covariances-support'}
+
+# HuBeRo and dependencies
 - git: {local-name: costmap_converter, uri: 'git@github.com:rayvburn/costmap_converter.git', version: 'overall-adjustments'}
 - git: {local-name: hubero_local_planner, uri: 'git@github.com:rayvburn/hubero_local_planner.git', version: 'planning-first-attempt'}
-- git: {local-name: move_base_benchmark, uri: 'git@github.com:rayvburn/move_base_benchmark.git', version: 'melodic-devel-benchmark'}
-# until gets merged to upstream (`melodic-devel`)
 - git: {local-name: navigation, uri: 'git@github.com:rayvburn/navigation.git', version: 'scored-sampling-planner-fallback-generators-param'}
-- git: {local-name: people_msgs_utils, uri: 'git@github.com:rayvburn/people_msgs_utils', version: 'covariances-support'}
 
 # customized TEB local planner
 - git: {local-name: teb_local_planner, uri: 'git@github.com:rayvburn/teb_local_planner.git', version: 'melodic-devel-robot-footprint-model-access-fix'}
