@@ -47,6 +47,10 @@ then start with a system reset. At the next startup you'll probably see this kin
 
 This mostly happens once a simulated robot is spawned along with navigation modules and then navigation modules are killed and then started again.
 
+### Laser shows `Inf` all around the robot
+
+It is because the laser plugin is selected to `gpu_ray`. Make sure that you have GPU drivers installed.
+
 ### Chaining multiple ROS workspaces
 
 Assuming that you have workspaces designated for:
