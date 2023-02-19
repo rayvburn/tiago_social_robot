@@ -8,9 +8,9 @@
   <arg name="global_planner" default="global_planner"/>
   <arg name="local_planner"  default="pal"/>
 
-  <arg name="odom"    default="mobile_base_controller/odom"/>
+  <arg name="odom"    default="/mobile_base_controller/odom"/>
   <arg name="subtype" default=""/>
-  <arg name="cmd_vel" default="nav_vel"/>
+  <arg name="cmd_vel" default="/nav_vel"/>
 
   <arg name="debug"      default="false"/>
   <arg name="launch_prefix" value="gdb -ex run --args"     if="$(arg debug)"/>
