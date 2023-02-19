@@ -82,6 +82,7 @@
 
     <!-- In case of planner benchmarking -->
     <param name="log_filename" value="$(arg benchmark_log_file)"/>
+    <param name="log_frame_id" value="odom"/>
   </node>
 
   <arg name="debug_rgbd" default="false"/>
