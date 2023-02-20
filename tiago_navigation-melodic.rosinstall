@@ -26,3 +26,6 @@
 - git: {local-name: cohan/cohan_planner_people_interface, uri: 'git@github.com:rayvburn/cohan_planner_people_interface.git', version: 'devel-melodic'}
 # One may also be interested in bringup system of the CoHAN_Planner
 # - git: {local-name: cohan/cohan_navigation, uri: 'https://github.com/sphanit/CoHAN_Navigation.git', version: 'master'}
+
+# EBand local planner
+- git: {local-name: eband_local_planner, uri: 'https://github.com/pal-robotics-forks/eband_local_planner.git', version: melodic-devel}
