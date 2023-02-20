@@ -51,6 +51,14 @@ This mostly happens once a simulated robot is spawned along with navigation modu
 
 It is because the laser plugin is selected to `gpu_ray`. Make sure that you have GPU drivers installed.
 
+### Disabling laser rays
+
+Search for `pmb2_robot/pmb2_description/urdf/sensors/sick_tim571_laser.gazebo.xacro` (or file with a selected laser model, but this is the default) and set:
+
+```xml
+<visualize>false</visualize>
+```
+
 ### Chaining multiple ROS workspaces
 
 Assuming that you have workspaces designated for:
