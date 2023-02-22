@@ -4,11 +4,11 @@ TrajectoryPlannerROS:
   # Acceleration limits
   acc_lim_th: !degrees 60.0
   acc_lim_theta: !degrees 60.0
-  acc_lim_x: 0.2
+  acc_lim_x: 1.0
 
   # Velocity limits
   max_vel_x: 0.5
-  min_vel_x: 0.0
+  min_vel_x: -0.1
   max_vel_theta: !degrees  60.0
   min_vel_theta: !degrees -60.0
   min_in_place_vel_theta: !degrees 23.0

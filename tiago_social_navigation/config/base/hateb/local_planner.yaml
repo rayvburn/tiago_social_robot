@@ -31,11 +31,11 @@ HATebLocalPlannerROS:
   # Robot (nonholonomic)
   max_vel_x: 0.5
   min_vel_x: 0.0
-  max_vel_x_backwards: 0.4
-  # min_vel_x_backwards:
+  max_vel_x_backwards: 0.1
+  min_vel_x_backwards: 0.01
   max_vel_theta: !degrees 60.0
   min_vel_theta: !degrees 23.0
-  acc_lim_x: 0.2
+  acc_lim_x: 1.0
   acc_lim_theta: !degrees 60.0
   min_turning_radius: 0.0
   # wheelbase:
