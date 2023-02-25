@@ -78,7 +78,7 @@ HATebLocalPlannerROS:
   free_goal_vel: True
 
   # Obstacles
-  min_obstacle_dist: 0.3
+  min_obstacle_dist: 0.35
   use_nonlinear_obstacle_penalty: True
   obstacle_cost_mult: 1.0
   include_costmap_obstacles: True
