@@ -1,8 +1,7 @@
-base_local_planner: base_local_planner/TrajectoryPlannerROS 
+base_local_planner: base_local_planner/TrajectoryPlannerROS
 
 TrajectoryPlannerROS:
   # Acceleration limits
-  acc_lim_th: !degrees 60.0
   acc_lim_theta: !degrees 60.0
   acc_lim_x: 1.0
 
@@ -15,32 +14,31 @@ TrajectoryPlannerROS:
   max_rotational_vel: !degrees 60.0
   min_in_place_rotational_vel: !degrees 23.0
 
-  # Forbid backwards velocities
-  escape_vel: 0.0
+  # Backward motions for recovery
+  escape_vel: -0.1
+  escape_reset_dist: 0.3
 
   # Goal tolerance
   xy_goal_tolerance: 0.2
   yaw_goal_tolerance: !degrees 11.5
 
   # Forward simulation
-  sim_time: 1.0
+  sim_time: 2.8
+  sim_granularity: 0.025
   vx_samples: 10
-  vtheta_samples: 20
+  vtheta_samples: 30
 
   # Trajectory scoring
   meter_scoring: true
-  pdist_scale: 1.2
-  gdist_scale: 0.8
-  occdist_scale: 0.01
-  heading_scale: 0.3 #@todo create PR to support changing it!
-  path_distance_bias: 1.2
-  goal_distance_bias: 0.8
+  # "-" is counterintuitive but actually with negative values robot started to keep bigger gap from obstacles
+  occdist_scale: -0.05
+  path_distance_bias: 0.8
+  goal_distance_bias: 0.5
   #@todo test the heading_scoring; when set to true the navigation goes bad (many rotations), so it seems that serious scoring tuning is needed
   heading_scoring: false
   heading_scoring_timestep: 0.1
   heading_lookahead: 0.325
   dwa: false
-  #sim_granularity: 0.025
 
   # Oscillation prevention
   oscillation_reset_dist: 0.05
