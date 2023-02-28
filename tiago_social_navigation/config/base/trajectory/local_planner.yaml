@@ -1,5 +1,8 @@
 base_local_planner: base_local_planner/TrajectoryPlannerROS
 
+# slightly reduced due to multiple violations of desired frequency in real experiments
+controller_frequency:  8.0
+
 TrajectoryPlannerROS:
   # Acceleration limits
   acc_lim_theta: !degrees 60.0
