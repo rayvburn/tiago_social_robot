@@ -31,7 +31,7 @@ HATebLocalPlannerROS:
   # Robot (nonholonomic)
   max_vel_x: 0.5
   min_vel_x: 0.0
-  max_vel_x_backwards: 0.1
+  max_vel_x_backwards: 0.101
   min_vel_x_backwards: 0.01
   max_vel_theta: !degrees 60.0
   min_vel_theta: !degrees 23.0
