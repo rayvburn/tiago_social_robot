@@ -6,6 +6,7 @@
 # common dependencies
 - git: {local-name: social_nav_utils, uri: 'git@github.com:rayvburn/social_nav_utils.git', version: 'devel'}
 - git: {local-name: people_msgs_utils, uri: 'git@github.com:rayvburn/people_msgs_utils', version: 'covariances-support'}
+- git: {local-name: navigation_layers, uri: 'git@github.com:rayvburn/navigation_layers.git', version: 'melodic-devel-social-layers'}
 
 # HuBeRo and dependencies
 - git: {local-name: costmap_converter, uri: 'git@github.com:rayvburn/costmap_converter.git', version: 'overall-adjustments'}
