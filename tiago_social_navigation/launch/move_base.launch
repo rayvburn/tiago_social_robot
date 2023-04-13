@@ -8,6 +8,9 @@
   <arg name="global_planner" default="global_planner"/>
   <arg name="local_planner"  default="pal"/>
 
+  <arg name="costmap_contexts"  default="social"/>
+  <arg name="costmap_contexts_suffix" value="_$(arg costmap_contexts)"/>
+
   <arg name="odom"    default="/mobile_base_controller/odom"/>
   <arg name="subtype" default=""/>
   <arg name="cmd_vel" default="/nav_vel"/>
@@ -35,8 +38,8 @@
   <arg name="scan_topic" default="/scan"/>
 
   <!-- Since `social_navigation` can use planner benchmarking, default log file will be placed in `HOME` directory -->
-  <arg name="benchmark_log_file" default="$(env HOME)/log_$(arg global_planner)_$(arg local_planner).txt" unless="$(arg multiple)"/>
-  <arg name="benchmark_log_file" default="$(env HOME)/log_$(arg robot_namespace)_$(arg global_planner)_$(arg local_planner).txt" if="$(arg multiple)"/>
+  <arg name="benchmark_log_file" default="$(env HOME)/log_$(arg global_planner)_$(arg local_planner)_$(arg costmap_contexts).txt" unless="$(arg multiple)"/>
+  <arg name="benchmark_log_file" default="$(env HOME)/log_$(arg robot_namespace)_$(arg global_planner)_$(arg local_planner)_$(arg costmap_contexts).txt" if="$(arg multiple)"/>
 
   <node pkg="$(arg move_base_pkg)" type="$(arg move_base_type)" name="move_base" clear_params="true" output="screen" respawn="true" launch-prefix="$(arg launch_prefix)">
     <remap from="odom"    to="$(arg odom)"/>
@@ -45,10 +48,10 @@
     <rosparam command="load" file="$(arg config_base_path)/config/base/common/move_base.yaml"/>
     <rosparam command="load" file="$(arg config_base_path)/config/base/common/recovery_behaviors$(arg rgbd_suffix).yaml"/>
     
-    <rosparam command="load" file="$(arg config_base_path)/config/base/common/global_costmap_plugins$(arg sim_suffix)$(arg rgbd_suffix)$(arg base_type_suffix).yaml"/>
+    <rosparam command="load" file="$(arg config_base_path)/config/base/common/global_costmap_plugins$(arg costmap_contexts_suffix)$(arg sim_suffix)$(arg rgbd_suffix)$(arg base_type_suffix).yaml"/>
     <rosparam command="load" file="$(arg config_base_path)/config/base/common/global_costmap$(arg sim_suffix)$(arg base_type_suffix).yaml"/>
       
-    <rosparam command="load" file="$(arg config_base_path)/config/base/common/local_costmap_plugins$(arg sim_suffix)$(arg rgbd_suffix)$(arg base_type_suffix).yaml"/>
+    <rosparam command="load" file="$(arg config_base_path)/config/base/common/local_costmap_plugins$(arg costmap_contexts_suffix)$(arg sim_suffix)$(arg rgbd_suffix)$(arg base_type_suffix).yaml"/>
     <rosparam command="load" file="$(arg config_base_path)/config/base/common/local_costmap$(arg sim_suffix)$(arg base_type_suffix).yaml"/>
 
     <rosparam command="load" file="$(arg config_base_path)/config/base/global_planner/$(arg global_planner).yaml"/>

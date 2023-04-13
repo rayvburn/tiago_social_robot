@@ -13,6 +13,8 @@
   <arg name="global_planner" default="navfn"/>
   <!-- Custom `local_planner` -->
   <arg name="local_planner" default="$(eval 'teb' if arg('public_sim') else 'pal')"/>
+  <!-- Selection: (traditional|social|social_extended) -->
+  <arg name="costmap_contexts" default="social"/>
   <!-- Module used for localization -->
   <arg name="localization" default="amcl"/>
 
@@ -39,6 +41,7 @@
       <arg name="planner"        value="$(arg planner)"/>
       <arg name="global_planner" value="$(arg global_planner)"/>
       <arg name="local_planner"  value="$(arg local_planner)"/>
+      <arg name="costmap_contexts" value="$(arg costmap_contexts)"/>
       <arg name="localization"   value="$(arg localization)"/>
       <arg name="map"            value="$(arg map)"/>
       <arg name="public_sim"     value="$(arg public_sim)"/>

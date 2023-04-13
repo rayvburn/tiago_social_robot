@@ -15,6 +15,8 @@
   <arg name="benchmark" default="false"/>
   <arg name="global_planner" default="navfn"/>
   <arg name="local_planner"  default="$(eval 'teb' if (arg('public_sim') or arg('base_type')=='omni_base') else 'pal')"/>
+  <!-- Selection: (traditional|social|social_extended) -->
+  <arg name="costmap_contexts" default="social"/>
   <arg name="localization" default="amcl"/>
   <arg name="mapping" default="gmapping"/>
   <arg name="octomap" default="false"/>
@@ -92,6 +94,7 @@
     <!-- other parameters -->
     <arg name="global_planner" value="$(arg global_planner)"/>
     <arg name="local_planner"  value="$(arg local_planner)"/>
+    <arg name="costmap_contexts"  value="$(arg costmap_contexts)"/>
     <arg name="public_sim"     value="$(arg public_sim)"/>
     <arg name="rgbd_sensors"   value="$(arg rgbd_sensors)"/>
     <arg name="robot_namespace"      value="$(arg robot_namespace)"/>
