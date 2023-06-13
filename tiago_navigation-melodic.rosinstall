@@ -30,3 +30,9 @@
 
 # EBand local planner
 - git: {local-name: eband_local_planner, uri: 'https://github.com/pal-robotics-forks/eband_local_planner.git', version: melodic-devel}
+
+# External local planner plugin
+- git: {local-name: external_local_planner, uri: 'git@github.com:rayvburn/external_local_planner.git', version: melodic-devel}
+
+# SARL* planner
+- git: {local-name: sarl_star, uri: 'git@github.com:rayvburn/sarl_star.git', version: melodic-devel-cleanup}
