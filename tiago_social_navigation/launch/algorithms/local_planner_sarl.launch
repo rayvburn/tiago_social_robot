@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- See also the 'original' version launcher in 'local_planner_sarl.launch' -->
+<!-- See also the 'star' version launcher in 'local_planner_sarl_star.launch' -->
 <launch>
     <!-- Define the version of the planner (original|star)-->
-    <arg name="sarl_version" value="star" />
+    <arg name="sarl_version" value="original" />
 
     <!-- launch the planner node (operates as the node instead of nav_core plugin) -->
     <include file="$(find sarl_star_ros)/launch/sarl_planner.launch">
@@ -14,7 +14,7 @@
         <arg name="odom_topic" value="/mobile_base_controller/odom" />
         <arg name="people_topic" value="/people" />
         <arg name="global_costmap_topic" value="/move_base/global_costmap/costmap" />
-        <arg name="goal_topic" value="/move_base/ExternalLocalPlannerROS/local_goal" />
+        <arg name="goal_topic" value="/move_base_simple/goal" />
 
         <!-- configuration of published topics -->
         <arg name="marker_topic_ns" value="/move_base/local_planner" />
