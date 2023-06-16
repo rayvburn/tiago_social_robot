@@ -36,3 +36,8 @@
 
 # SARL* planner
 - git: {local-name: sarl_star, uri: 'git@github.com:rayvburn/sarl_star.git', version: melodic-devel-cleanup}
+
+# (SA)CADRL planner
+- git: {local-name: cadrl/cadrl_ros, uri: 'git@github.com:rayvburn/cadrl_ros.git', version: melodic-devel}
+- git: {local-name: cadrl/ford_msgs, uri: 'https://bitbucket.org/acl-swarm/ford_msgs.git', version: master}
+- git: {local-name: cadrl/cadrl_ros_planner_interfaces, uri: 'git@github.com:rayvburn/cadrl_ros_planner_interfaces.git', version: melodic-devel}

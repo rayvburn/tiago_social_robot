@@ -1,0 +1,6 @@
+# Parameters placed here overwrite default values from dynamic reconfigure
+# (SA)CADRL is not a pure nav_core plugin, thus the external local planner plugin is used
+base_local_planner: external_local_planner/ExternalLocalPlannerROS
+
+# (SA)CADRL frequency is set in the planner's node, the value below should match it
+controller_frequency:  100.0

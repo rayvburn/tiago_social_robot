@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <!-- original topic with information about people in vicinity of robot -->
+    <arg name="people_topic" default="/people" />
+
+    <!-- topics related to the planner node -->
+    <arg name="nodes_namespace" value="/move_base/local_planner" />
+    <arg name="goal_topic" default="/move_base_simple/goal" />
+    <arg name="marker_topic_ns" default="$(arg nodes_namespace)" />
+    <!-- command must be sent to the ExternalLocalPlannerROS plugin that passes it to the navigation stack -->
+    <arg name="cmd_vel_topic" default="/move_base/ExternalLocalPlannerROS/external_cmd_vel" />
+
+    <!-- topics related to interface nodes -->
+    <arg name="odom_topic" default="/mobile_base_controller/odom" />
+    <arg name="velocity_topic" default="/mobile_base_controller/velocity_global" />
+    <arg name="global_pose_topic" default="/amcl_pose" />
+    <arg name="pose_topic" default="/amcl_pose_wo_covariance" />
+    <arg name="pedestrian_clusters_topic" default="$(arg people_topic)/cadrl/clusters" />
+    <arg name="pedestrian_traj_topic" default="$(arg people_topic)/cadrl/pedtraj" />
+
+    <!-- people data conversion -->
+    <node pkg="cadrl_ros_planner_interfaces" type="tracked_persons_to_cadrl_node" name="cadrl_pedestrian_conversion"
+        output="screen" ns="$(arg nodes_namespace)"
+    >
+        <!-- subscriptions -->
+        <remap from="/people" to="$(arg people_topic)"/>
+        <!-- publications -->
+        <remap from="/ped_clusters" to="$(arg pedestrian_clusters_topic)"/>
+        <remap from="/ped_traj" to="$(arg pedestrian_traj_topic)"/>
+    </node>
+
+    <!-- velocity from odometry conversion -->
+    <node pkg="cadrl_ros_planner_interfaces" type="vel_conversion_odometry_to_vector_node" name="cadrl_vel_conversion"
+        output="screen" ns="$(arg nodes_namespace)"
+    >
+        <!-- subscriptions -->
+        <remap from="/odom" to="$(arg odom_topic)"/>
+        <!-- publications -->
+        <remap from="/velocity" to="$(arg velocity_topic)"/>
+    </node>
+
+    <!-- pose from global localization conversion -->
+    <node pkg="cadrl_ros_planner_interfaces" type="pose_conversion_covariance_delete_node" name="cadrl_pose_conversion"
+        output="screen" ns="$(arg nodes_namespace)"
+    >
+        <!-- subscriptions -->
+        <remap from="/global_pose" to="$(arg global_pose_topic)"/>
+        <!-- publications -->
+        <remap from="/pose_stamped" to="$(arg pose_topic)"/>
+    </node>
+
+    <!-- launch the planner node (operates as the node instead of nav_core plugin) -->
+    <include file="$(find cadrl_ros)/launch/cadrl_node.launch">
+        <!-- launch configuration params -->
+        <arg name="node_namespace" value="$(arg nodes_namespace)" />
+
+        <!-- configuration of subscribed topics -->
+        <arg name="global_pose_topic" value="$(arg pose_topic)" />
+        <arg name="vel_topic" value="$(arg velocity_topic)" />
+        <arg name="goal_topic" value="$(arg goal_topic)" />
+        <arg name="pedestrian_clusters_topic" value="$(arg pedestrian_clusters_topic)" />
+        <arg name="pedestrians_topic" value="$(arg pedestrian_traj_topic)" />
+
+        <!-- configuration of published topics -->
+        <arg name="cmd_vel_topic" value="$(arg cmd_vel_topic)" />
+        <arg name="marker_topic_ns" value="$(arg marker_topic_ns)" />
+    </include>
+</launch>
