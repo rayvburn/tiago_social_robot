@@ -24,7 +24,8 @@ global_costmap:
   obstacle_laser_layer:
     enabled: true
     observation_sources: base_scan
-    combination_method: 0 # can erase static layer
+    # 0: can erase static layer, 1: can only add obstacles
+    combination_method: 0  # may be overwritten by `move_base.launch`
 
     base_scan:
       sensor_frame: base_laser_link

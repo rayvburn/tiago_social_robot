@@ -40,6 +40,11 @@
 
     <!-- Map and initial estimate of pose for localization -->
     <arg name="map_file" default="provide_a_valid_YAML_with_map_metadata"/>
+    <!--
+        Multiroom or big environments (where robot's sensors not always detect all the obstacles etc.) should have
+        that set to `false` (requires clean and tidy map of the environment)
+    -->
+    <arg name="allow_clearing_map_obstacles" default="true"/>
     <arg name="localization_pose_estimate" default="provide_a_valid_YAML_with_initial_pose_for_AMCL"/>
 
     <!-- === NODES ============================================================================== -->
@@ -48,6 +53,7 @@
             <arg name="state" value="$(arg nav_state)"/>
             <arg name="map" if="$(arg external_map)" value="none"/>
             <arg name="map" unless="$(arg external_map)" value="$(arg map_file)"/>
+            <arg name="allow_clearing_map_obstacles" value="$(arg allow_clearing_map_obstacles)"/>
             <arg name="global_planner" value="$(arg global_planner)"/>
             <arg name="local_planner" value="$(arg local_planner)"/>
             <arg name="costmap_contexts" value="$(arg costmap_contexts)"/>

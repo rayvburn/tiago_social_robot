@@ -10,6 +10,7 @@
 
   <arg name="costmap_contexts"  default="social"/>
   <arg name="costmap_contexts_suffix" value="_$(arg costmap_contexts)"/>
+  <arg name="allow_clearing_map_obstacles" default="true"/>
 
   <arg name="odom"    default="/mobile_base_controller/odom"/>
   <arg name="subtype" default=""/>
@@ -50,7 +51,10 @@
     
     <rosparam command="load" file="$(arg config_base_path)/config/base/common/global_costmap_plugins$(arg costmap_contexts_suffix)$(arg sim_suffix)$(arg rgbd_suffix)$(arg base_type_suffix).yaml"/>
     <rosparam command="load" file="$(arg config_base_path)/config/base/common/global_costmap$(arg sim_suffix)$(arg base_type_suffix).yaml"/>
-      
+    <!-- global costmap parameter overwrite -->
+    <param name="global_costmap/obstacle_laser_layer/combination_method" value="0" if="$(arg allow_clearing_map_obstacles)"/>
+    <param name="global_costmap/obstacle_laser_layer/combination_method" value="1" unless="$(arg allow_clearing_map_obstacles)"/>
+
     <rosparam command="load" file="$(arg config_base_path)/config/base/common/local_costmap_plugins$(arg costmap_contexts_suffix)$(arg sim_suffix)$(arg rgbd_suffix)$(arg base_type_suffix).yaml"/>
     <rosparam command="load" file="$(arg config_base_path)/config/base/common/local_costmap$(arg sim_suffix)$(arg base_type_suffix).yaml"/>
 

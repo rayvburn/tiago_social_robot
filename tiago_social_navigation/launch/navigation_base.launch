@@ -47,6 +47,16 @@
   
   <!-- localization prerequisites. NOTE: if set to 'none', map server will not be started -->
   <arg name="map" default="$(env HOME)/.pal/tiago_maps/config/map.yaml"/>
+  <!--
+    Whether sensor data can clear original occupancy grid selected via `map` arg.
+    It's safer to keep that at `true` when you are expecting the actual environment to differ from the created
+    occupancy grid, e.g., if during the recording there were some unusual obstacles. However, it will be problematic
+    when the environment is broad and the robot aims to travel long distances - it may clear existing lethal
+    obstacles if they are not currently in the sensors range and the global planner will expose plans that go through
+    walls etc. making robot go back and forth with periodically changing global plan.
+    Set it to `false` when during the map recording the environment was clean and tidy - this will only add obstacles
+  -->
+  <arg name="allow_clearing_map_obstacles" default="true"/>
   
   <!-- initial pose estimation if 'state' is set to 'localization' -->
   <!-- replaces PAL-specific design that uses '$(env HOME)/.pal/pose.yaml' to load initial pose estimate -->
@@ -101,6 +111,7 @@
     <arg name="multiple"       value="$(arg multiple)"/>
     <arg name="config_base_path" value="$(arg config_base_path)"/>
     <arg name="base_type"       value="$(arg base_type)"/>
+    <arg name="allow_clearing_map_obstacles" value="$(arg allow_clearing_map_obstacles)"/>
     <!-- dynamically selected sensor topic -->
     <arg name="scan_topic" value="$(arg scan_topic)"/>
   </include>
