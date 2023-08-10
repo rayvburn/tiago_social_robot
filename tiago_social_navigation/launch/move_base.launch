@@ -81,8 +81,6 @@
     <param if="$(arg multiple)" name="local_planner/laser_frame" value="$(arg robot_namespace)/base_laser_link"/>
     <param if="$(arg multiple)" name="local_planner/base_frame" value="$(arg robot_namespace)/base_link"/>
 
-    <param if="$(arg multiple)" name="local_planner/base_frame" value="$(arg robot_namespace)/base_link"/>
-
     <!-- sensor topic selection -->
     <param name="global_costmap/obstacle_laser_layer/base_scan/topic" value="$(arg scan_topic)"/>
     <param name="local_costmap/obstacle_laser_layer/base_scan/topic" value="$(arg scan_topic)"/>
