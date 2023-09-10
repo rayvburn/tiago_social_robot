@@ -1,0 +1,16 @@
+# This setup of `global_planner` helps achieving socially-complaint behaviours with local planners
+# as it accounts for lower costs (note that a classical setup ignores costs up to a certain value)
+# introduced by different contextualized cost functions
+base_global_planner: global_planner/GlobalPlanner
+
+GlobalPlanner:
+  allow_unknown: false
+  default_tolerance: 0.5
+  visualize_potential: true
+  use_dijkstra: true
+  use_quadratic: true
+  use_grid_path: false
+  old_navfn_behavior: false
+  neutral_cost: 30  # somehow similar to the `cutoff` of human-awareness layers
+  cost_factor: 0.88  # typically (LETHAL - NEUTRAL) / LETHAL
+  last_plan_if_blocked: true
