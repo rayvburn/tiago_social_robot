@@ -11,3 +11,7 @@ global_costmap:
       type: 'costmap_2d::InflationLayer'
     - name: proxemic_layer
       type: 'social_navigation_layers::ProxemicLayer'
+    - name: fformation_layer
+      type: 'social_navigation_layers::FformationLayer'
+    - name: passing_layer
+      type: 'social_navigation_layers::PassingLayer'
