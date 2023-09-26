@@ -8,17 +8,9 @@ latch_xy_goal_tolerance: false
 controller_frequency: 4.0
 
 HuberoPlannerROS:
-  # NOTE: extended costmap_converter plugin is used here
-  costmap_converter_plugin: "costmap_converter::CostmapToSegmentedPolygonsDBSMCCH"
+  costmap_converter_plugin: "costmap_converter::CostmapToPolygonsDBSConcaveHull"
   costmap_converter_rate: 2.0
   costmap_converter_spin_thread: true
-  costmap_converter:
-    # basic CC section remains default, see below
-    # CostmapToPolygonsDBSMCCH:
-      # original costmap_converter plugin parameters with values go here...
-    CostmapToSegmentedPolygonsDBSMCCHSODR:
-      # Distance adjusted to reduce number of obstacles - cluster them together
-      segmentation_distance: 0.125
 
   # Robot footprint
   is_footprint_dynamic: true
