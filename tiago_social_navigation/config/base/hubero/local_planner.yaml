@@ -5,7 +5,14 @@ base_local_planner: hubero_local_planner/HuberoPlannerROS
 # This is mandatory to avoid ignoring goals that have similar orientation to the previous goal
 latch_xy_goal_tolerance: false
 
-controller_frequency: 4.0
+controller_frequency: 2.25
+# This local planner is pretty heavy computation-wise; therefore, the frequency of planning and also costmap updates
+# are reduced. No need to recompute more often than the `planner` or the `controller` need.
+planner_frequency: 1.25
+global_costmap:
+  update_frequency: 1.25
+local_costmap:
+  update_frequency: 2.25
 
 HuberoPlannerROS:
   costmap_converter_plugin: "costmap_converter::CostmapToPolygonsDBSConcaveHull"
