@@ -4,7 +4,7 @@
 - git: {local-name: benchmark/srpb, uri: 'git@github.com:rayvburn/srpb.git', version: 'melodic-devel'}
 
 # common dependencies
-- git: {local-name: social_nav_utils, uri: 'git@github.com:rayvburn/social_nav_utils.git', version: 'master'}
+- git: {local-name: social_nav_utils, uri: 'git@github.com:rayvburn/social_nav_utils.git', version: 'passing-speed-normalization'}
 - git: {local-name: people_msgs_utils, uri: 'git@github.com:rayvburn/people_msgs_utils', version: 'master'}
 - git: {local-name: navigation_layers, uri: 'git@github.com:rayvburn/navigation_layers.git', version: 'melodic-devel-social-layers'}
 
