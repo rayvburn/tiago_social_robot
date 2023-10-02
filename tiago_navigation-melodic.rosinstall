@@ -1,7 +1,7 @@
 # valid for e.g. ROS Melodic running at Ubuntu 18.04
 # benchmark and dependencies
 - git: {local-name: benchmark/srpb_move_base, uri: 'git@github.com:rayvburn/srpb_move_base.git', version: 'melodic-devel-srpb'}
-- git: {local-name: benchmark/srpb, uri: 'git@github.com:rayvburn/srpb.git', version: 'melodic-devel'}
+- git: {local-name: benchmark/srpb, uri: 'git@github.com:rayvburn/srpb.git', version: 'eval-scripts-parameterization'}
 
 # common dependencies
 - git: {local-name: social_nav_utils, uri: 'git@github.com:rayvburn/social_nav_utils.git', version: 'passing-speed-normalization'}
