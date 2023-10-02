@@ -76,6 +76,11 @@
             <arg name="tracks_topic" value="$(arg perception_input_topic)"/>
             <arg name="people_topic" value="$(arg perception_output_topic)"/>
         </include>
+        <!-- handy visualisation -->
+        <node pkg="people_msgs_utils_vis" name="social_perception_vis_node" type="visualization_node" output="screen">
+            <remap from="/people" to="$(arg perception_output_topic)"/>
+            <remap from="/people/markers" to="$(arg perception_output_topic)/markers"/>
+        </node>
     </group>
 
     <!-- Debugging tools (launched with the recent configuration) -->
