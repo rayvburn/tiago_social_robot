@@ -11,5 +11,3 @@ local_costmap:
       type: 'costmap_2d::InflationLayer'
     - name: proxemic_layer
       type: 'social_navigation_layers::ProxemicLayer'
-    - name: passing_layer
-      type: 'social_navigation_layers::PassingLayer'
