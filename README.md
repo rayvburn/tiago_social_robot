@@ -10,6 +10,10 @@ To benchmark different local planners, install dependencies of `NKU-MobFly-Robot
 sudo apt install libceres-dev
 ```
 
+## Launch system
+
+One should consider using the launch system provided for the [simulated](https://github.com/rayvburn/tiago_social_robot_sim) or the [real](https://github.com/rayvburn/tiago_social_robot_real) robot that were designed to wrap the launch files provided in this package.
+
 ## Troubleshooting
 
 ### Frame names
