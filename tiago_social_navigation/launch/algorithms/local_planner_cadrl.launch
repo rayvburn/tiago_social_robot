@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
+    <!--
+        CADRL by default does not regard static obstacles in the environment; this parameter allows to select
+        whether to keep the original behaviour (false) or include obstacles detected by a LiDAR as other agents
+        in the environment (true)
+    -->
+    <arg name="obstacles_as_environment_agents" default="true" />
+
     <!-- original topic with information about people in vicinity of robot -->
     <arg name="people_topic" default="/people" />
+    <arg name="obstacles_scan_topic" default="/scan_narrow" />
 
     <!-- topics related to the planner node -->
     <arg name="nodes_namespace" value="/move_base/local_planner" />
@@ -20,10 +28,21 @@
 
     <!-- people data conversion -->
     <node pkg="cadrl_ros_planner_interfaces" type="tracked_persons_to_cadrl_node" name="cadrl_pedestrian_conversion"
-        output="screen" ns="$(arg nodes_namespace)"
+        output="screen" ns="$(arg nodes_namespace)" unless="$(arg obstacles_as_environment_agents)"
     >
         <!-- subscriptions -->
         <remap from="/people" to="$(arg people_topic)"/>
+        <!-- publications -->
+        <remap from="/ped_clusters" to="$(arg pedestrian_clusters_topic)"/>
+        <remap from="/ped_traj" to="$(arg pedestrian_traj_topic)"/>
+    </node>
+    <!-- people AND OBSTACLES data conversion -->
+    <node pkg="cadrl_ros_planner_interfaces" type="tracked_persons_and_obstacles_to_cadrl_node" name="cadrl_pedestrian_conversion"
+        output="screen" ns="$(arg nodes_namespace)" if="$(arg obstacles_as_environment_agents)"
+    >
+        <!-- subscriptions -->
+        <remap from="/people" to="$(arg people_topic)"/>
+        <remap from="/scan_combined" to="$(arg obstacles_scan_topic)"/>
         <!-- publications -->
         <remap from="/ped_clusters" to="$(arg pedestrian_clusters_topic)"/>
         <remap from="/ped_traj" to="$(arg pedestrian_traj_topic)"/>
