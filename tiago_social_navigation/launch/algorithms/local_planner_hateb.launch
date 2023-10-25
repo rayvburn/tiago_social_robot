@@ -1,12 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
-    <!-- people data conversion -->
-    <node pkg="hateb_planner_people_interface" type="tracked_persons_to_hateb_node" name="tracked_persons_to_hateb" output="screen"/>
+    <arg name="move_base_node_name" default="move_base"/>
+    <!-- Name of the move_base's global planner plugin -->
+    <arg name="global_planner_name" default="GlobalPlanner"/>
 
-    <!-- start human pose prediction -->
-    <node pkg="hanp_prediction" type="human_pose_prediction" name="human_pose_prediction" output="screen">
-        <!-- remap required topics -->
-        <remap from="/human_pose_prediction/tracked_humans" to="/tracked_humans"/>
+    <arg name="robot_base_frame" default="base_footprint"/>
+    <arg name="global_frame" default="map"/>
+
+    <!-- topic of the standard people_msgs -->
+    <arg name="people_topic" default="/people"/>
+
+    <arg name="hanp_prediction_node_name" default="human_pose_prediction"/>
+    <!--
+        Lack "/" at the start of the name will advertise the service within the node's private namespace
+        (see node's name above)
+    -->
+    <arg name="hanp_prediction_service_name" default="predict_human_poses"/>
+    <arg name="hanp_prediction_humans_topic" default="/tracked_humans"/>
+
+    <!-- people data conversion -->
+    <node pkg="hateb_planner_people_interface" type="tracked_persons_to_hateb_node" name="tracked_persons_to_hateb" output="screen">
+        <!-- subscribed -->
+        <remap from="/people" to="$(arg people_topic)"/>
+        <!-- published -->
+        <remap from="/tracked_humans" to="$(arg hanp_prediction_humans_topic)"/>
+    </node>
+
+    <!-- launch human pose prediction -->
+    <node pkg="hanp_prediction" type="human_pose_prediction" name="$(arg hanp_prediction_node_name)" output="screen">
+        <param name="tracked_humans_sub_topic" value="$(arg hanp_prediction_humans_topic)"/>
+        <param name="get_plan_srv_name" value="/$(arg move_base_node_name)/$(arg global_planner_name)/make_plan"/>
+        <param name="predict_service_name" value="$(arg hanp_prediction_service_name)"/>
+
+        <param name="robot_frame_id" value="$(arg robot_base_frame)"/>
+        <param name="map_frame_id" value="$(arg global_frame)"/>
+
         <param name="velscale_mul" value="3.0"/>
         <param name="velobs_mul" value="0.7"/>
     </node>
