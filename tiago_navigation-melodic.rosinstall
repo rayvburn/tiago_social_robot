@@ -42,3 +42,7 @@
 - git: {local-name: cadrl/cadrl_ros, uri: 'git@github.com:rayvburn/cadrl_ros.git', version: melodic-devel}
 - git: {local-name: cadrl/ford_msgs, uri: 'https://bitbucket.org/acl-swarm/ford_msgs.git', version: master}
 - git: {local-name: cadrl/cadrl_ros_planner_interfaces, uri: 'git@github.com:rayvburn/cadrl_ros_planner_interfaces.git', version: melodic-devel}
+
+# Socially Normative Robot Navigation Behaviors (SRL Elastic Band)
+- git: {local-name: srl_eband/socially_normative_navigation, uri: 'git@github.com:rayvburn/socially_normative_navigation.git', version: melodic-devel}
+- git: {local-name: srl_eband/srl_eband_local_planner, uri: 'git@github.com:rayvburn/srl_eband_local_planner.git', version: melodic-devel}
