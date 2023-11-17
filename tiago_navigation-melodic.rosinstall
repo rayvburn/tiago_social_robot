@@ -46,3 +46,10 @@
 # Socially Normative Robot Navigation Behaviors (SRL Elastic Band)
 - git: {local-name: srl_eband/socially_normative_navigation, uri: 'git@github.com:rayvburn/socially_normative_navigation.git', version: melodic-devel}
 - git: {local-name: srl_eband/srl_eband_local_planner, uri: 'git@github.com:rayvburn/srl_eband_local_planner.git', version: melodic-devel}
+
+# Deep Reinforcement Learning Approach using the Proximal Policy Optimization (PPO)
+- git: {local-name: drl/drl_local_planner, uri: 'git@github.com:rayvburn/drl_local_planner_ros_stable_baselines.git', version: melodic-devel}
+## this one is from `repos_common.rosinstall` of the `drl_local_planner_ros_stable_baselines`
+- git: {local-name: drl/stable_baselines, uri: 'https://github.com/RGring/stable-baselines.git', version: added_1d_conv_layer}
+- git: {local-name: drl/drl_local_planner_ros_interface, uri: 'git@github.com:rayvburn/drl_local_planner_ros_interface.git', version: melodic-devel}
+- git: {local-name: drl/laser_plane_merger, uri: 'git@github.com:rayvburn/laser_plane_merger.git', version: main}

@@ -1,0 +1,7 @@
+base_local_planner: rl_local_planner/RLLocalPlanner
+
+# same as `update_frequency` from `rl_params_common.yaml`
+controller_frequency: 10.0
+
+# NOTE: planner-specific parameters are placed in the `rl_params_common.yaml`
+# RLLocalPlanner:

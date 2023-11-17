@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <!--
+        Launches the following local planner:
+        https://github.com/rayvburn/drl_local_planner_ros_stable_baselines
+    -->
+    <arg name="ns" value="/"/>
+
+    <!-- Two scans merged to obtain a "2.5D projection" -->
+    <arg name="scan_laser_topic" value="/scan_narrow"/>
+    <arg name="scan_rgbd_topic" value="/rgbd_scan"/>
+
+    <arg name="scan_rl_input_topic" value="/scan_laser_rgbd_merged"/>
+    <!-- Below 2 must match the topic values from `rl_params_exec.yaml` -->
+    <arg name="scan_rl_front_topic" value="$(arg ns)/scan_narrow_rl_f"/>
+    <arg name="scan_rl_rear_topic" value="$(arg ns)/scan_narrow_rl_b"/>
+
+    <!-- launch the planner node (operates as the node instead of nav_core plugin) -->
+    <include file="$(find rl_bringup)/launch/setup_common.launch">
+        <arg name="ns" value="$(arg ns)" />
+        <arg name="mode" value="exec" />
+        <arg name="params_file_mode" value="$(find tiago_social_navigation)/config/base/drl/rl_params_exec.yaml" />
+
+        <!-- Common params define, e.g., the expected state representation -->
+        <arg name="state_representation" value="scan"/>
+        <arg name="params_file" value="$(find tiago_social_navigation)/config/base/drl/rl_params_common.yaml" />
+        <!-- Specify the name of the launch file in the package given by agent_launch_pkg -->
+        <arg name="agent_launch_pkg" default="rl_agent"/>
+        <!-- Different agents tested, e.g.,
+            `run_1_raw_disc.launch` mostly produces rotations without significant translational movements,
+            `run_3_raw_disc.launch` behaves similarly as the above
+        -->
+        <arg name="agent_launch_name" default="run_1_raw_cont.launch"/>
+    </include>
+
+    <!-- Merge obstacle measurements obtained from the laser scanner and RGBD camera -->
+    <node pkg="laser_plane_merger" type="laser_plane_merger_node" name="laser_merger_node">
+        <remap from="/scan1" to="$(arg scan_laser_topic)" />
+        <remap from="/scan2" to="$(arg scan_rgbd_topic)" />
+        <remap from="/scan_merged" to="$(arg scan_rl_input_topic)" />
+
+        <param name="global_frame_name" value="map" />
+    </node>
+
+    <!-- Parameters of the adjusted scan selected according to the policy params (see agent_launch_name) -->
+    <node pkg="drl_local_planner_ros_interface" type="laser_scan_adapter_node" name="drl_scan_adapter_front">
+        <remap from="/scan" to="$(arg scan_rl_input_topic)" />
+        <remap from="/scan_adjusted" to="$(arg scan_rl_front_topic)" />
+
+        <param name="ranges_num" value="90" />
+        <param name="angle_increment" value="0.06981317007" />
+        <param name="angle_min" value="-3.141592653589793238462643383279502884197" />
+        <param name="angle_max" value="+3.141592653589793238462643383279502884197" />
+    </node>
+    <!-- Republish data obtained by the above adapter node -->
+    <!-- Args are: input_topic output_topic -->
+    <node pkg="topic_tools" type="relay" name="drl_scan_adapter_front_republisher"
+        args="$(arg scan_rl_front_topic) $(arg scan_rl_rear_topic)" >
+    </node>
+</launch>
