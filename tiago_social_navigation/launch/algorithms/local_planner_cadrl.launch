@@ -9,7 +9,11 @@
 
     <!-- original topic with information about people in vicinity of robot -->
     <arg name="people_topic" default="/people" />
-    <arg name="obstacles_scan_topic" default="/scan_narrow" />
+    <!-- <arg name="obstacles_scan_topic" default="/scan_narrow" /> -->
+    <arg name="obstacles_scan_topic" default="/scan_laser_rgbd_merged" />
+    <!-- Two scans merged to obtain a "2.5D projection" -->
+    <arg name="scan_laser_topic" value="/scan_narrow"/>
+    <arg name="scan_rgbd_topic" value="/rgbd_scan"/>
 
     <!-- topics related to the planner node -->
     <arg name="nodes_namespace" value="/move_base/local_planner" />
@@ -25,6 +29,14 @@
     <arg name="pose_topic" default="/amcl_pose_wo_covariance" />
     <arg name="pedestrian_clusters_topic" default="$(arg people_topic)/cadrl/clusters" />
     <arg name="pedestrian_traj_topic" default="$(arg people_topic)/cadrl/pedtraj" />
+
+    <!-- Merge obstacle measurements obtained from the laser scanner and RGBD camera -->
+    <node pkg="laser_plane_merger" type="laser_plane_merger_node" name="laser_merger_node">
+        <remap from="/scan1" to="$(arg scan_laser_topic)" />
+        <remap from="/scan2" to="$(arg scan_rgbd_topic)" />
+        <remap from="/scan_merged" to="$(arg obstacles_scan_topic)" />
+        <param name="global_frame_name" value="map" />
+    </node>
 
     <!-- people data conversion -->
     <node pkg="cadrl_ros_planner_interfaces" type="tracked_persons_to_cadrl_node" name="cadrl_pedestrian_conversion"
@@ -83,5 +95,11 @@
         <!-- configuration of published topics -->
         <arg name="cmd_vel_topic" value="$(arg cmd_vel_topic)" />
         <arg name="marker_topic_ns" value="$(arg marker_topic_ns)" />
+
+        <!-- robot parameters (values must be unified with other planners) -->
+        <arg name="robot_speed" value="0.5" />
+        <arg name="robot_radius" value="0.275" />
+        <arg name="max_rot_vel" value="1.05" />
+        <arg name="goal_tolerance" value="0.2" />
     </include>
 </launch>
