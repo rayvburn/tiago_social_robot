@@ -20,5 +20,10 @@
         <arg name="marker_topic_ns" value="/move_base/local_planner" />
         <!-- command must be sent to the ExternalLocalPlannerROS plugin that passes it to the navigation stack -->
         <arg name="cmd_vel_topic" default="/move_base/ExternalLocalPlannerROS/external_cmd_vel" />
+
+        <!-- Robot parameters -->
+        <arg name="vel_pref" default="0.5" />
+        <arg name="robot_radius" default="0.275" />
+        <arg name="goal_tolerance" default="0.2" />
     </include>
 </launch>
