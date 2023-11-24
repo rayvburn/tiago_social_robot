@@ -24,3 +24,6 @@ ExternalLocalPlannerROS:
   # rotateToGoal
   max_vel_theta: !degrees 60.0
   min_vel_theta: !degrees 23.0
+
+  # easier following of the global path
+  local_goal_distance: 0.8
