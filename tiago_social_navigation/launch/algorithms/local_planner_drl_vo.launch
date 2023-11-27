@@ -56,6 +56,7 @@
     <arg name="scan_laser_topic" value="/scan_narrow"/>
     <arg name="scan_rgbd_topic" value="/rgbd_scan"/>
     <arg name="scan_merged_topic" value="/scan_combined"/>
+    <arg name="scan_range_filter_topic" value="/scan_combined_drl_vo_range_filter"/>
 
     <!-- Interfacing TIAGo control system with the DRL-VO -->
     <node pkg="drl_vo_nav_ros_interfaces" type="people_to_pedsim_converter_node" name="people_to_pedsim_converter_node" output="screen">
@@ -72,9 +73,27 @@
         <param name="global_frame_name" value="map" />
     </node>
 
+    <!--
+        Shifts the LaserScan obstacle points according to the difference between the TIAGo and Turtlebot2 footprint
+        radiuses
+    -->
+    <node pkg="drl_vo_nav_ros_interfaces" type="laserscan_filter_node" name="laserscan_filter_node" output="screen">
+        <remap from="/scan" to="$(arg scan_merged_topic)"/>
+        <remap from="/scan_adjusted" to="$(arg scan_range_filter_topic)"/>
+        <!--
+            Shifts the processed scan points X meters closer (nehative shift) or further (positive shift)
+            than the original points.
+            TIAGo is 54.5 cm and the Turtlebot (originally used during training) is approx 35 cm wide.
+            However, value of "-0.1" had to be further increased due to the poor collision avoidance (even with only
+            static obstacles in the scene).
+        -->
+        <param name="shift_dist" value="-0.2" />
+    </node>
+
+    <!-- Obtains a LaserScan with a parameters required by the DRL-VO model -->
     <include file="$(find drl_vo_nav_ros_interfaces)/launch/laser_adapter.launch">
         <!-- Topics -->
-        <arg name="scan_input_topic" value="$(arg scan_merged_topic)"/>
+        <arg name="scan_input_topic" value="$(arg scan_range_filter_topic)"/>
         <arg name="pcl_topic" value="/scan_cloud_drl_vo"/>
         <arg name="scan_output_topic" value="$(arg laserscan_topic)"/>
         <!-- Shared parameters -->
