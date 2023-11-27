@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <!--
+        Launches the following local planner:
+        https://github.com/rayvburn/drl_vo_nav
+    -->
+    <!-- Robot-specific parameters -->
+    <arg name="goal_tolerance" default="0.2"/>
+    <arg name="min_vel_x" default="0.0"/>
+    <arg name="max_vel_x" default="0.5"/>
+    <arg name="min_rot_vel" default="-1.05"/>
+    <arg name="max_rot_vel" default="+1.05"/>
+    <arg name="vel_smoother_params_file" default="$(find tiago_social_navigation)/config/base/drl_vo/velocity_smoother.yaml"/>
+
+    <arg name="lookahead_distance" default="2.0"/>
+    <arg name="robot_base_frame" default="base_footprint"/>
+    <arg name="global_frame" default="map"/>
+
+    <!-- ROS interfaces parameterized -->
+    <arg name="odom_topic" default="odom"/>
+    <arg name="cnn_data_topic" default="/cnn_data"/>
+
+    <arg name="drl_raw_twist_topic" default="/drl_cmd_vel"/>
+    <arg name="smoother_twist_input_topic" default="teleop_velocity_smoother/raw_cmd_vel"/>
+    <!--
+        Command must be sent to the ExternalLocalPlannerROS plugin that passes it to the navigation stack,
+        Originally in Turtlebot/Kobuki, smoothed velocity was passed to the velocity command multiplexer node(let)
+    -->
+    <arg name="smoother_twist_output_topic" default="/move_base/ExternalLocalPlannerROS/external_cmd_vel" />
+    <arg name="robot_cmd_vel_topic" default="/mobile_base_controller/cmd_vel"/>
+
+    <arg name="global_path_topic" default="move_base/GlobalPlanner/plan"/>
+    <arg name="global_goal_topic" default="/move_base/current_goal"/>
+    <arg name="subgoal_topic" default="cnn_goal"/>
+    <arg name="final_goal_topic" default="final_goal"/>
+    <arg name="goal_markers_topic" default="goal_markers"/>
+
+    <arg name="laserscan_topic" default="/scan_drl_vo"/>
+    <arg name="robot_pose_topic" default="/robot_pose"/>
+    <!-- Input to the CNN data creator -->
+    <arg name="pedestrians_drl_vo_topic" default="/track_ped"/>
+    <!-- Input to the people data converter (interface) - output is the above -->
+    <arg name="pedestrians_input_topic" default="/people"/>
+
+    <arg name="robot_pose_pub_rate" default="30"/>
+    <arg name="goal_recompute_rate" default="20"/>
+    <arg name="cnn_data_rate" default="20"/>
+
+    <!-- A file with the model used for inferring -->
+    <arg name="model_file" default="$(find drl_vo_nav)/src/model/drl_vo.zip"/>
+
+    <!-- Publishing of the simulated pedestrians as algorithm input -->
+    <arg name="publish_pedestrians_simulator" default="false"/>
+
+    <!-- Two scans merged to obtain a "2.5D projection" -->
+    <arg name="scan_laser_topic" value="/scan_narrow"/>
+    <arg name="scan_rgbd_topic" value="/rgbd_scan"/>
+    <arg name="scan_merged_topic" value="/scan_combined"/>
+
+    <!-- Interfacing TIAGo control system with the DRL-VO -->
+    <node pkg="drl_vo_nav_ros_interfaces" type="people_to_pedsim_converter_node" name="people_to_pedsim_converter_node" output="screen">
+        <remap from="/people" to="$(arg pedestrians_input_topic)"/>
+        <remap from="/tracked_persons" to="$(arg pedestrians_drl_vo_topic)"/>
+        <param name="target_frame" value="$(arg robot_base_frame)" />
+    </node>
+
+    <!-- Merge obstacle measurements obtained from the laser scanner and RGBD camera -->
+    <node pkg="laser_plane_merger" type="laser_plane_merger_node" name="laser_merger_node">
+        <remap from="/scan1" to="$(arg scan_laser_topic)" />
+        <remap from="/scan2" to="$(arg scan_rgbd_topic)" />
+        <remap from="/scan_merged" to="$(arg scan_merged_topic)" />
+        <param name="global_frame_name" value="map" />
+    </node>
+
+    <include file="$(find drl_vo_nav_ros_interfaces)/launch/laser_adapter.launch">
+        <!-- Topics -->
+        <arg name="scan_input_topic" value="$(arg scan_merged_topic)"/>
+        <arg name="pcl_topic" value="/scan_cloud_drl_vo"/>
+        <arg name="scan_output_topic" value="$(arg laserscan_topic)"/>
+        <!-- Shared parameters -->
+        <arg name="transform_concurrency_level" value="1"/>
+        <arg name="transform_tolerance" value="0.01"/>
+        <arg name="scan_target_frame" value="base_laser_link"/>
+        <!-- Params for converting the PCL to LaserScan -->
+        <!-- Determine height of the robot -->
+        <arg name="scan_output_min_height" value="0.0" />
+        <arg name="scan_output_max_height" value="1.6" />
+        <!-- Those are taken from the Turtlebot simulation setup of DRL-VO -->
+        <arg name="scan_output_angle_min" value="-2.3561899662" />
+        <arg name="scan_output_angle_max" value="+2.3561899662" />
+        <arg name="scan_output_angle_increment" value="0.0043673585169" />
+        <arg name="scan_output_scan_time" value="0.0" />
+        <arg name="scan_output_range_min" value="0.10000000149" />
+        <arg name="scan_output_range_max" value="30.0" />
+        <arg name="scan_output_use_inf" value="true" />
+        <arg name="scan_output_inf_epsilon" value="1.0" />
+    </include>
+
+    <include file="$(find drl_vo_nav)/launch/drl_vo_run_policy_agent.launch">
+        <arg name="goal_tolerance" value="$(arg goal_tolerance)"/>
+        <arg name="min_vel_x" value="$(arg min_vel_x)"/>
+        <arg name="max_vel_x" value="$(arg max_vel_x)"/>
+        <arg name="min_rot_vel" value="$(arg min_rot_vel)"/>
+        <arg name="max_rot_vel" value="$(arg max_rot_vel)"/>
+        <arg name="vel_smoother_params_file" value="$(arg vel_smoother_params_file)"/>
+        <arg name="lookahead_distance" value="$(arg lookahead_distance)"/>
+        <arg name="robot_base_frame" value="$(arg robot_base_frame)"/>
+        <arg name="global_frame" value="$(arg global_frame)"/>
+        <arg name="odom_topic" value="$(arg odom_topic)"/>
+        <arg name="cnn_data_topic" value="$(arg cnn_data_topic)"/>
+        <arg name="drl_raw_twist_topic" value="$(arg drl_raw_twist_topic)"/>
+        <arg name="smoother_twist_input_topic" value="$(arg smoother_twist_input_topic)"/>
+        <arg name="smoother_twist_output_topic" value="$(arg smoother_twist_output_topic)"/>
+        <arg name="robot_cmd_vel_topic" value="$(arg robot_cmd_vel_topic)"/>
+        <arg name="global_path_topic" value="$(arg global_path_topic)"/>
+        <arg name="global_goal_topic" value="$(arg global_goal_topic)"/>
+        <arg name="subgoal_topic" value="$(arg subgoal_topic)"/>
+        <arg name="final_goal_topic" value="$(arg final_goal_topic)"/>
+        <arg name="goal_markers_topic" value="$(arg goal_markers_topic)"/>
+        <arg name="pedestrians_topic" value="$(arg pedestrians_drl_vo_topic)"/>
+        <arg name="laserscan_topic" value="$(arg laserscan_topic)"/>
+        <arg name="robot_pose_topic" value="$(arg robot_pose_topic)"/>
+        <arg name="robot_pose_pub_rate" value="$(arg robot_pose_pub_rate)"/>
+        <arg name="goal_recompute_rate" value="$(arg goal_recompute_rate)"/>
+        <arg name="cnn_data_rate" value="$(arg cnn_data_rate)"/>
+        <arg name="model_file" value="$(arg model_file)"/>
+        <arg name="publish_pedestrians_simulator" value="$(arg publish_pedestrians_simulator)"/>
+        <!-- Specific to the Turtlebot/Kobuki mobile base; can be False if mobile base controller already starts one -->
+        <arg name="standalone_nodelet_manager" value="True"/>
+    </include>
+
+</launch>
