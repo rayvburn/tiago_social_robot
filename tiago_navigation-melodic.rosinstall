@@ -52,9 +52,7 @@
 ## this one is from `repos_common.rosinstall` of the `drl_local_planner_ros_stable_baselines`
 - git: {local-name: drl/stable_baselines, uri: 'https://github.com/RGring/stable-baselines.git', version: added_1d_conv_layer}
 - git: {local-name: drl/drl_local_planner_ros_interface, uri: 'git@github.com:rayvburn/drl_local_planner_ros_interface.git', version: melodic-devel}
-- git: {local-name: drl/laser_plane_merger, uri: 'git@github.com:rayvburn/laser_plane_merger.git', version: main}
 
 # DRL-VO: Learning to Navigate Through Crowded Dynamic Scenes Using Velocity Obstacles
 - git: {local-name: drl_vo/drl_vo_nav, uri: 'git@github.com:rayvburn/drl_vo_nav.git', version: melodic-devel}
 - git: {local-name: drl_vo/drl_vo_nav_ros_interfaces, uri: 'git@github.com:rayvburn/drl_vo_nav_ros_interfaces.git', version: melodic-devel}
-# Also uses laser_plane_merger (see `drl` section)

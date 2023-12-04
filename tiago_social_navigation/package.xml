@@ -31,10 +31,8 @@
   <exec_depend>pal_map_utils</exec_depend>
   -->
 
-  <!-- only for `base_type` == `omni_base` -->
-  <!--
+  <!-- for `base_type` == `omni_base` and required by some local-planner-specific nodes for sensor data processing -->
   <exec_depend>ira_laser_tools</exec_depend>
-  -->
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

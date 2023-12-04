@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
     laser_filters
     social_navigation_layers
     tiago_laser_sensors
+    ira_laser_tools
 )
 
 ## catkin specific configuration

@@ -31,11 +31,19 @@
     <arg name="pedestrian_traj_topic" default="$(arg people_topic)/cadrl/pedtraj" />
 
     <!-- Merge obstacle measurements obtained from the laser scanner and RGBD camera -->
-    <node pkg="laser_plane_merger" type="laser_plane_merger_node" name="laser_merger_node">
-        <remap from="/scan1" to="$(arg scan_laser_topic)" />
-        <remap from="/scan2" to="$(arg scan_rgbd_topic)" />
-        <remap from="/scan_merged" to="$(arg obstacles_scan_topic)" />
-        <param name="global_frame_name" value="map" />
+    <node pkg="ira_laser_tools" name="laserscan_multi_merger" type="laserscan_multi_merger" output="screen">
+      <param name="cloud_destination_topic" value="$(arg obstacles_scan_topic)_pcl"/>
+      <param name="scan_destination_topic" value="$(arg obstacles_scan_topic)"/>
+      <param name="laserscan_topics" value ="$(arg scan_laser_topic) $(arg scan_rgbd_topic)" />
+      <!-- params of the scan from the laser, knowing that it covers more area than the RGBD scan -->
+      <param name="destination_frame" value="base_laser_link"/>
+      <param name="time_increment" value ="0.0" />
+      <param name="scan_time" value ="0.0" />
+      <param name="range_min" value ="0.05" />
+      <param name="range_max" value ="25.0" />
+      <param name="angle_min" value ="-1.91986000538" />
+      <param name="angle_max" value ="+1.91986000538" />
+      <param name="angle_increment" value ="0.00577401509508" />
     </node>
 
     <!-- people data conversion -->
