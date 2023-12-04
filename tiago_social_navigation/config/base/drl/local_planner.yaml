@@ -3,5 +3,21 @@ base_local_planner: rl_local_planner/RLLocalPlanner
 # same as `update_frequency` from `rl_params_common.yaml`
 controller_frequency: 10.0
 
-# NOTE: planner-specific parameters are placed in the `rl_params_common.yaml`
-# RLLocalPlanner:
+# NOTE: most planner-specific parameters are placed in the `rl_params_common.yaml`;
+# Parameters from the list below are only related to the "stop&rotate controller" of the RLLocalPlanner
+RLLocalPlanner:
+  latch_xy_goal_tolerance: true
+
+  xy_goal_tolerance: 0.2
+  yaw_goal_tolerance: !degrees 11.5
+  trans_stopped_vel: 0.1
+  theta_stopped_vel: !degrees 6.0
+
+  # stopWithAccLimits & rotateToGoal
+  acc_lim_x: 1.0
+  acc_lim_y: 0.0
+  acc_lim_theta: !degrees 60.0
+
+  # rotateToGoal
+  max_vel_theta: !degrees 60.0
+  min_vel_theta: !degrees 23.0
