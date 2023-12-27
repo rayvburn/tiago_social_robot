@@ -86,9 +86,9 @@
     <param name="local_costmap/obstacle_laser_layer/base_scan/topic" value="$(arg scan_topic)"/>
 
     <!-- In case of planner benchmarking -->
-    <param name="log_filename" value="$(arg benchmark_log_file)"/>
+    <param name="srpb/log_filename" value="$(arg benchmark_log_file)"/>
     <!-- data collected in 'map' frame aggregates floating TF odom->map, provides more accurate data visualisation -->
-    <param name="log_frame_id" value="map"/>
+    <param name="srpb/log_frame_id" value="map"/>
   </node>
 
   <arg name="debug_rgbd" default="false"/>
