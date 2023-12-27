@@ -110,4 +110,11 @@
         <arg name="max_rot_vel" value="1.05" />
         <arg name="goal_tolerance" value="0.2" />
     </include>
+
+    <!--
+        SRPB's logger will use computation times obtained from the external topic instead of counting
+        the execution time of computeVelocityCommands
+    -->
+    <param name="/move_base/srpb/external_computation_times_topic" value="/move_base/local_planner/cadrl_node/computation_time"/>
+    <param name="/move_base/srpb/external_computation_times_array_index" value="1"/>
 </launch>

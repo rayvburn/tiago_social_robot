@@ -64,4 +64,11 @@
     <node pkg="topic_tools" type="relay" name="drl_scan_adapter_front_republisher"
         args="$(arg scan_rl_front_topic) $(arg scan_rl_rear_topic)" >
     </node>
+
+    <!--
+        SRPB's logger will use computation times obtained from the external topic instead of counting
+        the execution time of computeVelocityCommands
+    -->
+    <param name="/move_base/srpb/external_computation_times_topic" value="/rl_agent/computation_time"/>
+    <param name="/move_base/srpb/external_computation_times_array_index" value="1"/>
 </launch>

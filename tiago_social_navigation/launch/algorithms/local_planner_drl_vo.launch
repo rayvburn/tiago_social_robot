@@ -157,4 +157,10 @@
         <arg name="standalone_nodelet_manager" value="True"/>
     </include>
 
+    <!--
+        SRPB's logger will use computation times obtained from the external topic instead of counting
+        the execution time of computeVelocityCommands
+    -->
+    <param name="/move_base/srpb/external_computation_times_topic" value="/drl_computation_time"/>
+    <param name="/move_base/srpb/external_computation_times_array_index" value="1"/>
 </launch>

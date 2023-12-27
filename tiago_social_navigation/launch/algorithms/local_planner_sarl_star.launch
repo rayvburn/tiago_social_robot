@@ -26,4 +26,11 @@
         <arg name="robot_radius" default="0.275" />
         <arg name="goal_tolerance" default="0.2" />
     </include>
+
+    <!--
+        SRPB's logger will use computation times obtained from the external topic instead of counting
+        the execution time of computeVelocityCommands
+    -->
+    <param name="/move_base/srpb/external_computation_times_topic" value="/sarl_star_node/computation_time"/>
+    <param name="/move_base/srpb/external_computation_times_array_index" value="1"/>
 </launch>
