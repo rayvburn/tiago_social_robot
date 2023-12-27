@@ -43,7 +43,8 @@
     <!-- Input to the people data converter (interface) - output is the above -->
     <arg name="pedestrians_input_topic" default="/people"/>
 
-    <arg name="robot_pose_pub_rate" default="30"/>
+    <!-- Originally 30 Hz, but reduced to assert publishing updates at 20 Hz -->
+    <arg name="robot_pose_pub_rate" default="20"/>
     <arg name="goal_recompute_rate" default="20"/>
     <arg name="cnn_data_rate" default="20"/>
 
