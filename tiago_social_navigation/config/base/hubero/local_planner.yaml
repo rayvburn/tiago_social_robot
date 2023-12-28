@@ -2,17 +2,17 @@
 base_local_planner: hubero_local_planner/HuberoPlannerROS
 
 # related to LatchedStopRotateController (helper)
-# This is mandatory to avoid ignoring goals that have similar orientation to the previous goal
 latch_xy_goal_tolerance: false
 
-controller_frequency: 2.25
+# real mobile base should operate with at least 4 Hz, otherwise jerks of the driving motors are noticable
+controller_frequency: 4.0
 # This local planner is pretty heavy computation-wise; therefore, the frequency of planning and also costmap updates
 # are reduced. No need to recompute more often than the `planner` or the `controller` need.
-planner_frequency: 1.25
+planner_frequency: 2.0
 global_costmap:
-  update_frequency: 1.25
+  update_frequency: 2.0
 local_costmap:
-  update_frequency: 2.25
+  update_frequency: 4.0
 
 HuberoPlannerROS:
   costmap_converter_plugin: "costmap_converter::CostmapToPolygonsDBSConcaveHull"
