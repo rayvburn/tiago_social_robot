@@ -37,7 +37,7 @@
     <arg name="goal_markers_topic" default="goal_markers"/>
 
     <arg name="laserscan_topic" default="/scan_drl_vo"/>
-    <arg name="robot_pose_topic" default="/robot_pose"/>
+    <arg name="robot_pose_topic" default="/robot_pose_drl_vo"/>
     <!-- Input to the CNN data creator -->
     <arg name="pedestrians_drl_vo_topic" default="/track_ped"/>
     <!-- Input to the people data converter (interface) - output is the above -->
