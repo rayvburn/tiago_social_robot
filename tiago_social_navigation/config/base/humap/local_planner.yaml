@@ -1,5 +1,5 @@
 # Parameters placed here overwrite default values from dynamic reconfigure
-base_local_planner: hubero_local_planner/HuberoPlannerROS
+base_local_planner: humap_local_planner/HumapPlannerROS
 
 # related to LatchedStopRotateController (helper)
 latch_xy_goal_tolerance: false
@@ -14,7 +14,7 @@ global_costmap:
 local_costmap:
   update_frequency: 4.0
 
-HuberoPlannerROS:
+HumapPlannerROS:
   costmap_converter_plugin: "costmap_converter::CostmapToPolygonsDBSConcaveHull"
   costmap_converter_rate: 2.0
   costmap_converter_spin_thread: true

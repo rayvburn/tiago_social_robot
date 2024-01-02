@@ -9,9 +9,9 @@
 - git: {local-name: people_msgs_utils_vis, uri: 'git@github.com:rayvburn/people_msgs_utils_vis.git', version: 'melodic-devel'}
 - git: {local-name: navigation_layers, uri: 'git@github.com:rayvburn/navigation_layers.git', version: 'melodic-devel-social-layers'}
 
-# HuBeRo and dependencies
+# HUMAP and dependencies
 - git: {local-name: costmap_converter, uri: 'git@github.com:rayvburn/costmap_converter.git', version: 'overall-adjustments'}
-- git: {local-name: hubero_local_planner, uri: 'git@github.com:rayvburn/hubero_local_planner.git', version: 'planning-first-attempt'}
+- git: {local-name: humap_local_planner, uri: 'git@github.com:rayvburn/humap_local_planner.git', version: 'planning-humap'}
 - git: {local-name: navigation, uri: 'git@github.com:rayvburn/navigation.git', version: 'scored-sampling-planner-fallback-generators-param'}
 
 # customized TEB local planner
