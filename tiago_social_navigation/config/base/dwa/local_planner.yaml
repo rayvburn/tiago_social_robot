@@ -11,6 +11,7 @@ DWAPlannerROS:
   acc_lim_y: 0.0
 
   max_vel_x: 0.5
+  # in some areas, keeping this negative might result in a robot switching to a permanent backward motion
   min_vel_x: -0.1
 
   max_vel_y: 0.0
@@ -44,8 +45,8 @@ DWAPlannerROS:
   vy_samples: 0
   vtheta_samples: 40
 
-  controller_frequency: 10.0
-  sim_period: 0.1 #
+  # NOTE: the planner class searches for `controller_frequency` param but it's best to load the `move_base`'s param;
+  # based on the `controller_frequency`, it computes the `sim_period`
 
   # Goal Tolerance Parameters
   xy_goal_tolerance: 0.2
