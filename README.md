@@ -63,6 +63,21 @@ Search for `pmb2_robot/pmb2_description/urdf/sensors/sick_tim571_laser.gazebo.xa
 <visualize>false</visualize>
 ```
 
+### `ros::ConflictingSubscriptionException`
+
+When getting this kind of output:
+
+```console
+[ INFO] [1704303096.648084758, 15.928000000]: Persons: [], Goal: []
+terminate called after throwing an instance of 'ros::ConflictingSubscriptionException'
+  what():  Tried to subscribe to a topic with the same name but different md5sum as a topic that was already subscribed [geometry_msgs/PoseStamped/d3812c3cbc69362b77dc0b19b345f8f5 vs. spencer_tracking_msgs/TrackedPersons/21c0b1a57c4933e68f39aa3802861828]
+[move_base-22] process has died [pid 5686, exit code -6, cmd /<ROS_WS_DIR>/devel/lib/move_base/move_base odom:=/mobile_base_controller/odom cmd_vel:=/nav_vel __name:=move_base __log:=/<USER_HOMEDIR>/.ros/log/5ce10b00-a8a0-11ee-be21-a4c4949b3b6a/move_base-22.log].
+log file: /<USER_HOMEDIR>/.ros/log/5ce10b00-a8a0-11ee-be21-a4c4949b3b6a/move_base-22*.log
+[move_base-22] restarting process
+```
+
+it seems that the selected `costmap_contexts` are `socially_normative`. In such a situation, make sure that the local planner selected is `srl_eband`. If the local planner is not intended to be `srl_eband`, change the `costmap_contexts` to, e.g., `social_extended`.
+
 ### Chaining multiple ROS workspaces
 
 Assuming that you have workspaces designated for:
