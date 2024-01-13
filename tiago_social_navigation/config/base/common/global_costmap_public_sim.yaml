@@ -85,7 +85,8 @@ global_costmap:
   fformation_layer:
     enabled: true
     # being at the center of the F-formation normally does not mean a collision
-    amplitude: 127.0
+    # a significant cost but a "non-collision"
+    amplitude: 250.0
     cutoff: 15.0
     keep_time: 30.0
     min_track_reliability_to_keep: 0.8
