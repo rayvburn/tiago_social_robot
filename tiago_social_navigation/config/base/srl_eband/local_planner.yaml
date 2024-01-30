@@ -1,0 +1,51 @@
+# NOTE:
+# Parameters overwritten in the .launch file corresponding to this planner are commented out.
+# Parameters that are kept default are not listed here.
+
+# Original configuration reference:
+# https://github.com/makokal/socially_normative_navigation/blob/aeb6bfbb709f0f495e9314f740f652975cf216f0/snn_launchers/launch/run_planning.launch#L22
+base_local_planner: srl_eband_local_planner/SrlEBandPlannerROS
+
+# ----------------------------------
+# Original configuration reference:
+# https://github.com/makokal/socially_normative_navigation/blob/master/snn_launchers/config/move_base_parameters/move_base.yaml
+
+# global planning frequency, when 0 only plans on new goal once
+planner_frequency: 2.0
+
+# local planner frequency, cmd_vel is published at this rate
+controller_frequency: 12.0
+
+# time to wait for global planner before starting recovery
+planner_patience: 10.0
+
+# time to wait for local planner before starting recovery
+controller_patience: 8.0
+
+# ----------------------------------
+# Original configuration reference:
+# https://github.com/makokal/socially_normative_navigation/blob/master/snn_launchers/config/move_base_parameters/srl_eband_params.yaml
+
+SrlEBandPlannerROS:
+  # Robot configuration parameters
+  # max_acceleration:
+  # max_translational_acceleration:
+  # max_rotational_acceleration:
+  # limit_acc:
+
+  # max_vel_lin:
+  # min_vel_lin:
+  # max_vel_th:
+  # min_vel_th:
+  # max_rotational_velocity_turning_on_spot:
+  # trans_vel_goal:
+  # start_to_stop_goal:
+
+  # Goal Tolerance Parameters
+  # xy_goal_tolerance:
+  # yaw_goal_tolerance:
+
+  differential_drive: true
+
+  # within the namespace of the planner node
+  local_path_topic: "local_plan"

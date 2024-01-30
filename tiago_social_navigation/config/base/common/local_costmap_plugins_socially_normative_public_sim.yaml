@@ -1,0 +1,14 @@
+# A special configuration of plugins for the SRL Elastic Band local planner (srl_eband), ref:
+# Okal, Arras: "Learning Socially Normative Robot Navigation Behaviors using Bayesian Inverse Reinforcement Learning"
+
+# Independent settings for the local costmap
+local_costmap:
+  plugins:
+    - name: obstacle_laser_layer
+      type: 'costmap_2d::ObstacleLayer'
+    - name: obstacle_sonar_layer
+      type: 'range_sensor_layer::RangeSensorLayer'
+    - name: obstacle_rgbd_layer
+      type: 'costmap_2d::ObstacleLayer'
+    - name: inflation_layer
+      type: 'costmap_2d::InflationLayer'

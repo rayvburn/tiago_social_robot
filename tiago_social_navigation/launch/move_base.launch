@@ -8,9 +8,13 @@
   <arg name="global_planner" default="global_planner"/>
   <arg name="local_planner"  default="pal"/>
 
-  <arg name="odom"    default="mobile_base_controller/odom"/>
+  <arg name="costmap_contexts"  default="social"/>
+  <arg name="costmap_contexts_suffix" value="_$(arg costmap_contexts)"/>
+  <arg name="allow_clearing_map_obstacles" default="true"/>
+
+  <arg name="odom"    default="/mobile_base_controller/odom"/>
   <arg name="subtype" default=""/>
-  <arg name="cmd_vel" default="nav_vel"/>
+  <arg name="cmd_vel" default="/nav_vel"/>
 
   <arg name="debug"      default="false"/>
   <arg name="launch_prefix" value="gdb -ex run --args"     if="$(arg debug)"/>
@@ -32,9 +36,11 @@
   <arg name="multiple" default="false"/>
   <arg name="robot_namespace" default=""/>
 
+  <arg name="scan_topic" default="/scan"/>
+
   <!-- Since `social_navigation` can use planner benchmarking, default log file will be placed in `HOME` directory -->
-  <arg name="benchmark_log_file" default="$(env HOME)/log_$(arg global_planner)_$(arg local_planner).txt" unless="$(arg multiple)"/>
-  <arg name="benchmark_log_file" default="$(env HOME)/log_$(arg robot_namespace)_$(arg global_planner)_$(arg local_planner).txt" if="$(arg multiple)"/>
+  <arg name="benchmark_log_file" default="$(env HOME)/log_$(arg global_planner)_$(arg local_planner)_$(arg costmap_contexts).txt" unless="$(arg multiple)"/>
+  <arg name="benchmark_log_file" default="$(env HOME)/log_$(arg robot_namespace)_$(arg global_planner)_$(arg local_planner)_$(arg costmap_contexts).txt" if="$(arg multiple)"/>
 
   <node pkg="$(arg move_base_pkg)" type="$(arg move_base_type)" name="move_base" clear_params="true" output="screen" respawn="true" launch-prefix="$(arg launch_prefix)">
     <remap from="odom"    to="$(arg odom)"/>
@@ -43,10 +49,13 @@
     <rosparam command="load" file="$(arg config_base_path)/config/base/common/move_base.yaml"/>
     <rosparam command="load" file="$(arg config_base_path)/config/base/common/recovery_behaviors$(arg rgbd_suffix).yaml"/>
     
-    <rosparam command="load" file="$(arg config_base_path)/config/base/common/global_costmap_plugins$(arg sim_suffix)$(arg rgbd_suffix)$(arg base_type_suffix).yaml"/>
+    <rosparam command="load" file="$(arg config_base_path)/config/base/common/global_costmap_plugins$(arg costmap_contexts_suffix)$(arg sim_suffix)$(arg rgbd_suffix)$(arg base_type_suffix).yaml"/>
     <rosparam command="load" file="$(arg config_base_path)/config/base/common/global_costmap$(arg sim_suffix)$(arg base_type_suffix).yaml"/>
-      
-    <rosparam command="load" file="$(arg config_base_path)/config/base/common/local_costmap_plugins$(arg sim_suffix)$(arg rgbd_suffix)$(arg base_type_suffix).yaml"/>
+    <!-- global costmap parameter overwrite -->
+    <param name="global_costmap/obstacle_laser_layer/combination_method" value="0" if="$(arg allow_clearing_map_obstacles)"/>
+    <param name="global_costmap/obstacle_laser_layer/combination_method" value="1" unless="$(arg allow_clearing_map_obstacles)"/>
+
+    <rosparam command="load" file="$(arg config_base_path)/config/base/common/local_costmap_plugins$(arg costmap_contexts_suffix)$(arg sim_suffix)$(arg rgbd_suffix)$(arg base_type_suffix).yaml"/>
     <rosparam command="load" file="$(arg config_base_path)/config/base/common/local_costmap$(arg sim_suffix)$(arg base_type_suffix).yaml"/>
 
     <rosparam command="load" file="$(arg config_base_path)/config/base/global_planner/$(arg global_planner).yaml"/>
@@ -72,10 +81,14 @@
     <param if="$(arg multiple)" name="local_planner/laser_frame" value="$(arg robot_namespace)/base_laser_link"/>
     <param if="$(arg multiple)" name="local_planner/base_frame" value="$(arg robot_namespace)/base_link"/>
 
-    <param if="$(arg multiple)" name="local_planner/base_frame" value="$(arg robot_namespace)/base_link"/>
+    <!-- sensor topic selection -->
+    <param name="global_costmap/obstacle_laser_layer/base_scan/topic" value="$(arg scan_topic)"/>
+    <param name="local_costmap/obstacle_laser_layer/base_scan/topic" value="$(arg scan_topic)"/>
 
     <!-- In case of planner benchmarking -->
-    <param name="log_filename" value="$(arg benchmark_log_file)"/>
+    <param name="srpb/log_filename" value="$(arg benchmark_log_file)"/>
+    <!-- data collected in 'map' frame aggregates floating TF odom->map, provides more accurate data visualisation -->
+    <param name="srpb/log_frame_id" value="map"/>
   </node>
 
   <arg name="debug_rgbd" default="false"/>

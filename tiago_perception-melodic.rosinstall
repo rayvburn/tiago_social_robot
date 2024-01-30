@@ -1,5 +1,5 @@
 # valid for e.g. ROS Melodic running at Ubuntu 18.04
-- git: {local-name: spencer_people_tracking, uri: 'https://github.com/rayvburn/spencer_people_tracking.git', version: 'melodic-devel'}
+- git: {local-name: spencer_people_tracking, uri: 'git@github.com:rayvburn/spencer_people_tracking.git', version: 'melodic-devel'}
 
 # NOTE: on some machines, dynamic_reconfigure may cause problems like below:
 #

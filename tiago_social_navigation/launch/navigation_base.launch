@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Launch designated for TIAGo navigation basic setup -->
+<launch>
+  <!-- Based on: tiago_simulation/tiago_2dnav_gazebo/launch/navigation.launch -->
+  <!-- === ARGUMENTS ========================================================================== -->
+  <arg name="public_sim" default="true"/>
+
+  <arg name="multiple" default="false"/>
+  <!-- If nodes of a certain robot should be put into global namespace, leave the default -->
+  <arg name="robot_namespace" default=""/>
+
+  <!-- localization / mapping -->
+  <arg name="state" default="localization"/>
+  <arg name="planner" default="base"/>
+  <arg name="benchmark" default="false"/>
+  <arg name="global_planner" default="navfn"/>
+  <arg name="local_planner"  default="$(eval 'teb' if (arg('public_sim') or arg('base_type')=='omni_base') else 'pal')"/>
+  <!-- Selection: (traditional|social|social_extended) -->
+  <arg name="costmap_contexts" default="social"/>
+  <arg name="localization" default="amcl"/>
+  <arg name="mapping" default="gmapping"/>
+  <arg name="octomap" default="false"/>
+  <arg name="rgbd_sensors" default="false"/>
+
+  <!-- Scan topic name; namespacing (for multiple robots) is handled in other files -->
+  <!-- Raw readings -->
+  <arg name="scan_topic_raw" default="scan_raw"/>
+  <!-- Filtered scan -->
+  <arg name="scan_topic_filtered" default="scan"/>
+  <!-- Scan used for navigation, eliminates readings that shoot into base -->
+  <arg name="scan_topic_narrow" default="scan_narrow"/>
+  <!-- Set to false if `scan_topic_filtered` should be used for navigation. Otherwise scan processed with
+  `lidar_shrunker_node` will be used instead. -->
+  <arg name="narrow_laser_range" default="false"/>
+  <!-- Evaluate which scan topic should be used for navigation -->
+  <arg name="scan_topic" value="$(arg scan_topic_filtered)" unless="$(arg narrow_laser_range)"/>
+  <arg name="scan_topic" value="$(arg scan_topic_narrow)" if="$(arg narrow_laser_range)"/>
+
+  <arg name="map_topic" default="map"/>
+
+  <!-- path to the directory under 'config' and YAML files are placed in -->
+  <arg name="config_base_path" default="$(find tiago_social_navigation)"/>
+  <!-- specific robot model setup -->
+  <arg name="laser_model" default="sick-571"/>
+  <!-- NOTE: 'omni_base' will require different config and will likely not run properly -->
+  <arg name="base_type" default="pmb2"/>
+  
+  <!-- localization prerequisites. NOTE: if set to 'none', map server will not be started -->
+  <arg name="map" default="$(env HOME)/.pal/tiago_maps/config/map.yaml"/>
+  <!--
+    Whether sensor data can clear original occupancy grid selected via `map` arg.
+    It's safer to keep that at `true` when you are expecting the actual environment to differ from the created
+    occupancy grid, e.g., if during the recording there were some unusual obstacles. However, it will be problematic
+    when the environment is broad and the robot aims to travel long distances - it may clear existing lethal
+    obstacles if they are not currently in the sensors range and the global planner will expose plans that go through
+    walls etc. making robot go back and forth with periodically changing global plan.
+    Set it to `false` when during the map recording the environment was clean and tidy - this will only add obstacles
+  -->
+  <arg name="allow_clearing_map_obstacles" default="true"/>
+  
+  <!-- initial pose estimation if 'state' is set to 'localization' -->
+  <!-- replaces PAL-specific design that uses '$(env HOME)/.pal/pose.yaml' to load initial pose estimate -->
+  <arg name="localization_pose_estimate" default="$(arg config_base_path)/config/localization/pose_estimate.yaml"/>
+  
+  <!-- file suffixes -->
+  <arg name="base_type_suffix" value="" unless="$(eval arg('base_type') == 'omni_base')"/>
+  <arg name="base_type_suffix" value="_omni" if="$(eval arg('base_type') == 'omni_base')"/>
+  <arg name="sim_suffix" value="" unless="$(arg public_sim)"/>
+  <arg name="sim_suffix" value="_public_sim" if="$(arg public_sim)"/>
+
+  <!-- Paths to configuration files -->
+  <arg name="localization_config" default="$(arg config_base_path)/config/localization/$(arg localization)$(arg base_type_suffix).yaml"/>
+  <arg name="mapping_config" default="$(arg config_base_path)/config/mapping/$(arg mapping)$(arg base_type_suffix).yaml"/>
+  <arg name="state_machine_config" default="$(arg config_base_path)/config/state_machine/state_machine$(arg sim_suffix)$(arg base_type_suffix).yaml"/>
+
+  <!-- === NODES ============================================================================== -->
+  <!-- Localization or Mapping state -->
+  <!-- Let the script below recognize empty argument value as a valid one -->
+  <arg name="robot_namespace_nav_script" if="$(eval arg('robot_namespace') == '')" value="/"/>
+  <arg name="robot_namespace_nav_script" unless="$(eval arg('robot_namespace') == '')" value="$(arg robot_namespace)"/>
+  <node pkg="tiago_social_navigation" type="navigation.sh" name="navigation"
+        args="tiago $(arg state) $(arg localization) $(arg mapping) $(arg map) $(arg octomap) $(arg scan_topic) $(arg laser_model) $(arg base_type) $(arg multiple) $(arg robot_namespace_nav_script) $(arg map_topic) $(arg localization_pose_estimate) $(arg localization_config) $(arg mapping_config)" output="screen"/>
+
+  <!-- Navigation State Machine -->
+  <!-- Custom '2dnav_state_machine' to allow override of 'config' parameter -->
+  <include file="$(find tiago_social_navigation)/launch/2dnav_state_machine.launch">
+    <arg name="state" value="$(arg state)"/>
+    <arg name="public_sim" value="$(arg public_sim)"/>
+    <arg if="$(arg multiple)" name="base_frame" value="/$(arg robot_namespace)/base_footprint"/>
+    <arg if="$(arg multiple)" name="map_frame" value="/$(arg robot_namespace)/map"/>
+    <arg name="base_type" value="$(arg base_type)"/>
+    <arg name="config" value="$(arg state_machine_config)"/>
+  </include>
+
+  <!-- Planning -->
+  <!-- Instead of `tiago_2dnav` launch (`move_<planner>`), a custom launch was created -->
+  <include file="$(find tiago_social_navigation)/launch/move_$(arg planner).launch">
+    <!-- typical `move_base` node launched if `benchmark` set to false -->
+    <arg name="move_base_pkg" value="move_base" unless="$(arg benchmark)"/>
+    <arg name="move_base_type" value="move_base" unless="$(arg benchmark)"/>
+    <!-- `srpb_move_base` node will be launched if `benchmark` set to true -->
+    <arg name="move_base_pkg" value="srpb_move_base" if="$(arg benchmark)"/>
+    <arg name="move_base_type" value="srpb_move_base" if="$(arg benchmark)"/>
+    <!-- other parameters -->
+    <arg name="global_planner" value="$(arg global_planner)"/>
+    <arg name="local_planner"  value="$(arg local_planner)"/>
+    <arg name="costmap_contexts"  value="$(arg costmap_contexts)"/>
+    <arg name="public_sim"     value="$(arg public_sim)"/>
+    <arg name="rgbd_sensors"   value="$(arg rgbd_sensors)"/>
+    <arg name="robot_namespace"      value="$(arg robot_namespace)"/>
+    <arg name="multiple"       value="$(arg multiple)"/>
+    <arg name="config_base_path" value="$(arg config_base_path)"/>
+    <arg name="base_type"       value="$(arg base_type)"/>
+    <arg name="allow_clearing_map_obstacles" value="$(arg allow_clearing_map_obstacles)"/>
+    <!-- dynamically selected sensor topic -->
+    <arg name="scan_topic" value="$(arg scan_topic)"/>
+  </include>
+
+  <!-- VO map server -->
+  <group unless="$(arg public_sim)">
+    <include file="$(find pal_vo_server)/launch/vo_server.launch">
+      <arg name="fill_with_unknown" value="true"/>
+      <arg name="vo_resolution" value="0.3"/>
+    </include>
+  </group>
+
+  <!-- Robot Pose Publisher -->
+  <include file="$(find robot_pose)/launch/robot_pose.launch">
+    <arg name="robot_prefix"      value="$(arg robot_namespace)"/>
+  </include>
+
+  <group if="$(eval arg('base_type') == 'omni_base')">
+    <!-- Laser Scan Merger -->
+    <node pkg="ira_laser_tools" name="laserscan_multi_merger" type="laserscan_multi_merger" output="screen"
+      launch-prefix="bash -c 'sleep 5; $0 $@' ">
+      <param name="destination_frame" value="virtual_base_laser_link"/>
+      <param name="cloud_destination_topic" value="/merged_cloud"/>
+      <param name="scan_destination_topic" value="/scan_raw"/>
+      <param name="laserscan_topics" value ="/scan_front_raw /scan_rear_raw" /> 
+      <param name="time_increment" value ="0.0" /> 
+      <param name="scan_time" value ="0.0" /> 
+      <param name="range_min" value ="0.05" /> 
+      <param name="range_max" value ="25.0" /> 
+      <param name="angle_min" value ="-3.1459" /> 
+      <param name="angle_max" value ="3.1459" /> 
+      <param name="angle_increment" value ="0.005769" /> 
+    </node>
+  </group>
+
+  <!-- Laser filter (empty for public sim) -->
+  <node name="laser_filter" pkg="laser_filters" type="scan_to_scan_filter_chain">
+    <rosparam file="$(find tiago_laser_sensors)/config/$(arg laser_model)_filter.yaml" 
+              command="load" 
+              unless="$(eval arg('public_sim') or arg('multiple'))"/> 
+    <remap from="scan"          to="$(arg scan_topic_raw)"/>
+    <remap from="scan_filtered" to="$(arg scan_topic_filtered)"/>
+  </node>
+
+  <!-- Prevents robot current pose from being treated as occupied by obstacle. Caused by LiDAR pointing straight
+  into the edges of the mobile base. Ran only when `narrow_laser_range` is set to True -->
+  <node pkg="tiago_social_navigation" type="lidar_shrunker_node.py" name="lidar_shrunker_node"
+        args="$(arg scan_topic_filtered) $(arg scan_topic_narrow)" output="screen" if="$(arg narrow_laser_range)"/>
+
+  <!-- sensor processing  -->
+  <group if="$(arg public_sim)">
+    <!-- pointcloud to laserscan - common for the simulated and real setups -->
+    <include file="$(find tiago_laser_sensors)/launch/rgbd_cloud_laser.launch">
+      <arg name="cloud" value="/xtion/depth_registered/points"/>
+    </include>
+  </group>
+  <group unless="$(arg public_sim)">
+    <include file="$(find pal_loc_measure)/launch/pal_loc_measure.launch">
+      <arg name="training" value="False"/>
+    </include>
+  </group>
+</launch>

@@ -1,22 +1,58 @@
 # valid for e.g. ROS Melodic running at Ubuntu 18.04
-- git: {local-name: costmap_converter, uri: https://github.com/rayvburn/costmap_converter.git, version: 'overall-adjustments'}
-- git: {local-name: hubero_local_planner, uri: 'https://github.com/rayvburn/hubero_local_planner.git', version: 'melodic'}
-- git: {local-name: move_base_benchmark, uri: https://github.com/rayvburn/move_base_benchmark.git, version: 'melodic-devel-benchmark'}
-# until gets merged to upstream (`melodic-devel`)
-- git: {local-name: navigation, uri: https://github.com/rayvburn/navigation.git, version: 'scored-sampling-planner-fallback-generators-param'}
-- git: {local-name: people_msgs_utils, uri: https://github.com/rayvburn/people_msgs_utils', version: 'covariances-support'}
+# benchmark and dependencies
+- git: {local-name: benchmark/srpb_move_base, uri: 'git@github.com:rayvburn/srpb_move_base.git', version: 'melodic-devel-srpb'}
+- git: {local-name: benchmark/srpb, uri: 'git@github.com:rayvburn/srpb.git', version: 'eval-scripts-parameterization'}
+
+# common dependencies
+- git: {local-name: social_nav_utils, uri: 'git@github.com:rayvburn/social_nav_utils.git', version: 'passing-speed-normalization'}
+- git: {local-name: people_msgs_utils, uri: 'git@github.com:rayvburn/people_msgs_utils', version: 'master'}
+- git: {local-name: people_msgs_utils_vis, uri: 'git@github.com:rayvburn/people_msgs_utils_vis.git', version: 'melodic-devel'}
+- git: {local-name: navigation_layers, uri: 'git@github.com:rayvburn/navigation_layers.git', version: 'melodic-devel-social-layers'}
+
+# HUMAP and dependencies
+- git: {local-name: costmap_converter, uri: 'git@github.com:rayvburn/costmap_converter.git', version: 'overall-adjustments'}
+- git: {local-name: humap_local_planner, uri: 'git@github.com:rayvburn/humap_local_planner.git', version: 'planning-humap'}
+- git: {local-name: navigation, uri: 'git@github.com:rayvburn/navigation.git', version: 'scored-sampling-planner-fallback-generators-param'}
 
 # customized TEB local planner
-- git: {local-name: teb_local_planner, uri: 'https://github.com/rayvburn/teb_local_planner.git', version: 'melodic-devel-robot-footprint-model-access-fix'}
+- git: {local-name: teb_local_planner, uri: 'git@github.com:rayvburn/teb_local_planner.git', version: 'melodic-devel-robot-footprint-model-access-fix'}
 
 # HATeb local planner
-- git: {local-name: hateb/hateb_local_planner, uri: 'https://github.com/rayvburn/hateb_local_planner.git', version: 'dev_melodic_rename'}
+- git: {local-name: hateb/hateb_local_planner, uri: 'git@github.com:rayvburn/hateb_local_planner.git', version: 'dev_melodic_rename'}
 - git: {local-name: hateb/hanp_msgs, uri: 'https://github.com/harmishhk/hanp_msgs.git', version: 'time-to-goal'}
 - git: {local-name: hateb/hanp_prediction, uri: 'https://github.com/harmishhk/hanp_prediction.git', version: 'master'}
-- git: {local-name: hateb/hateb_planner_people_interface, uri: 'https://github.com/rayvburn/hateb_planner_people_interface.git', version: 'devel-melodic'}
+- git: {local-name: hateb/hateb_planner_people_interface, uri: 'git@github.com:rayvburn/hateb_planner_people_interface.git', version: 'devel-melodic'}
 
 # CoHAN local planner
-- git: {local-name: cohan/cohan_planner, uri: 'https://github.com/rayvburn/CoHAN_Planner.git', version: 'human-perception-fixes'}
-- git: {local-name: cohan/cohan_planner_people_interface, uri: 'https://github.com/rayvburn/cohan_planner_people_interface.git', version: 'devel-melodic'}
+- git: {local-name: cohan/cohan_planner, uri: 'git@github.com:rayvburn/CoHAN_Planner.git', version: 'human-perception-fixes'}
+- git: {local-name: cohan/cohan_planner_people_interface, uri: 'git@github.com:rayvburn/cohan_planner_people_interface.git', version: 'devel-melodic'}
 # One may also be interested in bringup system of the CoHAN_Planner
 # - git: {local-name: cohan/cohan_navigation, uri: 'https://github.com/sphanit/CoHAN_Navigation.git', version: 'master'}
+
+# EBand local planner
+- git: {local-name: eband_local_planner, uri: 'https://github.com/pal-robotics-forks/eband_local_planner.git', version: melodic-devel}
+
+# External local planner plugin
+- git: {local-name: external_local_planner, uri: 'git@github.com:rayvburn/external_local_planner.git', version: melodic-devel}
+
+# SARL* planner
+- git: {local-name: sarl_star, uri: 'git@github.com:rayvburn/sarl_star.git', version: melodic-devel-cleanup}
+
+# (SA)CADRL planner
+- git: {local-name: cadrl/cadrl_ros, uri: 'git@github.com:rayvburn/cadrl_ros.git', version: melodic-devel}
+- git: {local-name: cadrl/ford_msgs, uri: 'https://bitbucket.org/acl-swarm/ford_msgs.git', version: master}
+- git: {local-name: cadrl/cadrl_ros_planner_interfaces, uri: 'git@github.com:rayvburn/cadrl_ros_planner_interfaces.git', version: melodic-devel}
+
+# Socially Normative Robot Navigation Behaviors (SRL Elastic Band)
+- git: {local-name: srl_eband/socially_normative_navigation, uri: 'git@github.com:rayvburn/socially_normative_navigation.git', version: melodic-devel}
+- git: {local-name: srl_eband/srl_eband_local_planner, uri: 'git@github.com:rayvburn/srl_eband_local_planner.git', version: melodic-devel}
+
+# Deep Reinforcement Learning Approach using the Proximal Policy Optimization (PPO)
+- git: {local-name: drl/drl_local_planner, uri: 'git@github.com:rayvburn/drl_local_planner_ros_stable_baselines.git', version: melodic-devel}
+## this one is from `repos_common.rosinstall` of the `drl_local_planner_ros_stable_baselines`
+- git: {local-name: drl/stable_baselines, uri: 'https://github.com/RGring/stable-baselines.git', version: added_1d_conv_layer}
+- git: {local-name: drl/drl_local_planner_ros_interface, uri: 'git@github.com:rayvburn/drl_local_planner_ros_interface.git', version: melodic-devel}
+
+# DRL-VO: Learning to Navigate Through Crowded Dynamic Scenes Using Velocity Obstacles
+- git: {local-name: drl_vo/drl_vo_nav, uri: 'git@github.com:rayvburn/drl_vo_nav.git', version: melodic-devel}
+- git: {local-name: drl_vo/drl_vo_nav_ros_interfaces, uri: 'git@github.com:rayvburn/drl_vo_nav_ros_interfaces.git', version: melodic-devel}

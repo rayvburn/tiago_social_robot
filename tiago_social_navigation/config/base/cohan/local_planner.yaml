@@ -16,21 +16,21 @@ CoHANLocalPlannerROS:
   allow_init_with_backwards_motion: False
   max_global_plan_lookahead_dist: 0.0
   feasibility_check_no_poses: 2
-  global_plan_viapoint_sep: 0.2
+  global_plan_viapoint_sep: -0.1 # with 0.2 the robot cuts through the corners (usually colliding with objects)
   disable_warm_start: True
   shrink_horizon_backup: True
 
   # Robot
-  holonomic_robot: True
-  max_vel_y: 0.7
-  acc_lim_y: 0.3
-  max_vel_x: 0.7
-  min_vel_x: 0.02
-  max_vel_x_backwards: 0.4
-  max_vel_theta: 1.2
-  min_vel_theta: 0.1
-  acc_lim_x: 0.3
-  acc_lim_theta: 0.4
+  holonomic_robot: False
+  max_vel_y: 0.0
+  acc_lim_y: 0.0
+  max_vel_x: 0.5
+  min_vel_x: 0.0
+  max_vel_x_backwards: 0.101
+  max_vel_theta: !degrees 60.0
+  min_vel_theta: !degrees 23.0
+  acc_lim_x: 1.0
+  acc_lim_theta: !degrees 60.0
   min_turning_radius: 0.0
   footprint_model:
     # types: "point", "circular", "two_circles", "line", "polygon"
@@ -48,7 +48,7 @@ CoHANLocalPlannerROS:
     # for type "polygon"
     vertices: [[-0.325, -0.325], [-0.325, 0.325], [0.325, 0.325], [0.46, 0.0], [0.325, -0.325]]
   # true avoids some strange TF processing
-  is_real: False
+  is_real: True
 
   # Humans
   human_radius: 0.3
@@ -61,7 +61,7 @@ CoHANLocalPlannerROS:
   human_acc_lim_x: 0.6
   human_acc_lim_y: 0.3
   human_acc_lim_theta: 0.8
-  use_external_prediction: True
+  use_external_prediction: False
   predict_human_behind_robot: True
   predict_human_goal: False
   human_robot_ttc_scale_alpha: 1.0
@@ -86,11 +86,11 @@ CoHANLocalPlannerROS:
 
   # GoalTolerance
   xy_goal_tolerance: 0.2
-  yaw_goal_tolerance: 0.1
+  yaw_goal_tolerance: !degrees 11.5
   free_goal_vel: True
 
   # Obstacles
-  min_obstacle_dist: 0.3
+  min_obstacle_dist: 0.35
   include_costmap_obstacles: True
   costmap_obstacles_behind_robot_dist: 0.5
   obstacle_poses_affected: 1
@@ -129,9 +129,9 @@ CoHANLocalPlannerROS:
   weight_human_acc_lim_y: 2
   weight_acc_lim_theta: 1
   weight_human_acc_lim_theta: 2
-  weight_kinematics_nh: 1.0
+  weight_kinematics_nh: 1000
   weight_kinematics_forward_drive: 1.0
-  weight_kinematics_turning_radius: 0
+  weight_kinematics_turning_radius: 1
   weight_optimaltime: 1.0
   weight_human_optimaltime: 3.0
   weight_obstacle: 50.0

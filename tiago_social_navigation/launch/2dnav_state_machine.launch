@@ -6,7 +6,11 @@
   <arg name="public_sim" default="false"/>
   <arg name="base_frame" default="/base_footprint"/>
   <arg name="map_frame" default="/map"/>
+
+  <!-- Real TIAGo has `pal_navigation_cfg_tiago` pkg with `state_machine.launch` that does not take `base_type` arg -->
+  <!-- This is a launch compatibility hack (we will not likely use with `base_type` other than `base_type_default`) -->
   <arg name="base_type" default="pmb2"/>
+  <arg name="base_type_default" value="pmb2"/>
 
   <!-- file suffixes -->
   <arg name="base_type_suffix" value="" unless="$(eval arg('base_type') == 'omni_base')"/>
@@ -22,6 +26,7 @@
     <arg name="public_sim" value="$(arg public_sim)"/>
     <arg name="base_frame" value="$(arg base_frame)"/>
     <arg name="map_frame" value="$(arg map_frame)"/>
-    <arg name="base_type" value="$(arg base_type)"/>
+    <!-- `base_type` is not supported on the real robot configuration -->
+    <arg name="base_type" value="$(arg base_type)" unless="$(eval arg('base_type') == arg('base_type_default'))"/>
   </include>
 </launch>

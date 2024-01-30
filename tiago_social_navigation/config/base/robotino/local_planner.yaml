@@ -4,11 +4,11 @@ RobotinoLocalPlanner:
   heading_lookahead: 1.0
   num_window_points: 10
 
-  max_linear_vel: 0.3
-  min_linear_vel: 0.025
+  max_linear_vel: 0.5
+  min_linear_vel: -0.1
 
-  max_rotation_vel: 0.6
-  min_rotation_vel: 0.1
+  max_rotation_vel: !degrees 60.0
+  min_rotation_vel: !degrees 23.0
 
-  xy_goal_tolerance: 0.1
-  yaw_goal_tolerance: 0.2
+  xy_goal_tolerance: 0.2
+  yaw_goal_tolerance: !degrees 11.5

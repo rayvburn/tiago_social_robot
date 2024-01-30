@@ -20,11 +20,11 @@ TebLocalPlannerROS:
 
   # Robot
   
-  max_vel_x: 1.0
-  max_vel_x_backwards: 0.15
-  max_vel_theta: 0.6
-  acc_lim_x: 0.2
-  acc_lim_theta: !degrees 45.0
+  max_vel_x: 0.5
+  max_vel_x_backwards: 0.101
+  max_vel_theta: !degrees 60.0
+  acc_lim_x: 1.0
+  acc_lim_theta: !degrees 60.0
   is_footprint_dynamic: true
   footprint_model:
     type: "circular"
@@ -33,7 +33,7 @@ TebLocalPlannerROS:
   # GoalTolerance
 
   xy_goal_tolerance: 0.2
-  yaw_goal_tolerance: 0.2
+  yaw_goal_tolerance: !degrees 11.5
   free_goal_vel: False
 
   # Obstacles

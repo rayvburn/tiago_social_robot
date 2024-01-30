@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Prepares navigation config for PMB2 base
+-->
+<launch>
+    <!-- === ARGUMENTS ========================================================================== -->
+    <!-- Set to true if map already provided by external components (`map_server` running) -->
+    <arg name="external_map" default="false"/>
+
+    <arg name="perception_launch" default="false"/>
+    <arg name="perception_input_topic" default="/spencer/perception/tracked_persons"/>
+    <arg name="perception_output_topic" default="/people"/>
+
+    <!-- Set to true if navigation modules should be launched -->
+    <arg name="navigation_launch" default="true"/>
+
+    <!-- Set to true if navigation benchmark should be enabled -->
+    <arg name="navigation_benchmark" default="false"/>
+
+    <arg name="global_planner" default="navfn"/>
+    <arg name="local_planner" default="teb"/>
+    <arg name="costmap_contexts" default="social"/>
+    <arg name="nav_state" default="localization"/>
+
+    <!--
+        Runs additional node that cuts edge readings so robot does not get stuck during navigation.
+        Should be false for the real robot.
+    -->
+    <arg name="narrow_laser_range" default="false"/>
+
+    <!-- Run debugging tools -->
+    <arg name="run_perception_viz" default="false"/>
+    <arg name="run_nav_viz" default="false"/>
+    <arg name="run_reconfigure" default="false"/>
+    <arg name="run_plot" default="false"/>
+
+    <!-- Automatic publishing of navigation goal -->
+    <arg name="publish_goal" default="false"/>
+    <arg name="publish_goal_delay" default="50"/>
+    <arg name="goal_file" default="provide_a_valid_yaml_with_PoseStamped"/>
+
+    <!-- Map and initial estimate of pose for localization -->
+    <arg name="map_file" default="provide_a_valid_YAML_with_map_metadata"/>
+    <!--
+        Multiroom or big environments (where robot's sensors not always detect all the obstacles etc.) should have
+        that set to `false` (requires clean and tidy map of the environment)
+    -->
+    <arg name="allow_clearing_map_obstacles" default="true"/>
+    <arg name="localization_pose_estimate" default="provide_a_valid_YAML_with_initial_pose_for_AMCL"/>
+
+    <!-- === NODES ============================================================================== -->
+    <group if="$(arg navigation_launch)">
+        <include file="$(find tiago_social_navigation)/launch/navigation_base.launch">
+            <arg name="state" value="$(arg nav_state)"/>
+            <arg name="map" if="$(arg external_map)" value="none"/>
+            <arg name="map" unless="$(arg external_map)" value="$(arg map_file)"/>
+            <arg name="allow_clearing_map_obstacles" value="$(arg allow_clearing_map_obstacles)"/>
+            <arg name="global_planner" value="$(arg global_planner)"/>
+            <arg name="local_planner" value="$(arg local_planner)"/>
+            <arg name="costmap_contexts" value="$(arg costmap_contexts)"/>
+            <arg name="localization_pose_estimate" value="$(arg localization_pose_estimate)"/>
+            <arg name="benchmark" value="$(arg navigation_benchmark)"/>
+            <arg name="narrow_laser_range" value="$(arg narrow_laser_range)"/>
+        </include>
+        <node pkg="rviz" name="rviz_nav" type="rviz" output="screen" if="$(arg run_nav_viz)"
+            args="-d $(find tiago_social_navigation)/rviz/tiago_navigation.rviz">
+        </node>
+        <node pkg="rostopic" type="rostopic" name="rostopic" if="$(arg publish_goal)" launch-prefix="bash -c 'sleep $(arg publish_goal_delay); $0 $@' " output="screen"
+            args="pub /move_base_simple/goal geometry_msgs/PoseStamped --latch --file=$(arg goal_file)">
+        </node>
+    </group>
+
+    <group if="$(arg perception_launch)">
+        <include file="$(find tiago_social_perception)/launch/tiago_spencer_tracking.launch">
+            <arg name="visualization" value="$(arg run_perception_viz)"/>
+            <arg name="tracks_topic" value="$(arg perception_input_topic)"/>
+            <arg name="people_topic" value="$(arg perception_output_topic)"/>
+        </include>
+        <!-- handy visualisation -->
+        <node pkg="people_msgs_utils_vis" name="social_perception_vis_node" type="visualization_node" output="screen">
+            <remap from="/people" to="$(arg perception_output_topic)"/>
+            <remap from="/people/markers" to="$(arg perception_output_topic)/markers"/>
+        </node>
+    </group>
+
+    <!-- Debugging tools (launched with the recent configuration) -->
+    <node pkg="rqt_reconfigure" name="rqt_reconfigure" type="rqt_reconfigure" if="$(arg run_reconfigure)"></node>
+
+    <node pkg="rqt_plot" name="rqt_plot" type="rqt_plot" if="$(arg run_plot)"></node>
+</launch>

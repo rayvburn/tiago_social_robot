@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <!--
+        Launches the following local planner:
+        https://github.com/rayvburn/drl_local_planner_ros_stable_baselines
+    -->
+    <arg name="ns" value="/"/>
+
+    <!-- Two scans merged to obtain a "2.5D projection" -->
+    <arg name="scan_laser_topic" value="/scan_narrow"/>
+    <arg name="scan_rgbd_topic" value="/rgbd_scan"/>
+
+    <arg name="scan_rl_input_topic" value="/scan_laser_rgbd_merged"/>
+    <!-- Below 2 must match the topic values from `rl_params_exec.yaml` -->
+    <arg name="scan_rl_front_topic" value="$(arg ns)/scan_narrow_rl_f"/>
+    <arg name="scan_rl_rear_topic" value="$(arg ns)/scan_narrow_rl_b"/>
+
+    <!-- launch the planner node (operates as the node instead of nav_core plugin) -->
+    <include file="$(find rl_bringup)/launch/setup_common.launch">
+        <arg name="ns" value="$(arg ns)" />
+        <arg name="mode" value="exec" />
+        <arg name="params_file_mode" value="$(find tiago_social_navigation)/config/base/drl/rl_params_exec.yaml" />
+
+        <!-- Common params define, e.g., the expected state representation -->
+        <arg name="state_representation" value="scan"/>
+        <arg name="params_file" value="$(find tiago_social_navigation)/config/base/drl/rl_params_common.yaml" />
+        <!-- Specify the name of the launch file in the package given by agent_launch_pkg -->
+        <arg name="agent_launch_pkg" default="rl_agent"/>
+        <!-- Different agents tested, e.g.,
+            `run_1_raw_disc.launch` mostly produces rotations without significant translational movements,
+            `run_3_raw_disc.launch` behaves similarly as the above
+        -->
+        <arg name="agent_launch_name" default="run_1_raw_cont.launch"/>
+    </include>
+
+    <!-- Merge obstacle measurements obtained from the laser scanner and RGBD camera -->
+    <node pkg="ira_laser_tools" name="laserscan_multi_merger" type="laserscan_multi_merger" output="screen">
+      <param name="cloud_destination_topic" value="$(arg scan_rl_input_topic)_pcl"/>
+      <param name="scan_destination_topic" value="$(arg scan_rl_input_topic)"/>
+      <param name="laserscan_topics" value ="$(arg scan_laser_topic) $(arg scan_rgbd_topic)" />
+      <!-- params of the scan from the laser, knowing that it covers more area than the RGBD scan -->
+      <param name="destination_frame" value="base_laser_link"/>
+      <param name="time_increment" value ="0.0" />
+      <param name="scan_time" value ="0.0" />
+      <param name="range_min" value ="0.05" />
+      <param name="range_max" value ="25.0" />
+      <param name="angle_min" value ="-1.91986000538" />
+      <param name="angle_max" value ="+1.91986000538" />
+      <param name="angle_increment" value ="0.00577401509508" />
+    </node>
+
+    <!-- Parameters of the adjusted scan selected according to the policy params (see agent_launch_name) -->
+    <node pkg="drl_local_planner_ros_interface" type="laser_scan_adapter_node" name="drl_scan_adapter_front">
+        <remap from="/scan" to="$(arg scan_rl_input_topic)" />
+        <remap from="/scan_adjusted" to="$(arg scan_rl_front_topic)" />
+
+        <param name="ranges_num" value="90" />
+        <param name="angle_increment" value="0.06981317007" />
+        <param name="angle_min" value="-3.141592653589793238462643383279502884197" />
+        <param name="angle_max" value="+3.141592653589793238462643383279502884197" />
+    </node>
+    <!-- Republish data obtained by the above adapter node -->
+    <!-- Args are: input_topic output_topic -->
+    <node pkg="topic_tools" type="relay" name="drl_scan_adapter_front_republisher"
+        args="$(arg scan_rl_front_topic) $(arg scan_rl_rear_topic)" >
+    </node>
+
+    <!--
+        SRPB's logger will use computation times obtained from the external topic instead of counting
+        the execution time of computeVelocityCommands
+    -->
+    <param name="/move_base/srpb/external_computation_times_topic" value="/rl_agent/computation_time"/>
+    <param name="/move_base/srpb/external_computation_times_array_index" value="1"/>
+</launch>
