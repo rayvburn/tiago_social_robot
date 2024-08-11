@@ -14,3 +14,6 @@
 #
 # Then, build it from source:
 # - git: {local-name: dynamic_reconfigure, uri: 'https://github.com/ros/dynamic_reconfigure.git', version: 'melodic-devel'}
+
+# an alternative to sensor-based perception - ground truth data integrated with HuBeRo actors API
+- git: {local-name: hubero_people_publisher, uri: 'git@github.com:rayvburn/hubero_people_publisher.git', version: 'master'}

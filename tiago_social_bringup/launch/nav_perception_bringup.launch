@@ -7,6 +7,12 @@
     <!-- Set to true if map already provided by external components (`map_server` running) -->
     <arg name="external_map" default="false"/>
 
+    <!--
+        Whether to use onboard sensory equipment for human detection and tracking (`spencer` human perception stack)
+        or use external, e.g., ground truth information (ground_truth_hubero) that outputs people_msgs/People on the
+        topic given by the `perception_output_topic`.
+        (false|spencer|ground_truth_hubero)
+    -->
     <arg name="perception_launch" default="false"/>
     <arg name="perception_input_topic" default="/spencer/perception/tracked_persons"/>
     <arg name="perception_output_topic" default="/people"/>
@@ -70,12 +76,25 @@
         </node>
     </group>
 
-    <group if="$(arg perception_launch)">
+    <!-- SPENCER perception stack -->
+    <group if="$(eval arg('perception_launch') == 'spencer')">
         <include file="$(find tiago_social_perception)/launch/tiago_spencer_tracking.launch">
             <arg name="visualization" value="$(arg run_perception_viz)"/>
             <arg name="tracks_topic" value="$(arg perception_input_topic)"/>
             <arg name="people_topic" value="$(arg perception_output_topic)"/>
         </include>
+    </group>
+
+    <!-- Ground truth people data from HuBeRo framework -->
+    <group if="$(eval arg('perception_launch') == 'ground_truth_hubero')">
+        <!-- NOTE: this method does not possess any visualization, hence `run_perception_viz` remains unused -->
+        <include file="$(find tiago_social_perception)/launch/hubero_people_tracking.launch">
+            <arg name="people_topic" value="$(arg perception_output_topic)"/>
+        </include>
+    </group>
+
+    <!-- Common modules -->
+    <group if="$(eval not arg('perception_launch') == 'false')">
         <!-- handy visualisation -->
         <node pkg="people_msgs_utils_vis" name="social_perception_vis_node" type="visualization_node" output="screen">
             <remap from="/people" to="$(arg perception_output_topic)"/>
