@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <!-- Contains common configuration for perception modules -->
+    <arg name="ns" default="people_extraction"/>
+    <arg name="world_frame" default="world"/>
+    <arg name="target_frame" default="odom"/>
+    <arg name="config_file" default="$(find people_extraction)/config/people.yaml"/>
+
+    <arg name="pub_frequency" default="10.0"/>
+    <!-- output topic -->
+    <arg name="people_topic" default="/people"/>
+    <arg name="position_topic" default="$(arg people_topic)_pos_measurement"/>
+
+    <include file="$(find people_extraction)/launch/people_extraction.launch">
+        <arg name="ns" value="$(arg ns)"/>
+        <arg name="world_frame" value="$(arg world_frame)"/>
+        <arg name="target_frame" value="$(arg target_frame)"/>
+        <arg name="config_file" value="$(arg config_file)"/>
+
+        <arg name="pub_frequency" value="$(arg pub_frequency)"/>
+        <arg name="people_topic" value="$(arg people_topic)"/>
+        <arg name="position_topic" value="$(arg position_topic)"/>
+    </include>
+</launch>

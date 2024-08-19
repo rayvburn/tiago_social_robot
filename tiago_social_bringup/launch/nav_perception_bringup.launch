@@ -9,12 +9,16 @@
 
     <!--
         Whether to use onboard sensory equipment for human detection and tracking (`spencer` human perception stack)
-        or use external, e.g., ground truth information (ground_truth_hubero) that outputs people_msgs/People on the
-        topic given by the `perception_output_topic`.
-        (false|spencer|ground_truth_hubero)
+        or use external, e.g., ground truth information (ground_truth) that outputs people_msgs/People on the topic
+        given by the `perception_output_topic`.
+        (false|spencer|ground_truth)
     -->
     <arg name="perception_launch" default="false"/>
+    <!-- Valid only when 'ground_truth' perception is selected -->
+    <arg name="perception_config" default=""/>
+    <!-- Valid only when 'spencer' perception is selected -->
     <arg name="perception_input_topic" default="/spencer/perception/tracked_persons"/>
+    <!-- Name of the output topic (valid in each configuration of 'perception_launch') -->
     <arg name="perception_output_topic" default="/people"/>
 
     <!-- Set to true if navigation modules should be launched -->
@@ -85,10 +89,11 @@
         </include>
     </group>
 
-    <!-- Ground truth people data from HuBeRo framework -->
-    <group if="$(eval arg('perception_launch') == 'ground_truth_hubero')">
+    <!-- Ground truth people data from Gazebo simulator and HuBeRo framework -->
+    <group if="$(eval arg('perception_launch') == 'ground_truth')">
         <!-- NOTE: this method does not possess any visualization, hence `run_perception_viz` remains unused -->
-        <include file="$(find tiago_social_perception)/launch/hubero_people_tracking.launch">
+        <include file="$(find tiago_social_perception)/launch/ground_truth_people_tracking.launch">
+            <arg name="config_file" value="$(arg perception_config)"/>
             <arg name="people_topic" value="$(arg perception_output_topic)"/>
         </include>
     </group>
