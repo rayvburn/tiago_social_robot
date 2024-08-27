@@ -14,6 +14,3 @@
 #
 # Then, build it from source:
 # - git: {local-name: dynamic_reconfigure, uri: 'https://github.com/ros/dynamic_reconfigure.git', version: 'melodic-devel'}
-
-# another alternative - ground truth data based on ModelStates from the Gazebo simulator
-- git: {local-name: people_extraction, uri: 'https://github.com/rayvburn/people_extraction.git', version: 'devel'}
