@@ -39,8 +39,10 @@
   <arg name="scan_topic" default="/scan"/>
 
   <!-- Since `social_navigation` can use planner benchmarking, default log file will be placed in `HOME` directory -->
-  <arg name="benchmark_log_file" default="$(env HOME)/log_$(arg global_planner)_$(arg local_planner)_$(arg costmap_contexts).txt" unless="$(arg multiple)"/>
-  <arg name="benchmark_log_file" default="$(env HOME)/log_$(arg robot_namespace)_$(arg global_planner)_$(arg local_planner)_$(arg costmap_contexts).txt" if="$(arg multiple)"/>
+  <!-- Specify the root directory for storing benchmark logs; let the filename be determined based on the args -->
+  <arg name="benchmark_logs_dir" default="$(env HOME)"/>
+  <arg name="benchmark_log_file" value="$(arg benchmark_logs_dir)/log_$(arg global_planner)_$(arg local_planner)_$(arg costmap_contexts).txt" unless="$(arg multiple)"/>
+  <arg name="benchmark_log_file" value="$(arg benchmark_logs_dir)/log_$(arg robot_namespace)_$(arg global_planner)_$(arg local_planner)_$(arg costmap_contexts).txt" if="$(arg multiple)"/>
 
   <node pkg="$(arg move_base_pkg)" type="$(arg move_base_type)" name="move_base" clear_params="true" output="screen" respawn="true" launch-prefix="$(arg launch_prefix)">
     <remap from="odom"    to="$(arg odom)"/>

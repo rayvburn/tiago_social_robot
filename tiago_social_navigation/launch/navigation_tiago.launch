@@ -18,6 +18,10 @@
   <!-- Module used for localization -->
   <arg name="localization" default="amcl"/>
 
+  <!-- benchmarking-cabable navigation -->
+  <arg name="benchmark" default="false"/>
+  <arg name="benchmark_logs_dir" default="$(env HOME)"/>
+
   <!-- specific robot model setup -->
   <arg name="laser_model" default="sick-571"/>
   <!-- Map server parameter -->
@@ -43,6 +47,8 @@
       <arg name="local_planner"  value="$(arg local_planner)"/>
       <arg name="costmap_contexts" value="$(arg costmap_contexts)"/>
       <arg name="localization"   value="$(arg localization)"/>
+      <arg name="benchmark" value="$(arg benchmark)"/>
+      <arg name="benchmark_logs_dir" value="$(arg benchmark_logs_dir)"/>
       <arg name="map"            value="$(arg map)"/>
       <arg name="public_sim"     value="$(arg public_sim)"/>
       <arg name="rgbd_sensors"   value="$(arg advanced_navigation)"/>

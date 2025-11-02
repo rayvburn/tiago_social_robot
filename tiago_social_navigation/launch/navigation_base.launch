@@ -12,9 +12,13 @@
   <!-- localization / mapping -->
   <arg name="state" default="localization"/>
   <arg name="planner" default="base"/>
-  <arg name="benchmark" default="false"/>
   <arg name="global_planner" default="navfn"/>
   <arg name="local_planner"  default="$(eval 'teb' if (arg('public_sim') or arg('base_type')=='omni_base') else 'pal')"/>
+
+  <!-- benchmarking-cabable navigation -->
+  <arg name="benchmark" default="false"/>
+  <arg name="benchmark_logs_dir" default="$(env HOME)/srpb_logs_devel"/>
+
   <!-- Selection: (traditional|social|social_extended) -->
   <arg name="costmap_contexts" default="social"/>
   <arg name="localization" default="amcl"/>
@@ -101,6 +105,7 @@
     <!-- `srpb_move_base` node will be launched if `benchmark` set to true -->
     <arg name="move_base_pkg" value="srpb_move_base" if="$(arg benchmark)"/>
     <arg name="move_base_type" value="srpb_move_base" if="$(arg benchmark)"/>
+    <arg name="benchmark_logs_dir" value="$(arg benchmark_logs_dir)"/>
     <!-- other parameters -->
     <arg name="global_planner" value="$(arg global_planner)"/>
     <arg name="local_planner"  value="$(arg local_planner)"/>

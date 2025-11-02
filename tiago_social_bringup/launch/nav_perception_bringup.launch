@@ -26,6 +26,8 @@
 
     <!-- Set to true if navigation benchmark should be enabled -->
     <arg name="navigation_benchmark" default="false"/>
+    <!-- Directory where benchmark logs should be stored. Note that this directory must exist during launch time. -->
+    <arg name="navigation_benchmark_logs_dir" default="$(env HOME)"/>
 
     <arg name="global_planner" default="navfn"/>
     <arg name="local_planner" default="teb"/>
@@ -70,6 +72,7 @@
             <arg name="costmap_contexts" value="$(arg costmap_contexts)"/>
             <arg name="localization_pose_estimate" value="$(arg localization_pose_estimate)"/>
             <arg name="benchmark" value="$(arg navigation_benchmark)"/>
+            <arg name="benchmark_logs_dir" value="$(arg navigation_benchmark_logs_dir)"/>
             <arg name="narrow_laser_range" value="$(arg narrow_laser_range)"/>
         </include>
         <node pkg="rviz" name="rviz_nav" type="rviz" output="screen" if="$(arg run_nav_viz)"
