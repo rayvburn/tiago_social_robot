@@ -10,18 +10,29 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <build_depend>tiago_2dnav_gazebo</build_depend>
-  <build_depend>tiago_gazebo</build_depend>
-  <build_depend>rospy</build_depend>
-  <build_depend>sensor_msgs</build_depend>
+  <depend>rospy</depend>
+  <depend>sensor_msgs</depend>
 
-  <build_export_depend>tiago_2dnav_gazebo</build_export_depend>
-  <build_export_depend>tiago_gazebo</build_export_depend>
+  <!-- Launch files dependencies -->
+  <exec_depend>pal_navigation_cfg_tiago</exec_depend>
+  <exec_depend>robot_pose</exec_depend>
+  <exec_depend>laser_filters</exec_depend>
+  <exec_depend>social_navigation_layers</exec_depend>
+  <exec_depend>tiago_laser_sensors</exec_depend>
 
-  <exec_depend>tiago_2dnav_gazebo</exec_depend>
-  <exec_depend>tiago_gazebo</exec_depend>
-  <exec_depend>rospy</exec_depend>
-  <exec_depend>sensor_msgs</exec_depend>
+  <!-- only for `advanced_navigation` -->
+  <!--
+  <exec_depend>pal_vo_server</exec_depend>
+  <exec_depend>pal_head_manager</exec_depend>
+  <exec_depend>tiago_2dnav</exec_depend>
+  <exec_depend>pal_zoi_detector</exec_depend>
+  <exec_depend>pal_waypoint</exec_depend>
+  <exec_depend>pal_navigation_manager</exec_depend>
+  <exec_depend>pal_map_utils</exec_depend>
+  -->
+
+  <!-- for `base_type` == `omni_base` and required by some local-planner-specific nodes for sensor data processing -->
+  <exec_depend>ira_laser_tools</exec_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

@@ -1,23 +1,28 @@
 base_local_planner: dwa_local_planner/DWAPlannerROS
 
+# slightly reduced due to multiple violations of desired frequency in real experiments
+controller_frequency:  4.0
+
 DWAPlannerROS:
   # Robot Configuration Parameters
-  acc_lim_x: 2.5
-  acc_lim_theta: 3.2
+  # Check config README if `DWA planner fails to produce path`
+  acc_lim_x: 1.0
+  acc_lim_theta: !degrees 60.0
   acc_lim_y: 0.0
 
-  max_vel_x: 1.5
-  min_vel_x: 0.0
+  max_vel_x: 0.5
+  # in some areas, keeping this negative might result in a robot switching to a permanent backward motion
+  min_vel_x: -0.1
 
   max_vel_y: 0.0
   min_vel_y: 0.0
 
   # The velocity when robot is moving in a straight line
-  max_vel_trans: 1.5
+  max_vel_trans: 0.5
   min_vel_trans: 0.1
 
-  max_vel_theta: 2.0
-  min_vel_theta: 0.4
+  max_vel_theta: !degrees 60.0
+  min_vel_theta: !degrees 23.0
 
   # Forward Simulation Parameters
   sim_time: 2.0
@@ -40,16 +45,16 @@ DWAPlannerROS:
   vy_samples: 0
   vtheta_samples: 40
 
-  controller_frequency: 10.0
-  sim_period: 0.1 #
+  # NOTE: the planner class searches for `controller_frequency` param but it's best to load the `move_base`'s param;
+  # based on the `controller_frequency`, it computes the `sim_period`
 
   # Goal Tolerance Parameters
-  xy_goal_tolerance: 0.1
-  yaw_goal_tolerance: 0.1
+  xy_goal_tolerance: 0.2
+  yaw_goal_tolerance: !degrees 11.5
   latch_xy_goal_tolerance: false
 
-  theta_stopped_vel: 0.01 #
-  trans_stopped_vel: 0.01 #
+  theta_stopped_vel: !degrees 6.0
+  trans_stopped_vel: 0.1
 
   # Debugging
   meter_scoring: true #

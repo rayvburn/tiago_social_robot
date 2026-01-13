@@ -1,17 +1,17 @@
 Panels:
   - Class: rviz/Displays
-    Help Height: 78
+    Help Height: 0
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /Planning1/Base1
+        - /Robot1/RobotModel1
+        - /Planning1/Base1/Global1
+        - /Planning1/Base1/Global1/Costmap1
         - /Planning1/Base1/Local1
         - /Mapping1/Map1
-        - /HuBeRo1
-        - /HuBeRo1/Visualization1
-        - /HuBeRo1/Visualization1/Marker1/Namespaces1
-      Splitter Ratio: 0.7919800281524658
-    Tree Height: 452
+        - /DRL1/PlannerMarkers1/Namespaces1
+      Splitter Ratio: 0.8500000238418579
+    Tree Height: 258
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -58,7 +58,7 @@ Visualization Manager:
       Value: true
     - Class: rviz/Group
       Displays:
-        - Alpha: 1
+        - Alpha: 0.9900000095367432
           Class: rviz/RobotModel
           Collision Enabled: false
           Enabled: true
@@ -68,45 +68,6 @@ Visualization Manager:
             Expand Link Details: false
             Expand Tree: false
             Link Tree Style: Links in Alphabetic Order
-            arm_1_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            arm_2_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            arm_3_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            arm_4_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            arm_5_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            arm_6_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            arm_7_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            arm_tool_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
             base_antenna_left_link:
               Alpha: 1
               Show Axes: false
@@ -211,204 +172,6 @@ Visualization Manager:
               Show Axes: false
               Show Trail: false
               Value: true
-            hand_grasping_frame:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            hand_index_abd_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_index_flex_1_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_index_flex_2_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_index_flex_3_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_index_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_index_virtual_1_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_index_virtual_2_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_index_virtual_3_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_little_abd_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_little_flex_1_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_little_flex_2_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_little_flex_3_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_little_virtual_1_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_little_virtual_2_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_little_virtual_3_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_middle_abd_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_middle_flex_1_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_middle_flex_2_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_middle_flex_3_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_middle_virtual_1_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_middle_virtual_2_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_middle_virtual_3_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_mrl_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_palm_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_ring_abd_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_ring_flex_1_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_ring_flex_2_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_ring_flex_3_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_ring_virtual_1_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_ring_virtual_2_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_ring_virtual_3_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_safety_box:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_thumb_abd_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_thumb_flex_1_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_thumb_flex_2_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_thumb_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_thumb_virtual_1_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_thumb_virtual_2_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            hand_tool_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
             head_1_link:
               Alpha: 1
               Show Axes: false
@@ -452,16 +215,6 @@ Visualization Manager:
               Show Trail: false
               Value: true
             wheel_right_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            wrist_ft_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            wrist_ft_tool_link:
               Alpha: 1
               Show Axes: false
               Show Trail: false
@@ -539,10 +292,18 @@ Visualization Manager:
           Class: rviz/Polygon
           Color: 25; 255; 0
           Enabled: true
-          Name: Footprint
-          Topic: move_base/local_costmap/footprint_layer/footprint_stamped
+          Name: Footprint Local
+          Topic: /move_base/local_costmap/footprint
           Unreliable: false
           Value: true
+        - Alpha: 1
+          Class: rviz/Polygon
+          Color: 25; 255; 0
+          Enabled: false
+          Name: Footprint Global
+          Topic: /move_base/global_costmap/footprint
+          Unreliable: false
+          Value: false
         - Alpha: 1
           Class: rviz/Polygon
           Color: 25; 255; 0
@@ -552,13 +313,13 @@ Visualization Manager:
           Unreliable: false
           Value: true
         - Class: rviz/Marker
-          Enabled: true
+          Enabled: false
           Marker Topic: twist_marker
           Name: Twist
           Namespaces:
-            "": true
+            {}
           Queue Size: 100
-          Value: true
+          Value: false
         - Class: rviz/Marker
           Enabled: false
           Marker Topic: text_marker
@@ -637,7 +398,7 @@ Visualization Manager:
               Color: 255; 170; 0
               Color Transformer: FlatColor
               Decay Time: 0
-              Enabled: true
+              Enabled: false
               Invert Rainbow: false
               Max Color: 255; 255; 255
               Min Color: 0; 0; 0
@@ -652,7 +413,7 @@ Visualization Manager:
               Unreliable: false
               Use Fixed Frame: true
               Use rainbow: true
-              Value: true
+              Value: false
             - Class: rviz/Camera
               Enabled: true
               Image Rendering: background and overlay
@@ -664,18 +425,88 @@ Visualization Manager:
               Unreliable: false
               Value: true
               Visibility:
+                CADRL markers:
+                  GlobalPath: true
+                  LocalGoal: true
+                  Marker: true
+                  MarkerArray: true
+                  Value: true
+                COHAN:
+                  Global Plan: true
+                  HumanArrow: true
+                  HumanGlobalPlans: true
+                  HumanLocalPlans: true
+                  HumanLocalPlansPoses: true
+                  HumanMarker: true
+                  HumanNextPose: true
+                  Local Plan: true
+                  LocalPlanPoses: true
+                  ModeText: true
+                  RobotNextPose: true
+                  TebMarkers: true
+                  Value: true
                 Control:
                   Move: true
                   Path: true
                   Value: true
                 CostmapConverter: true
+                DRL:
+                  LaserScanFront: true
+                  LaserScanRear: true
+                  PlannerMarkers: true
+                  Reward: true
+                  StateScanDebug: true
+                  Value: true
+                  WP1: true
+                  WP2: true
+                  WP3: true
+                  WP4: true
+                DRL-VO:
+                  LaserScan: true
+                  Pedestrians MarkerArray: true
+                  Value: true
+                DWA:
+                  Cost Cloud: true
+                  Global Plan: true
+                  Local Plan: true
+                  Trajectory Cloud: true
+                  Value: true
+                DetectedPersons: true
+                EBand:
+                  Global Plan: true
+                  Local Plan: true
+                  Value: true
+                  Visualization: true
+                  VisualizationArray: true
                 Grid: true
-                HuBeRo:
-                  Cost grid: true
+                HATEB:
+                  Global Plan: true
+                  HumanLocalPlanPoses: true
+                  Local Plan: true
+                  LocalPlanPoses: true
+                  TebMarkers: true
+                  Value: true
+                HUMAP Group intrusion recoveries: true
+                HuMAP:
+                  Cost Functions Paths:
+                    Alignment: true
+                    Goal Front: true
+                    Value: true
+                  Cost Grid PCL:
+                    Alignment: true
+                    Goal: true
+                    Goal Front: true
+                    Occ (Obstacle, Layered): true
+                    Path: true
+                    Total: true
+                    Value: true
                   ExecutedPath: true
                   GlobalPlan: true
+                  GlobalPlanPruned: true
+                  Group trajectory predictions: true
                   LocalPlan: true
-                  TTC prediction: true
+                  People trajectory predictions: true
+                  TTC markers: true
                   Trajectories explored: true
                   Value: true
                   Visualization:
@@ -695,8 +526,7 @@ Visualization Manager:
                   SLAM Graph Vertices: true
                   Trajectory: true
                   Value: true
-                Obstacles: true
-                PlaneMergerPos: true
+                People Markers Social Perception: true
                 Planning:
                   Base:
                     Global:
@@ -721,10 +551,12 @@ Visualization Manager:
                       Value: true
                     Value: true
                   Value: true
+                Pose: true
                 Robot:
                   Dynamic Footprint: true
                   Dynamics: true
-                  Footprint: true
+                  Footprint Global: true
+                  Footprint Local: true
                   Mode: true
                   Odometry: true
                   RobotModel: true
@@ -740,7 +572,37 @@ Visualization Manager:
                   TF: true
                   Twist: true
                   Value: true
-                TEBMarkers: true
+                SARL/SARL*:
+                  Action: true
+                  GlobalPath: true
+                  Goal: true
+                  LocalGoal: true
+                  RobotMarker: true
+                  TrajectoryMarker: true
+                  Value: true
+                SRL-EBand:
+                  EBand Vis: true
+                  EBand Vis Array: true
+                  Global Plan: true
+                  Local Plan: true
+                  Predicted Human Poses: true
+                  Predicted Robot Traj: true
+                  Repaired EBand Path: true
+                  Repaired Plan: true
+                  Value: true
+                TEB:
+                  Global Plan: true
+                  Local Plan: true
+                  TebMarkers: true
+                  TebPoses: true
+                  Value: true
+                TrackedPersonsHogUb: true
+                TrackedPersonsUnfiltered: true
+                Trajectory:
+                  Cost Cloud: true
+                  Global Plan: true
+                  Local Plan: true
+                  Value: true
                 Value: true
               Zoom Factor: 1
             - Alpha: 1
@@ -755,7 +617,7 @@ Visualization Manager:
               Color: 85; 0; 127
               Color Transformer: FlatColor
               Decay Time: 0
-              Enabled: true
+              Enabled: false
               Invert Rainbow: false
               Max Color: 255; 255; 255
               Min Color: 0; 0; 0
@@ -770,7 +632,7 @@ Visualization Manager:
               Unreliable: false
               Use Fixed Frame: true
               Use rainbow: true
-              Value: true
+              Value: false
             - Alpha: 1
               Autocompute Intensity Bounds: true
               Autocompute Value Bounds:
@@ -783,7 +645,7 @@ Visualization Manager:
               Color: 255; 255; 255
               Color Transformer: Intensity
               Decay Time: 0
-              Enabled: true
+              Enabled: false
               Invert Rainbow: false
               Max Color: 255; 255; 255
               Min Color: 0; 0; 0
@@ -798,17 +660,17 @@ Visualization Manager:
               Unreliable: false
               Use Fixed Frame: true
               Use rainbow: true
-              Value: true
+              Value: false
             - Alpha: 0.5
               Buffer Length: 1
               Class: rviz/Range
               Color: 0; 0; 255
-              Enabled: true
+              Enabled: false
               Name: Sonars
               Queue Size: 100
               Topic: /sonar_base
               Unreliable: false
-              Value: true
+              Value: false
             - Alpha: 1
               Autocompute Intensity Bounds: true
               Autocompute Value Bounds:
@@ -821,7 +683,7 @@ Visualization Manager:
               Color: 255; 255; 255
               Color Transformer: FlatColor
               Decay Time: 0
-              Enabled: true
+              Enabled: false
               Invert Rainbow: false
               Max Color: 255; 255; 255
               Min Color: 0; 0; 0
@@ -836,7 +698,7 @@ Visualization Manager:
               Unreliable: false
               Use Fixed Frame: true
               Use rainbow: true
-              Value: true
+              Value: false
           Enabled: true
           Name: Sensors
       Enabled: true
@@ -888,13 +750,13 @@ Visualization Manager:
                     - Alpha: 1
                       Buffer Length: 1
                       Class: rviz/Path
-                      Color: 0; 0; 255
+                      Color: 0; 0; 0
                       Enabled: true
                       Head Diameter: 0.30000001192092896
                       Head Length: 0.20000000298023224
                       Length: 0.30000001192092896
-                      Line Style: Lines
-                      Line Width: 0.029999999329447746
+                      Line Style: Billboards
+                      Line Width: 0.014999999664723873
                       Name: Navfn
                       Offset:
                         X: 0
@@ -911,13 +773,13 @@ Visualization Manager:
                     - Alpha: 1
                       Buffer Length: 1
                       Class: rviz/Path
-                      Color: 0; 0; 255
+                      Color: 0; 0; 0
                       Enabled: true
                       Head Diameter: 0.30000001192092896
                       Head Length: 0.20000000298023224
                       Length: 0.30000001192092896
-                      Line Style: Lines
-                      Line Width: 0.029999999329447746
+                      Line Style: Billboards
+                      Line Width: 0.014999999664723873
                       Name: Global Planner
                       Offset:
                         X: 0
@@ -937,15 +799,15 @@ Visualization Manager:
                   Class: rviz/Map
                   Color Scheme: costmap
                   Draw Behind: true
-                  Enabled: true
+                  Enabled: false
                   Name: Potential
                   Topic: move_base/GlobalPlanner/potential
                   Unreliable: false
                   Use Timestamp: false
-                  Value: true
-                - Alpha: 0.10000000149011612
+                  Value: false
+                - Alpha: 0.5
                   Class: rviz/Map
-                  Color Scheme: costmap
+                  Color Scheme: map
                   Draw Behind: true
                   Enabled: true
                   Name: Costmap
@@ -1036,7 +898,7 @@ Visualization Manager:
                       Topic: move_base/PalPlannerROS/local_plan
                       Unreliable: false
                       Value: true
-                  Enabled: true
+                  Enabled: false
                   Name: Plan
                 - Alpha: 0.699999988079071
                   Class: rviz/Map
@@ -1060,7 +922,7 @@ Visualization Manager:
                   Color: 255; 255; 255
                   Color Transformer: Intensity
                   Decay Time: 0
-                  Enabled: true
+                  Enabled: false
                   Invert Rainbow: false
                   Max Color: 255; 255; 255
                   Min Color: 0; 0; 0
@@ -1075,15 +937,15 @@ Visualization Manager:
                   Unreliable: false
                   Use Fixed Frame: true
                   Use rainbow: true
-                  Value: true
+                  Value: false
                 - Class: rviz/MarkerArray
-                  Enabled: true
+                  Enabled: false
                   Marker Topic: trajectories
                   Name: Trajectories
                   Namespaces:
                     {}
                   Queue Size: 100
-                  Value: true
+                  Value: false
               Enabled: true
               Name: Local
             - Alpha: 1
@@ -1091,7 +953,7 @@ Visualization Manager:
               Axes Radius: 0.10000000149011612
               Class: rviz/Pose
               Color: 255; 25; 0
-              Enabled: true
+              Enabled: false
               Head Length: 0.30000001192092896
               Head Radius: 0.10000000149011612
               Name: Goal
@@ -1100,7 +962,7 @@ Visualization Manager:
               Shape: Arrow
               Topic: move_base/current_goal
               Unreliable: false
-              Value: true
+              Value: false
           Enabled: true
           Name: Base
       Enabled: true
@@ -1195,45 +1057,34 @@ Visualization Manager:
           Topic: slam_trajectory
           Unreliable: false
           Value: true
-      Enabled: false
+      Enabled: true
       Name: Mapping
     - Class: rviz/Marker
       Enabled: false
-      Marker Topic: /laser_plane_merger/marker
-      Name: PlaneMergerPos
-      Namespaces:
-        {}
-      Queue Size: 100
-      Value: false
-    - Circles color: 170; 0; 0
-      Class: Obstacles
-      Enabled: false
-      Margin color: 0; 170; 0
-      Name: Obstacles
-      Opacity: 0.75
-      Segments color: 255; 0; 0
-      Segments thickness: 0.0299999993
-      Topic: /raw_obstacles
-      Unreliable: false
-      Value: false
-    - Class: rviz/Marker
-      Enabled: false
-      Marker Topic: /move_base/TebLocalPlannerROS/teb_markers
-      Name: TEBMarkers
-      Namespaces:
-        {}
-      Queue Size: 100
-      Value: false
-    - Class: rviz/Marker
-      Enabled: true
       Marker Topic: /move_base/costmap_to_polygons/costmap_polygon_markers
       Name: CostmapConverter
       Namespaces:
-        Polygons: true
+        {}
       Queue Size: 100
-      Value: true
+      Value: false
     - Class: rviz/Group
       Displays:
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /move_base/EBandPlannerROS/eband_visualization
+          Name: Visualization
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Class: rviz/MarkerArray
+          Enabled: true
+          Marker Topic: /move_base/EBandPlannerROS/eband_visualization_array
+          Name: VisualizationArray
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
         - Alpha: 1
           Buffer Length: 1
           Class: rviz/Path
@@ -1244,7 +1095,7 @@ Visualization Manager:
           Length: 0.30000001192092896
           Line Style: Lines
           Line Width: 0.029999999329447746
-          Name: GlobalPlan
+          Name: Global Plan
           Offset:
             X: 0
             Y: 0
@@ -1254,7 +1105,7 @@ Visualization Manager:
           Radius: 0.029999999329447746
           Shaft Diameter: 0.10000000149011612
           Shaft Length: 0.10000000149011612
-          Topic: /move_base/HuberoPlannerROS/global_plan
+          Topic: /move_base/EBandPlannerROS/global_plan
           Unreliable: false
           Value: true
         - Alpha: 1
@@ -1267,7 +1118,7 @@ Visualization Manager:
           Length: 0.30000001192092896
           Line Style: Lines
           Line Width: 0.029999999329447746
-          Name: LocalPlan
+          Name: Local Plan
           Offset:
             X: 0
             Y: 0
@@ -1277,7 +1128,85 @@ Visualization Manager:
           Radius: 0.029999999329447746
           Shaft Diameter: 0.10000000149011612
           Shaft Length: 0.10000000149011612
-          Topic: /move_base/HuberoPlannerROS/local_plan
+          Topic: /move_base/EBandPlannerROS/local_plan
+          Unreliable: false
+          Value: true
+      Enabled: false
+      Name: EBand
+    - Class: rviz/Group
+      Displays:
+        - Alpha: 1
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 10
+            Min Value: -10
+            Value: true
+          Axis: Z
+          Channel Name: total_cost
+          Class: rviz/PointCloud2
+          Color: 255; 255; 255
+          Color Transformer: Intensity
+          Decay Time: 0
+          Enabled: false
+          Invert Rainbow: false
+          Max Color: 255; 255; 255
+          Min Color: 0; 0; 0
+          Name: Cost Cloud
+          Position Transformer: XYZ
+          Queue Size: 10
+          Selectable: true
+          Size (Pixels): 3
+          Size (m): 0.009999999776482582
+          Style: Flat Squares
+          Topic: /move_base/DWAPlannerROS/cost_cloud
+          Unreliable: false
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: false
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 25; 255; 0
+          Enabled: true
+          Head Diameter: 0.30000001192092896
+          Head Length: 0.20000000298023224
+          Length: 0.30000001192092896
+          Line Style: Lines
+          Line Width: 0.029999999329447746
+          Name: Global Plan
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.029999999329447746
+          Shaft Diameter: 0.10000000149011612
+          Shaft Length: 0.10000000149011612
+          Topic: /move_base/DWAPlannerROS/global_plan
+          Unreliable: false
+          Value: true
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 25; 255; 0
+          Enabled: true
+          Head Diameter: 0.30000001192092896
+          Head Length: 0.20000000298023224
+          Length: 0.30000001192092896
+          Line Style: Lines
+          Line Width: 0.029999999329447746
+          Name: Local Plan
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.029999999329447746
+          Shaft Diameter: 0.10000000149011612
+          Shaft Length: 0.10000000149011612
+          Topic: /move_base/DWAPlannerROS/local_plan
           Unreliable: false
           Value: true
         - Alpha: 1
@@ -1294,19 +1223,69 @@ Visualization Manager:
           Decay Time: 0
           Enabled: true
           Invert Rainbow: false
-          Max Color: 255; 255; 255
+          Max Color: 164; 0; 0
           Min Color: 0; 0; 0
-          Name: Trajectories explored
+          Name: Trajectory Cloud
           Position Transformer: XYZ
           Queue Size: 10
           Selectable: true
           Size (Pixels): 3
           Size (m): 0.009999999776482582
           Style: Flat Squares
-          Topic: /move_base/HuberoPlannerROS/trajectories
+          Topic: /move_base/DWAPlannerROS/trajectory_cloud
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
+          Value: true
+      Enabled: false
+      Name: DWA
+    - Class: rviz/Group
+      Displays:
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 25; 255; 0
+          Enabled: true
+          Head Diameter: 0.30000001192092896
+          Head Length: 0.20000000298023224
+          Length: 0.30000001192092896
+          Line Style: Lines
+          Line Width: 0.029999999329447746
+          Name: Local Plan
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.029999999329447746
+          Shaft Diameter: 0.10000000149011612
+          Shaft Length: 0.10000000149011612
+          Topic: /move_base/TrajectoryPlannerROS/local_plan
+          Unreliable: false
+          Value: true
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 25; 255; 0
+          Enabled: true
+          Head Diameter: 0.30000001192092896
+          Head Length: 0.20000000298023224
+          Length: 0.30000001192092896
+          Line Style: Lines
+          Line Width: 0.029999999329447746
+          Name: Global Plan
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.029999999329447746
+          Shaft Diameter: 0.10000000149011612
+          Shaft Length: 0.10000000149011612
+          Topic: /move_base/TrajectoryPlannerROS/global_plan
+          Unreliable: false
           Value: true
         - Alpha: 1
           Autocompute Intensity Bounds: true
@@ -1320,18 +1299,737 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: Intensity
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
-          Name: Cost grid
+          Name: Cost Cloud
           Position Transformer: XYZ
-          Queue Size: 1
+          Queue Size: 10
           Selectable: true
           Size (Pixels): 3
           Size (m): 0.009999999776482582
           Style: Flat Squares
-          Topic: /move_base/HuberoPlannerROS/cost_cloud
+          Topic: /move_base/TrajectoryPlannerROS/cost_cloud
+          Unreliable: false
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: false
+      Enabled: false
+      Name: Trajectory
+    - Class: rviz/Group
+      Displays:
+        - Alpha: 1
+          Arrow Length: 0.30000001192092896
+          Axes Length: 0.30000001192092896
+          Axes Radius: 0.009999999776482582
+          Class: rviz/PoseArray
+          Color: 255; 25; 0
+          Enabled: true
+          Head Length: 0.07000000029802322
+          Head Radius: 0.029999999329447746
+          Name: TebPoses
+          Shaft Length: 0.23000000417232513
+          Shaft Radius: 0.009999999776482582
+          Shape: Arrow (Flat)
+          Topic: /move_base/TebLocalPlannerROS/teb_poses
+          Unreliable: false
+          Value: true
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /move_base/TebLocalPlannerROS/teb_markers
+          Name: TebMarkers
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 25; 255; 0
+          Enabled: false
+          Head Diameter: 0.30000001192092896
+          Head Length: 0.20000000298023224
+          Length: 0.30000001192092896
+          Line Style: Lines
+          Line Width: 0.029999999329447746
+          Name: Local Plan
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.029999999329447746
+          Shaft Diameter: 0.10000000149011612
+          Shaft Length: 0.10000000149011612
+          Topic: /move_base/TebLocalPlannerROS/local_plan
+          Unreliable: false
+          Value: false
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 25; 255; 0
+          Enabled: false
+          Head Diameter: 0.30000001192092896
+          Head Length: 0.20000000298023224
+          Length: 0.30000001192092896
+          Line Style: Lines
+          Line Width: 0.029999999329447746
+          Name: Global Plan
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.029999999329447746
+          Shaft Diameter: 0.10000000149011612
+          Shaft Length: 0.10000000149011612
+          Topic: /move_base/TebLocalPlannerROS/global_plan
+          Unreliable: false
+          Value: false
+      Enabled: false
+      Name: TEB
+    - Class: rviz/Group
+      Displays:
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 25; 255; 0
+          Enabled: true
+          Head Diameter: 0.30000001192092896
+          Head Length: 0.20000000298023224
+          Length: 0.30000001192092896
+          Line Style: Lines
+          Line Width: 0.029999999329447746
+          Name: Global Plan
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.029999999329447746
+          Shaft Diameter: 0.10000000149011612
+          Shaft Length: 0.10000000149011612
+          Topic: /move_base/HATebLocalPlannerROS/global_plan
+          Unreliable: false
+          Value: true
+        - Alpha: 1
+          Arrow Length: 0.30000001192092896
+          Axes Length: 0.30000001192092896
+          Axes Radius: 0.009999999776482582
+          Class: rviz/PoseArray
+          Color: 255; 25; 0
+          Enabled: true
+          Head Length: 0.07000000029802322
+          Head Radius: 0.029999999329447746
+          Name: HumanLocalPlanPoses
+          Shaft Length: 0.23000000417232513
+          Shaft Radius: 0.009999999776482582
+          Shape: Arrow (Flat)
+          Topic: /move_base/HATebLocalPlannerROS/human_local_plans_poses
+          Unreliable: false
+          Value: true
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 25; 255; 0
+          Enabled: true
+          Head Diameter: 0.30000001192092896
+          Head Length: 0.20000000298023224
+          Length: 0.30000001192092896
+          Line Style: Lines
+          Line Width: 0.029999999329447746
+          Name: Local Plan
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.029999999329447746
+          Shaft Diameter: 0.10000000149011612
+          Shaft Length: 0.10000000149011612
+          Topic: /move_base/HATebLocalPlannerROS/local_plan
+          Unreliable: false
+          Value: true
+        - Alpha: 1
+          Arrow Length: 0.30000001192092896
+          Axes Length: 0.30000001192092896
+          Axes Radius: 0.009999999776482582
+          Class: rviz/PoseArray
+          Color: 255; 25; 0
+          Enabled: true
+          Head Length: 0.07000000029802322
+          Head Radius: 0.029999999329447746
+          Name: LocalPlanPoses
+          Shaft Length: 0.23000000417232513
+          Shaft Radius: 0.009999999776482582
+          Shape: Arrow (Flat)
+          Topic: /move_base/HATebLocalPlannerROS/local_plan_poses
+          Unreliable: false
+          Value: true
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /move_base/HATebLocalPlannerROS/teb_markers
+          Name: TebMarkers
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+      Enabled: false
+      Name: HATEB
+    - Class: rviz/Group
+      Displays:
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /move_base/CoHANLocalPlannerROS/teb_markers
+          Name: TebMarkers
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 25; 255; 0
+          Enabled: true
+          Head Diameter: 0.30000001192092896
+          Head Length: 0.20000000298023224
+          Length: 0.30000001192092896
+          Line Style: Lines
+          Line Width: 0.029999999329447746
+          Name: Global Plan
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.029999999329447746
+          Shaft Diameter: 0.10000000149011612
+          Shaft Length: 0.10000000149011612
+          Topic: /move_base/CoHANLocalPlannerROS/global_plan
+          Unreliable: false
+          Value: true
+        - Class: rviz/MarkerArray
+          Enabled: true
+          Marker Topic: /move_base/CoHANLocalPlannerROS/human_arrow
+          Name: HumanArrow
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz_path_array/HumanPathArray
+          Color: 25; 255; 0
+          Enabled: true
+          Head Diameter: 0.30000001192092896
+          Head Length: 0.20000000298023224
+          Length: 0.30000001192092896
+          Line Style: Lines
+          Line Width: 0.029999999329447746
+          Name: HumanGlobalPlans
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.029999999329447746
+          Shaft Diameter: 0.10000000149011612
+          Shaft Length: 0.10000000149011612
+          Topic: /move_base/CoHANLocalPlannerROS/human_global_plans
+          Unreliable: false
+          Value: true
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz_path_array/HumanPathArray
+          Color: 25; 255; 0
+          Enabled: true
+          Head Diameter: 0.30000001192092896
+          Head Length: 0.20000000298023224
+          Length: 0.30000001192092896
+          Line Style: Lines
+          Line Width: 0.029999999329447746
+          Name: HumanLocalPlans
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.029999999329447746
+          Shaft Diameter: 0.10000000149011612
+          Shaft Length: 0.10000000149011612
+          Topic: /move_base/CoHANLocalPlannerROS/human_local_plans
+          Unreliable: false
+          Value: true
+        - Alpha: 1
+          Arrow Length: 0.30000001192092896
+          Axes Length: 0.30000001192092896
+          Axes Radius: 0.009999999776482582
+          Class: rviz/PoseArray
+          Color: 255; 25; 0
+          Enabled: true
+          Head Length: 0.07000000029802322
+          Head Radius: 0.029999999329447746
+          Name: HumanLocalPlansPoses
+          Shaft Length: 0.23000000417232513
+          Shaft Radius: 0.009999999776482582
+          Shape: Arrow (Flat)
+          Topic: /move_base/CoHANLocalPlannerROS/human_local_plans_poses
+          Unreliable: false
+          Value: true
+        - Class: rviz/MarkerArray
+          Enabled: true
+          Marker Topic: /move_base/CoHANLocalPlannerROS/human_marker
+          Name: HumanMarker
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Alpha: 1
+          Axes Length: 1
+          Axes Radius: 0.10000000149011612
+          Class: rviz/Pose
+          Color: 255; 25; 0
+          Enabled: true
+          Head Length: 0.30000001192092896
+          Head Radius: 0.10000000149011612
+          Name: HumanNextPose
+          Shaft Length: 1
+          Shaft Radius: 0.05000000074505806
+          Shape: Arrow
+          Topic: /move_base/CoHANLocalPlannerROS/human_next_pose
+          Unreliable: false
+          Value: true
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 25; 255; 0
+          Enabled: true
+          Head Diameter: 0.30000001192092896
+          Head Length: 0.20000000298023224
+          Length: 0.30000001192092896
+          Line Style: Lines
+          Line Width: 0.029999999329447746
+          Name: Local Plan
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.029999999329447746
+          Shaft Diameter: 0.10000000149011612
+          Shaft Length: 0.10000000149011612
+          Topic: /move_base/CoHANLocalPlannerROS/local_plan
+          Unreliable: false
+          Value: true
+        - Alpha: 1
+          Arrow Length: 0.30000001192092896
+          Axes Length: 0.30000001192092896
+          Axes Radius: 0.009999999776482582
+          Class: rviz/PoseArray
+          Color: 255; 25; 0
+          Enabled: true
+          Head Length: 0.07000000029802322
+          Head Radius: 0.029999999329447746
+          Name: LocalPlanPoses
+          Shaft Length: 0.23000000417232513
+          Shaft Radius: 0.009999999776482582
+          Shape: Arrow (Flat)
+          Topic: /move_base/CoHANLocalPlannerROS/local_plan_poses
+          Unreliable: false
+          Value: true
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /move_base/CoHANLocalPlannerROS/mode_text
+          Name: ModeText
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Alpha: 1
+          Axes Length: 1
+          Axes Radius: 0.10000000149011612
+          Class: rviz/Pose
+          Color: 255; 25; 0
+          Enabled: true
+          Head Length: 0.30000001192092896
+          Head Radius: 0.10000000149011612
+          Name: RobotNextPose
+          Shaft Length: 1
+          Shaft Radius: 0.05000000074505806
+          Shape: Arrow
+          Topic: /move_base/CoHANLocalPlannerROS/robot_next_pose
+          Unreliable: false
+          Value: true
+      Enabled: false
+      Name: COHAN
+    - Class: rviz/Group
+      Displays:
+        - Class: rviz/MarkerArray
+          Enabled: true
+          Marker Topic: /human_pose_prediction/predicted_human_poses
+          Name: Predicted Human Poses
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Class: rviz/MarkerArray
+          Enabled: true
+          Marker Topic: /move_base/predicted_human_poses
+          Name: Predicted Human Poses
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Class: rviz/Marker
+          Enabled: false
+          Marker Topic: /move_base/SrlEBandPlannerROS/eband_visualization
+          Name: EBand Vis
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: false
+        - Class: rviz/MarkerArray
+          Enabled: false
+          Marker Topic: /move_base/SrlEBandPlannerROS/eband_visualization_array
+          Name: EBand Vis Array
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: false
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 238; 238; 236
+          Enabled: true
+          Head Diameter: 0.30000001192092896
+          Head Length: 0.20000000298023224
+          Length: 0.30000001192092896
+          Line Style: Billboards
+          Line Width: 0.02500000037252903
+          Name: Global Plan
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.029999999329447746
+          Shaft Diameter: 0.10000000149011612
+          Shaft Length: 0.10000000149011612
+          Topic: /move_base/SrlEBandPlannerROS/global_plan
+          Unreliable: false
+          Value: true
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 25; 255; 0
+          Enabled: true
+          Head Diameter: 0.30000001192092896
+          Head Length: 0.20000000298023224
+          Length: 0.30000001192092896
+          Line Style: Lines
+          Line Width: 0.029999999329447746
+          Name: Local Plan
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.029999999329447746
+          Shaft Diameter: 0.10000000149011612
+          Shaft Length: 0.10000000149011612
+          Topic: /move_base/SrlEBandPlannerROS/local_plan
+          Unreliable: false
+          Value: true
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /move_base/SrlEBandPlannerROS/repaired_path_eband_visualization_array
+          Name: Repaired EBand Path
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 196; 160; 0
+          Enabled: true
+          Head Diameter: 0.30000001192092896
+          Head Length: 0.20000000298023224
+          Length: 0.30000001192092896
+          Line Style: Lines
+          Line Width: 0.029999999329447746
+          Name: Repaired Plan
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.029999999329447746
+          Shaft Diameter: 0.10000000149011612
+          Shaft Length: 0.10000000149011612
+          Topic: /move_base/SrlEBandPlannerROS/repaired_plan
+          Unreliable: false
+          Value: true
+        - Class: rviz/MarkerArray
+          Enabled: true
+          Marker Topic: /move_base/predicted_robot_trajectory
+          Name: Predicted Robot Traj
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+      Enabled: false
+      Name: SRL-EBand
+    - Class: rviz/Group
+      Displays:
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /move_base/local_planner/goal_path_marker
+          Name: Marker
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /move_base/local_planner/other_agents_marker
+          Name: Marker
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Class: rviz/MarkerArray
+          Enabled: true
+          Marker Topic: /move_base/local_planner/other_agents_markers
+          Name: MarkerArray
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /move_base/local_planner/path_marker
+          Name: Marker
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /move_base/local_planner/pose_marker
+          Name: Marker
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Alpha: 1
+          Axes Length: 1
+          Axes Radius: 0.10000000149011612
+          Class: rviz/Pose
+          Color: 255; 25; 0
+          Enabled: true
+          Head Length: 0.30000001192092896
+          Head Radius: 0.10000000149011612
+          Name: LocalGoal
+          Shaft Length: 0.5
+          Shaft Radius: 0.05000000074505806
+          Shape: Arrow
+          Topic: /move_base/ExternalLocalPlannerROS/local_goal
+          Unreliable: false
+          Value: true
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 25; 255; 0
+          Enabled: true
+          Head Diameter: 0.30000001192092896
+          Head Length: 0.20000000298023224
+          Length: 0.30000001192092896
+          Line Style: Lines
+          Line Width: 0.029999999329447746
+          Name: GlobalPath
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.029999999329447746
+          Shaft Diameter: 0.10000000149011612
+          Shaft Length: 0.10000000149011612
+          Topic: /move_base/ExternalLocalPlannerROS/global_plan
+          Unreliable: false
+          Value: true
+      Enabled: false
+      Name: CADRL markers
+    - Class: rviz/Group
+      Displays:
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 25; 255; 0
+          Enabled: true
+          Head Diameter: 0.30000001192092896
+          Head Length: 0.20000000298023224
+          Length: 0.30000001192092896
+          Line Style: Lines
+          Line Width: 0.029999999329447746
+          Name: GlobalPath
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.029999999329447746
+          Shaft Diameter: 0.10000000149011612
+          Shaft Length: 0.10000000149011612
+          Topic: /move_base/ExternalLocalPlannerROS/global_plan
+          Unreliable: false
+          Value: true
+        - Alpha: 1
+          Axes Length: 1
+          Axes Radius: 0.10000000149011612
+          Class: rviz/Pose
+          Color: 255; 25; 0
+          Enabled: true
+          Head Length: 0.30000001192092896
+          Head Radius: 0.10000000149011612
+          Name: LocalGoal
+          Shaft Length: 0.5
+          Shaft Radius: 0.05000000074505806
+          Shape: Arrow
+          Topic: /move_base/ExternalLocalPlannerROS/local_goal
+          Unreliable: false
+          Value: true
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /move_base/local_planner/action_marker
+          Name: Action
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /move_base/local_planner/goal_marker
+          Name: Goal
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /move_base/local_planner/trajectory_marker
+          Name: TrajectoryMarker
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /move_base/local_planner/vehicle_marker
+          Name: RobotMarker
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+      Enabled: false
+      Name: SARL/SARL*
+    - Class: rviz/Group
+      Displays:
+        - Class: rviz/MarkerArray
+          Enabled: true
+          Marker Topic: /rl_agent/planner_markers
+          Name: PlannerMarkers
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Alpha: 1
+          Class: rviz/PointStamped
+          Color: 204; 41; 204
+          Enabled: true
+          History Length: 1
+          Name: WP1
+          Radius: 0.20000000298023224
+          Topic: /wp_vis1
+          Unreliable: false
+          Value: true
+        - Alpha: 1
+          Class: rviz/PointStamped
+          Color: 204; 41; 204
+          Enabled: true
+          History Length: 1
+          Name: WP2
+          Radius: 0.20000000298023224
+          Topic: /wp_vis2
+          Unreliable: false
+          Value: true
+        - Alpha: 1
+          Class: rviz/PointStamped
+          Color: 204; 41; 204
+          Enabled: true
+          History Length: 1
+          Name: WP3
+          Radius: 0.20000000298023224
+          Topic: /wp_vis3
+          Unreliable: false
+          Value: true
+        - Alpha: 1
+          Class: rviz/PointStamped
+          Color: 204; 41; 204
+          Enabled: true
+          History Length: 1
+          Name: WP4
+          Radius: 0.20000000298023224
+          Topic: /wp_vis4
+          Unreliable: false
+          Value: true
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /reward
+          Name: Reward
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Alpha: 1
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 10
+            Min Value: -10
+            Value: true
+          Axis: Z
+          Channel Name: intensity
+          Class: rviz/LaserScan
+          Color: 255; 170; 255
+          Color Transformer: FlatColor
+          Decay Time: 0
+          Enabled: true
+          Invert Rainbow: false
+          Max Color: 255; 255; 255
+          Min Color: 0; 0; 0
+          Name: StateScanDebug
+          Position Transformer: XYZ
+          Queue Size: 10
+          Selectable: true
+          Size (Pixels): 9
+          Size (m): 0.009999999776482582
+          Style: Points
+          Topic: /state_scan
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
@@ -1343,8 +2041,8 @@ Visualization Manager:
             Min Value: -10
             Value: true
           Axis: Z
-          Channel Name: timestep
-          Class: rviz/PointCloud2
+          Channel Name: intensity
+          Class: rviz/LaserScan
           Color: 255; 255; 255
           Color Transformer: Intensity
           Decay Time: 0
@@ -1352,23 +2050,480 @@ Visualization Manager:
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
-          Name: TTC prediction
+          Name: LaserScanFront
           Position Transformer: XYZ
           Queue Size: 10
           Selectable: true
           Size (Pixels): 3
-          Size (m): 0.019999999552965164
+          Size (m): 0.009999999776482582
           Style: Flat Squares
-          Topic: /move_base/HuberoPlannerROS/ttc_prediction
+          Topic: /scan_narrow_rl_f
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
           Value: false
         - Alpha: 1
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 10
+            Min Value: -10
+            Value: true
+          Axis: Z
+          Channel Name: intensity
+          Class: rviz/LaserScan
+          Color: 255; 255; 255
+          Color Transformer: ""
+          Decay Time: 0
+          Enabled: false
+          Invert Rainbow: false
+          Max Color: 255; 255; 255
+          Min Color: 0; 0; 0
+          Name: LaserScanRear
+          Position Transformer: ""
+          Queue Size: 10
+          Selectable: true
+          Size (Pixels): 3
+          Size (m): 0.009999999776482582
+          Style: Flat Squares
+          Topic: /scan_narrow_rl_b
+          Unreliable: false
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: false
+      Enabled: false
+      Name: DRL
+    - Class: rviz/Group
+      Displays:
+        - Alpha: 1
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 10
+            Min Value: -10
+            Value: true
+          Axis: Z
+          Channel Name: intensity
+          Class: rviz/LaserScan
+          Color: 255; 170; 255
+          Color Transformer: FlatColor
+          Decay Time: 0
+          Enabled: true
+          Invert Rainbow: false
+          Max Color: 255; 255; 255
+          Min Color: 0; 0; 0
+          Name: LaserScan
+          Position Transformer: XYZ
+          Queue Size: 10
+          Selectable: true
+          Size (Pixels): 6
+          Size (m): 0.009999999776482582
+          Style: Points
+          Topic: /scan_drl_vo
+          Unreliable: false
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: true
+        - Class: rviz/MarkerArray
+          Enabled: true
+          Marker Topic: /track_ped/markers
+          Name: Pedestrians MarkerArray
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+      Enabled: false
+      Name: DRL-VO
+    - Class: rviz/Group
+      Displays:
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 25; 255; 0
+          Enabled: false
+          Head Diameter: 0.30000001192092896
+          Head Length: 0.20000000298023224
+          Length: 0.30000001192092896
+          Line Style: Lines
+          Line Width: 0.029999999329447746
+          Name: GlobalPlan
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.029999999329447746
+          Shaft Diameter: 0.10000000149011612
+          Shaft Length: 0.10000000149011612
+          Topic: /move_base/HumapPlannerROS/global_plan
+          Unreliable: false
+          Value: false
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 25; 255; 0
+          Enabled: true
+          Head Diameter: 0.30000001192092896
+          Head Length: 0.20000000298023224
+          Length: 0.30000001192092896
+          Line Style: Billboards
+          Line Width: 0.029999999329447746
+          Name: GlobalPlanPruned
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.029999999329447746
+          Shaft Diameter: 0.10000000149011612
+          Shaft Length: 0.10000000149011612
+          Topic: /move_base/HumapPlannerROS/global_plan_pruned
+          Unreliable: false
+          Value: true
+        - Alpha: 0.699999988079071
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 255; 255; 255
+          Enabled: true
+          Head Diameter: 0.30000001192092896
+          Head Length: 0.20000000298023224
+          Length: 0.30000001192092896
+          Line Style: Billboards
+          Line Width: 0.019999999552965164
+          Name: LocalPlan
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.029999999329447746
+          Shaft Diameter: 0.10000000149011612
+          Shaft Length: 0.10000000149011612
+          Topic: /move_base/HumapPlannerROS/local_plan
+          Unreliable: false
+          Value: true
+        - Alpha: 1
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 10
+            Min Value: -10
+            Value: true
+          Axis: Z
+          Channel Name: id
+          Class: rviz/PointCloud2
+          Color: 255; 255; 255
+          Color Transformer: Intensity
+          Decay Time: 0
+          Enabled: true
+          Invert Rainbow: false
+          Max Color: 255; 0; 0
+          Min Color: 127; 0; 255
+          Name: Trajectories explored
+          Position Transformer: XYZ
+          Queue Size: 10
+          Selectable: true
+          Size (Pixels): 3
+          Size (m): 0.014999999664723873
+          Style: Flat Squares
+          Topic: /move_base/HumapPlannerROS/explored_trajectories
+          Unreliable: false
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: true
+        - Alpha: 1
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 10
+            Min Value: -10
+            Value: true
+          Axis: Z
+          Channel Name: time
+          Class: rviz/PointCloud2
+          Color: 255; 255; 255
+          Color Transformer: Intensity
+          Decay Time: 0
+          Enabled: true
+          Invert Rainbow: false
+          Max Color: 255; 0; 0
+          Min Color: 127; 0; 255
+          Name: People trajectory predictions
+          Position Transformer: XYZ
+          Queue Size: 10
+          Selectable: true
+          Size (Pixels): 3
+          Size (m): 0.03500000014901161
+          Style: Flat Squares
+          Topic: /move_base/HumapPlannerROS/people_traj_prediction
+          Unreliable: false
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: true
+        - Alpha: 1
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 10
+            Min Value: -10
+            Value: true
+          Axis: Z
+          Channel Name: time
+          Class: rviz/PointCloud2
+          Color: 255; 255; 255
+          Color Transformer: Intensity
+          Decay Time: 0
+          Enabled: true
+          Invert Rainbow: false
+          Max Color: 255; 0; 0
+          Min Color: 127; 0; 255
+          Name: Group trajectory predictions
+          Position Transformer: XYZ
+          Queue Size: 10
+          Selectable: true
+          Size (Pixels): 3
+          Size (m): 0.03500000014901161
+          Style: Flat Squares
+          Topic: /move_base/HumapPlannerROS/group_traj_prediction
+          Unreliable: false
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: true
+        - Class: rviz/Group
+          Displays:
+            - Alpha: 1
+              Autocompute Intensity Bounds: true
+              Autocompute Value Bounds:
+                Max Value: 10
+                Min Value: -10
+                Value: true
+              Axis: Z
+              Channel Name: total_cost
+              Class: rviz/PointCloud2
+              Color: 255; 255; 255
+              Color Transformer: Intensity
+              Decay Time: 0
+              Enabled: true
+              Invert Rainbow: false
+              Max Color: 255; 255; 255
+              Min Color: 0; 0; 0
+              Name: Total
+              Position Transformer: XYZ
+              Queue Size: 1
+              Selectable: true
+              Size (Pixels): 3
+              Size (m): 0.02500000037252903
+              Style: Flat Squares
+              Topic: /move_base/HumapPlannerROS/cost_cloud
+              Unreliable: false
+              Use Fixed Frame: true
+              Use rainbow: true
+              Value: true
+            - Alpha: 1
+              Autocompute Intensity Bounds: false
+              Autocompute Value Bounds:
+                Max Value: 10
+                Min Value: -10
+                Value: true
+              Axis: Z
+              Channel Name: path_cost
+              Class: rviz/PointCloud2
+              Color: 255; 255; 255
+              Color Transformer: Intensity
+              Decay Time: 0
+              Enabled: false
+              Invert Rainbow: false
+              Max Color: 255; 255; 255
+              Max Intensity: 255
+              Min Color: 0; 0; 0
+              Min Intensity: 0
+              Name: Path
+              Position Transformer: XYZ
+              Queue Size: 1
+              Selectable: true
+              Size (Pixels): 3
+              Size (m): 0.02500000037252903
+              Style: Flat Squares
+              Topic: /move_base/HumapPlannerROS/cost_cloud
+              Unreliable: false
+              Use Fixed Frame: true
+              Use rainbow: true
+              Value: false
+            - Alpha: 1
+              Autocompute Intensity Bounds: false
+              Autocompute Value Bounds:
+                Max Value: 10
+                Min Value: -10
+                Value: true
+              Axis: Z
+              Channel Name: goal_cost
+              Class: rviz/PointCloud2
+              Color: 255; 255; 255
+              Color Transformer: Intensity
+              Decay Time: 0
+              Enabled: false
+              Invert Rainbow: false
+              Max Color: 255; 255; 255
+              Max Intensity: 255
+              Min Color: 0; 0; 0
+              Min Intensity: 0
+              Name: Goal
+              Position Transformer: XYZ
+              Queue Size: 1
+              Selectable: true
+              Size (Pixels): 3
+              Size (m): 0.02500000037252903
+              Style: Flat Squares
+              Topic: /move_base/HumapPlannerROS/cost_cloud
+              Unreliable: false
+              Use Fixed Frame: true
+              Use rainbow: true
+              Value: false
+            - Alpha: 1
+              Autocompute Intensity Bounds: false
+              Autocompute Value Bounds:
+                Max Value: 10
+                Min Value: -10
+                Value: true
+              Axis: Z
+              Channel Name: occ_cost
+              Class: rviz/PointCloud2
+              Color: 255; 255; 255
+              Color Transformer: Intensity
+              Decay Time: 0
+              Enabled: false
+              Invert Rainbow: false
+              Max Color: 255; 255; 255
+              Max Intensity: 255
+              Min Color: 0; 0; 0
+              Min Intensity: 0
+              Name: Occ (Obstacle, Layered)
+              Position Transformer: XYZ
+              Queue Size: 1
+              Selectable: true
+              Size (Pixels): 3
+              Size (m): 0.02500000037252903
+              Style: Flat Squares
+              Topic: /move_base/HumapPlannerROS/cost_cloud
+              Unreliable: false
+              Use Fixed Frame: true
+              Use rainbow: true
+              Value: false
+            - Alpha: 1
+              Autocompute Intensity Bounds: false
+              Autocompute Value Bounds:
+                Max Value: 10
+                Min Value: -10
+                Value: true
+              Axis: Z
+              Channel Name: goal_front_cost
+              Class: rviz/PointCloud2
+              Color: 255; 255; 255
+              Color Transformer: Intensity
+              Decay Time: 0
+              Enabled: false
+              Invert Rainbow: false
+              Max Color: 255; 255; 255
+              Max Intensity: 255
+              Min Color: 0; 0; 0
+              Min Intensity: 0
+              Name: Goal Front
+              Position Transformer: XYZ
+              Queue Size: 1
+              Selectable: true
+              Size (Pixels): 3
+              Size (m): 0.02500000037252903
+              Style: Flat Squares
+              Topic: /move_base/HumapPlannerROS/cost_cloud
+              Unreliable: false
+              Use Fixed Frame: true
+              Use rainbow: true
+              Value: false
+            - Alpha: 1
+              Autocompute Intensity Bounds: false
+              Autocompute Value Bounds:
+                Max Value: 10
+                Min Value: -10
+                Value: true
+              Axis: Z
+              Channel Name: alignment_cost
+              Class: rviz/PointCloud2
+              Color: 255; 255; 255
+              Color Transformer: Intensity
+              Decay Time: 0
+              Enabled: false
+              Invert Rainbow: false
+              Max Color: 255; 255; 255
+              Max Intensity: 255
+              Min Color: 0; 0; 0
+              Min Intensity: 0
+              Name: Alignment
+              Position Transformer: XYZ
+              Queue Size: 1
+              Selectable: true
+              Size (Pixels): 3
+              Size (m): 0.02500000037252903
+              Style: Flat Squares
+              Topic: /move_base/HumapPlannerROS/cost_cloud
+              Unreliable: false
+              Use Fixed Frame: true
+              Use rainbow: true
+              Value: false
+          Enabled: false
+          Name: Cost Grid PCL
+        - Class: rviz/Group
+          Displays:
+            - Alpha: 1
+              Buffer Length: 1
+              Class: rviz/Path
+              Color: 32; 74; 135
+              Enabled: true
+              Head Diameter: 0.30000001192092896
+              Head Length: 0.20000000298023224
+              Length: 0.30000001192092896
+              Line Style: Lines
+              Line Width: 0.029999999329447746
+              Name: Goal Front
+              Offset:
+                X: 0
+                Y: 0
+                Z: 0
+              Pose Color: 255; 85; 255
+              Pose Style: None
+              Radius: 0.029999999329447746
+              Shaft Diameter: 0.10000000149011612
+              Shaft Length: 0.10000000149011612
+              Topic: /move_base/HumapPlannerROS/cost_fun_path/goal_front
+              Unreliable: false
+              Value: true
+            - Alpha: 1
+              Buffer Length: 1
+              Class: rviz/Path
+              Color: 92; 53; 102
+              Enabled: true
+              Head Diameter: 0.30000001192092896
+              Head Length: 0.20000000298023224
+              Length: 0.30000001192092896
+              Line Style: Lines
+              Line Width: 0.029999999329447746
+              Name: Alignment
+              Offset:
+                X: 0
+                Y: 0
+                Z: 0
+              Pose Color: 255; 85; 255
+              Pose Style: None
+              Radius: 0.029999999329447746
+              Shaft Diameter: 0.10000000149011612
+              Shaft Length: 0.10000000149011612
+              Topic: /move_base/HumapPlannerROS/cost_fun_path/alignment
+              Unreliable: false
+              Value: true
+          Enabled: false
+          Name: Cost Functions Paths
+        - Alpha: 1
           Buffer Length: 1
           Class: rviz/Path
           Color: 255; 170; 255
-          Enabled: true
+          Enabled: false
           Head Diameter: 0.30000001192092896
           Head Length: 0.20000000298023224
           Length: 0.30000001192092896
@@ -1384,30 +2539,22 @@ Visualization Manager:
           Radius: 0.029999999329447746
           Shaft Diameter: 0.10000000149011612
           Shaft Length: 0.10000000149011612
-          Topic: /move_base/HuberoPlannerROS/vis/path
+          Topic: /move_base/HumapPlannerROS/vis/path
           Unreliable: false
-          Value: true
+          Value: false
         - Class: rviz/Group
           Displays:
             - Class: rviz/Marker
               Enabled: true
-              Marker Topic: /move_base/HuberoPlannerROS/vis/marker
+              Marker Topic: /move_base/HumapPlannerROS/vis/marker
               Name: Marker
               Namespaces:
-                behaviour: true
-                closest_static_points: true
-                footprint: true
-                force_combined: true
-                force_interaction: true
-                force_internal: true
-                force_social: true
-                goal_global: true
-                goal_local: true
+                {}
               Queue Size: 100
               Value: true
             - Class: rviz/MarkerArray
               Enabled: false
-              Marker Topic: /move_base/HuberoPlannerROS/vis/force_grid
+              Marker Topic: /move_base/HumapPlannerROS/vis/force_grid
               Name: ForceGrid
               Namespaces:
                 {}
@@ -1423,8 +2570,187 @@ Visualization Manager:
               Value: true
           Enabled: true
           Name: Visualization
+        - Class: rviz/MarkerArray
+          Enabled: false
+          Marker Topic: /move_base/HumapPlannerROS/ttc_prediction
+          Name: TTC markers
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: false
+      Enabled: false
+      Name: HuMAP
+    - Alpha: 1
+      Class: spencer_tracking_rviz_plugin/DetectedPersons
+      Color: 130; 130; 130
+      Color map offset: 0
+      Color transform: Rainbow
+      Enabled: false
+      Excluded person IDs: ""
+      Font color: 255; 255; 255
+      Font color style: Same color
+      Font scale: 2
+      Included person IDs: ""
+      Low-confidence alpha: 0.5
+      Low-confidence threshold: 0.5
+      Name: DetectedPersons
+      Render confidences: false
+      Render covariances:
+        Line width: 0.10000000149011612
+        Value: true
+      Render detection IDs: false
+      Render modality text: false
+      Render orientation arrows: true
+      Style:
+        Line width: 0.05000000074505806
+        Scaling factor: 1
+        Value: Cylinders
+      Text spacing: 1
+      Topic: /spencer/perception/detected_persons
+      Unreliable: false
+      Value: false
+      Z offset:
+        Use Z position from message: false
+        Value: 0
+    - Alpha: 1
+      Class: spencer_tracking_rviz_plugin/TrackedPersons
+      Color: 130; 130; 130
+      Color map offset: 0
+      Color transform: Rainbow
+      Delete after no. cycles: 100
+      Enabled: false
+      Excluded person IDs: ""
+      Font color: 255; 255; 255
+      Font color style: Same color
+      Font scale: 2
+      History as line:
+        Line width: 0.05000000074505806
+        Value: true
+      History size: 100
+      Included person IDs: ""
+      Min. history point distance: 0.4000000059604645
+      Missed alpha: 0.5
+      Name: TrackedPersonsUnfiltered
+      Occlusion alpha: 0.30000001192092896
+      Render covariances:
+        Line width: 0.10000000149011612
+        Value: true
+      Render detection IDs: true
+      Render history: true
+      Render person visual: true
+      Render track IDs: true
+      Render track state: true
+      Render velocities: true
+      Show DELETED tracks: false
+      Show MATCHED tracks: true
+      Show MISSED tracks: true
+      Show OCCLUDED tracks: true
+      Style:
+        Line width: 0.05000000074505806
+        Scaling factor: 1
+        Value: Cylinders
+      Topic: /spencer/perception/tracked_persons
+      Tracking frame: odom
+      Unreliable: false
+      Value: false
+      Z offset:
+        Use Z position from message: false
+        Value: 0
+    - Alpha: 1
+      Class: spencer_tracking_rviz_plugin/TrackedPersons
+      Color: 130; 130; 130
+      Color map offset: 0
+      Color transform: Rainbow
+      Delete after no. cycles: 100
       Enabled: true
-      Name: HuBeRo
+      Excluded person IDs: ""
+      Font color: 255; 255; 255
+      Font color style: Same color
+      Font scale: 2
+      History as line:
+        Line width: 0.05000000074505806
+        Value: true
+      History size: 100
+      Included person IDs: ""
+      Min. history point distance: 0.4000000059604645
+      Missed alpha: 0.5
+      Name: TrackedPersonsHogUb
+      Occlusion alpha: 0.30000001192092896
+      Render covariances:
+        Line width: 0.10000000149011612
+        Value: true
+      Render detection IDs: true
+      Render history: true
+      Render person visual: true
+      Render track IDs: true
+      Render track state: true
+      Render velocities: true
+      Show DELETED tracks: false
+      Show MATCHED tracks: true
+      Show MISSED tracks: true
+      Show OCCLUDED tracks: true
+      Style:
+        Line width: 0.05000000074505806
+        Scaling factor: 1
+        Value: Cylinders
+      Topic: /spencer/perception/tracked_persons_confirmed_by_HOG_or_upper_body
+      Tracking frame: odom
+      Unreliable: false
+      Value: true
+      Z offset:
+        Use Z position from message: false
+        Value: 0
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /people/markers
+      Name: People Markers Social Perception
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: id
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: Intensity
+      Decay Time: 0
+      Enabled: false
+      Invert Rainbow: false
+      Max Color: 255; 0; 0
+      Min Color: 127; 0; 255
+      Name: HUMAP Group intrusion recoveries
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.10000000149011612
+      Style: Squares
+      Topic: /move_base/HumapPlannerROS/group_intrusion_alt_goal_candidates
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: false
+    - Alpha: 1
+      Axes Length: 1
+      Axes Radius: 0.10000000149011612
+      Class: rviz/Pose
+      Color: 255; 25; 0
+      Enabled: true
+      Head Length: 0.30000001192092896
+      Head Radius: 0.10000000149011612
+      Name: Pose
+      Shaft Length: 1
+      Shaft Radius: 0.05000000074505806
+      Shape: Arrow
+      Topic: /move_base_simple/goal
+      Unreliable: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -1453,25 +2779,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 19.155357360839844
+      Distance: 11.110846519470215
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 1.0118916034698486
-        Y: 0.4814484417438507
-        Z: -0.5379135012626648
+        X: 1.4878848791122437
+        Y: 3.865234375
+        Z: 0.5246484279632568
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.9647967219352722
+      Pitch: 1.5697963237762451
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 6.277306079864502
+      Yaw: 6.086336135864258
     Saved: ~
 Window Geometry:
   Displays:
@@ -1479,7 +2805,7 @@ Window Geometry:
   Height: 1016
   Hide Left Dock: false
   Hide Right Dock: true
-  QMainWindow State: 000000ff00000000fd0000000400000000000001690000035afc0200000009fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d0000024f000000c900fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000001c0043006f006d00700072006500730073006500640020004d0061007001000002f5000000c90000000000000000fb0000000800520047004200440100000292000001050000001600ffffff000000010000010f00000396fc0200000004fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730000000028000000c10000005c00fffffffb0000001e0054006f006f006c002000500072006f00700065007200740069006500730000000028000000a30000000000000000fb0000000a0056006900650077007300000000ef000002cf000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000004f30000003efc0100000002fb0000000800540069006d00650100000000000004f3000002eb00fffffffb0000000800540069006d00650100000000000004500000000000000000000003840000035a00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000400000000000002020000035afc020000000afb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d0000013f000000c900fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000001c0043006f006d00700072006500730073006500640020004d0061007001000002f5000000c90000000000000000fb0000000800520047004200440100000182000002150000001600fffffffb000000080052004700420044010000010c000002a60000000000000000000000010000010f0000035afc0200000004fb0000001e0054006f006f006c002000500072006f0070006500720074006900650073000000003d000001740000005c00fffffffb0000001e0054006f006f006c002000500072006f00700065007200740069006500730000000028000000a30000000000000000fb0000000a0056006900650077007300000001b7000001e0000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000073d0000003efc0100000002fb0000000800540069006d006501000000000000073d000002eb00fffffffb0000000800540069006d00650100000000000004500000000000000000000005350000035a00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   RGBD:
     collapsed: false
   Selection:
@@ -1490,6 +2816,6 @@ Window Geometry:
     collapsed: true
   Views:
     collapsed: true
-  Width: 1267
-  X: 2115
-  Y: 99
+  Width: 1853
+  X: 67
+  Y: 27

@@ -1,0 +1,29 @@
+# Parameters placed here overwrite default values from dynamic reconfigure
+# SARL* is not a pure nav_core plugin, thus the external local planner plugin is used
+base_local_planner: external_local_planner/ExternalLocalPlannerROS
+
+# SARL* frequency is set in the planner's node, the value below should match it
+controller_frequency:  4.0
+
+ExternalLocalPlannerROS:
+  # basic parameters for the LatchedStopRotateController
+  # set to true if the external planner is only able to reach the goal position without adjusting the orientation
+  enable_stop_rotate_controller: true
+  latch_xy_goal_tolerance: true
+
+  xy_goal_tolerance: 0.2
+  yaw_goal_tolerance: !degrees 11.5
+  trans_stopped_vel: 0.1
+  theta_stopped_vel: !degrees 6.0
+
+  # stopWithAccLimits & rotateToGoal
+  acc_lim_x: 1.0
+  acc_lim_y: 0.0
+  acc_lim_theta: !degrees 60.0
+
+  # rotateToGoal
+  max_vel_theta: !degrees 60.0
+  min_vel_theta: !degrees 23.0
+
+  # easier following of the global path
+  local_goal_distance: 0.8

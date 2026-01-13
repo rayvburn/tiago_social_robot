@@ -3,8 +3,26 @@
 # Check if the $HOME/.pal folder is available and creates it if needed before
 # launching navigation.
 #
-# Usage: $0 <robot> [<state>] [<localization method>] [<mapping method>] [<map>]
-
+# Usage: $0 <robot> [<state>] [<localization method>] [<mapping method>] [<map>] ...
+#
+# Arguments list:
+#
+#   $1   robot_name
+#   $2   $(arg state)
+#   $3   $(arg localization_method)
+#   $4   $(arg mapping_method)
+#   $5   $(arg map_file)
+#   $6   $(arg octomap)
+#   $7   $(arg scan_topic)
+#   $8   $(arg laser_model)
+#   $9   $(arg base_type)
+#   $10  $(arg multiple)
+#   $11  $(arg robot_namespace)
+#   $12  $(arg map_topic)
+#   $13  $(arg localization_pose_estimate)
+#   $14  $(arg localization_config)
+#   $15  $(arg mapping_config)
+#
 # Check parameters:
 if [ $# -lt 1 ]; then
   echo "Usage: $0 <robot> [<state>] [<localization method>] [<mapping method>] [<map>] [<octomap>]"
@@ -16,25 +34,6 @@ else
 fi
 
 skip_map_operations="0"
-
-# Args:
-#
-# $1   robot_name                             tiago
-# $2   $(arg state)                           mapping
-# $3   $(arg localization_method)             amcl
-# $4   $(arg mapping_method)                  gmapping
-# $5   $(arg map_file)                        /home/rayvburn/ros_workspace/ws_social_navigation/src/tiago_sim_integration/maps/012_sim_localization/map.yaml
-# $6   $(arg octomap)                         false
-# $7   $(arg scan_topic)                      scan_nav
-# $8   $(arg laser_model)                     sick-571
-# $9   $(arg base_type)                       pmb2
-# $10  $(arg multiple)                        false
-# $11  $(arg robot_namespace)                 /
-# $12  $(arg map_topic)                       map
-# $13  $(arg localization_pose_estimate)      /home/rayvburn/ros_workspace/ws_social_navigation/src/tiago_social_robot/tiago_social_navigation/config/localization/pose_estimate.yaml
-# $14  $(arg localization_config)             /home/rayvburn/ros_workspace/ws_social_navigation/src/tiago_social_robot/tiago_social_experiments/config/aws_hospital.yaml
-# $15  $(arg mapping_config)                  /home/rayvburn/ros_workspace/ws_social_navigation/src/tiago_social_robot/tiago_social_navigation/config/mapping/gmapping.yaml
-#
 
 echo "[tiago_social_navigation/navigation.sh] Starting tiago_social_navigation script. Arguments are: "
 for i in $*; do 

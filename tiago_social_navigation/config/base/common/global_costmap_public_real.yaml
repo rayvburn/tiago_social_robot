@@ -1,0 +1,101 @@
+# Independent settings for the planner's costmap
+# Adjusted for the real setup
+global_costmap:
+  global_frame    : map
+  robot_base_frame: base_footprint
+
+  update_frequency : 5.0
+  publish_frequency: 1.0
+
+  transform_tolerance: 0.3
+
+  track_unknown_space: true
+  unknown_cost_value : 255
+
+  robot_radius: 0.275
+
+  #plugins are loaded on a separate file
+
+  static_layer:
+    enabled  : true
+    map_topic: map
+
+  obstacle_laser_layer:
+    enabled: true
+    observation_sources: base_scan
+    # 0: can erase static layer, 1: can only add obstacles
+    combination_method: 0  # may be overwritten by `move_base.launch`
+
+    base_scan:
+      sensor_frame: base_laser_link
+      data_type: LaserScan
+      topic: scan_nav # may overwritten by `move_base.launch`
+      expected_update_rate: 0.3
+      observation_persistence: 0.0
+      inf_is_valid: true
+      marking: true
+      clearing: true
+      raytrace_range: 4.0
+      obstacle_range: 3.0
+
+  obstacle_sonar_layer:
+    enabled: false
+    ns: ""
+    topics: ["/sonar_base"]
+    no_readings_timeout: 0.0
+    clear_threshold: 0.20
+    mark_threshold: 0.80
+    clear_on_max_reading: true
+
+  obstacle_rgbd_layer:
+    enabled: true
+    observation_sources: rgbd_scan
+    combination_method: 1
+
+    rgbd_scan:
+      sensor_frame: base_footprint
+      data_type: LaserScan
+      topic: rgbd_scan
+      expected_update_rate: 0.5
+      observation_persistence: 0.0
+      inf_is_valid: true
+      marking: true
+      clearing: true
+      raytrace_range: 2.7
+      obstacle_range: 2.5
+      blanking_range: 1.55
+      mark_blanking: true
+      debug: true
+      # these are not set in the real-world setup (by default)
+      # min_obstacle_height: -0.1
+      # max_obstacle_height: 0.2
+
+  inflation_layer:
+    enabled            : true
+    inflation_radius   : 0.60
+    cost_scaling_factor: 25.0
+
+  proxemic_layer:
+    enabled: true
+    # being at the center of the personal space means a definite collision
+    amplitude: 254.0
+    cutoff: 80.0
+    keep_time: 30.0
+    min_track_reliability_to_keep: 0.8
+
+  fformation_layer:
+    enabled: true
+    # disabled to keep costs higher in the O-space areas
+    include_social_relations_strength: false
+    # being at the center of an F-formation normally does not indicate a collision
+    amplitude: 150.0
+    cutoff: 15.0
+    keep_time: 30.0
+    min_track_reliability_to_keep: 0.8
+
+  passing_layer:
+    enabled: true
+    amplitude: 115.0
+    cutoff: 15.0
+    keep_time: 30.0
+    min_track_reliability_to_keep: 0.8

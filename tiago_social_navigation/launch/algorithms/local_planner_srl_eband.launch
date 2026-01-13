@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <arg name="move_base_node_name" default="move_base"/>
+    <arg name="lplanner_params_ns" default="/$(arg move_base_node_name)/SrlEBandPlannerROS"/>
+    <arg name="global_cm_params_ns" default="/$(arg move_base_node_name)/global_costmap"/>
+
+    <arg name="front_laser_topic" default="/scan_narrow"/>
+    <arg name="rear_laser_topic" default="the_robot_does_not_possess_the_rear_laser"/>
+
+    <arg name="robot_base_frame" default="base_footprint"/>
+
+    <!-- Topics for custom layers in the costmap -->
+    <arg name="navigation_goal_topic" default="/$(arg move_base_node_name)_simple/goal"/>
+    <!-- Should be the same as 'perception_input_topic', originally '/spencer/perception/tracked_persons' -->
+    <arg name="spencer_people_topic" default="/spencer/perception/tracked_persons_confirmed_by_HOG_or_upper_body"/>
+    <arg name="spencer_groups_topic" default="/spencer/perception/tracked_groups"/>
+
+    <!-- NOTE: with the `hanp_prediction` services it is not possible to obtain the frame dynamically;
+    this is the frame of SPENCER human tracks -->
+    <arg name="predicted_humans_frame" default="odom"/>
+
+    <!--
+        Due to the fact that most parameters are dynamically reconfigured, params loaded via YAML at startup will
+        get overriden. Below settings mimic the TIAGo's kinematic and dynamic constraints applied to other planners.
+    -->
+    <node name="$(anon dynparam)" pkg="dynamic_reconfigure" type="dynparam" args="set_from_parameters $(arg lplanner_params_ns)"
+        output="screen" respawn="false"
+    >
+        <!-- accelerations -->
+        <param name="max_acceleration_dyn" value="1.0"/>
+        <param name="max_translational_acceleration_dyn" value="1.0"/>
+        <param name="max_rotational_acceleration_dyn" value="1.0471"/>
+        <param name="limit_acc_dyn" value="True"/>
+
+        <!-- velocities -->
+        <param name="max_vel_lin_dyn" value="0.50"/>
+        <param name="min_vel_lin_dyn" value="0.05"/>
+        <param name="max_vel_th_dyn" value="1.0471"/>
+        <param name="min_vel_th_dyn" value="0.0"/>
+        <param name="max_rotational_velocity_turning_on_spot_dyn" value="0.95"/>
+        <param name="trans_vel_goal_dyn" value="0.50"/>
+        <param name="start_to_stop_goal_dyn" value="2.0"/>
+
+        <!-- goal tolerances -->
+        <param name="xy_goal_tolerance_dyn" value="0.2"/>
+        <param name="yaw_goal_tolerance_dyn" value="0.2007"/> <!-- 11.5 degrees -->
+
+        <!-- context-cost function -->
+        <!-- originally False -->
+        <param name="human_legibility_on_dyn" value="False"/>
+    </node>
+
+    <!-- Set ROS parameters specific to the srl_eband local planner -->
+    <rosparam command="load" ns="$(arg global_cm_params_ns)" file="$(find tiago_social_navigation)/config/base/srl_eband/behaviour_parameters.yaml"/>
+    <rosparam subst_value="True" param="$(arg lplanner_params_ns)/predicted_humans_frame_id">$(arg predicted_humans_frame)</rosparam>
+    <rosparam subst_value="True" param="$(arg lplanner_params_ns)/front_laser_topic">$(arg front_laser_topic)</rosparam>
+    <rosparam subst_value="True" param="$(arg lplanner_params_ns)/rear_laser_topic">$(arg rear_laser_topic)</rosparam>
+
+    <!-- Note that SRL-EBand-specific costmap plugins are enabled only in the global costmap -->
+    <!-- Orig: https://github.com/makokal/socially_normative_navigation/blob/master/snn_launchers/config/move_base_parameters/lobby/global.yaml -->
+    <rosparam subst_value="True" param="$(arg global_cm_params_ns)/social_compliance_layer/goal_topic">$(arg navigation_goal_topic)</rosparam>
+    <rosparam subst_value="True" param="$(arg global_cm_params_ns)/social_compliance_layer/people_topic">$(arg spencer_people_topic)</rosparam>
+    <rosparam subst_value="True" param="$(arg global_cm_params_ns)/social_compliance_layer/groups_topic">$(arg spencer_groups_topic)</rosparam>
+    <rosparam subst_value="True" param="$(arg global_cm_params_ns)/social_compliance_layer/robot_base_frame">$(arg robot_base_frame)</rosparam>
+
+    <!-- Orig: https://github.com/makokal/socially_normative_navigation/blob/master/snn_launchers/config/move_base_parameters/intersection/global.yaml -->
+    <rosparam subst_value="True" param="$(arg global_cm_params_ns)/flow_behavior_layer/goal_topic">$(arg navigation_goal_topic)</rosparam>
+    <rosparam subst_value="True" param="$(arg global_cm_params_ns)/flow_behavior_layer/people_topic">$(arg spencer_people_topic)</rosparam>
+    <rosparam subst_value="True" param="$(arg global_cm_params_ns)/flow_behavior_layer/robot_base_frame">$(arg robot_base_frame)</rosparam>
+
+    <!-- People messages conversion and prediction part is shared with HaTEB's setup -->
+    <include file="$(find tiago_social_navigation)/launch/algorithms/local_planner_hateb.launch">
+        <!-- `PREDICT_SERVICE_NAME` in `srl_eband_local_planner/src/context_cost_function.cpp` is hard-coded -->
+        <arg name="hanp_prediction_service_name" value="predict_2d_human_poses"/>
+    </include>
+</launch>

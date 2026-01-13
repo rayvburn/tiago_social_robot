@@ -1,76 +1,34 @@
 # tiago_social_robot
 
-Packages for social navigation based on TIAGo robot.
-
-## Run
-
-Run HuBeRo example with sourced TIAGo packages (to spawn the robot in simulation):
-
-Start Gazebo simulation:
-```bash
-cd ~/ros_workspace/ws_social_navigation
-source /usr/share/gazebo-9/setup.sh && source ../ws_tiago/devel/setup.bash && source devel/setup.bash
-roslaunch hubero_bringup_gazebo_ros example.launch world:=living_room rviz:=false
-```
-
-Spawn TIAGo robot:
-```bash
-cd ~/ros_workspace/ws_social_navigation
-source ../ws_tiago/devel/setup.bash && source devel/setup.bash
-roslaunch tiago_social_bringup gazebo_spawn.launch
-```
-
-Run navigation modules for TIAGo:
-```bash
-cd ~/ros_workspace/ws_social_navigation
-source ../ws_tiago/devel/setup.bash && source devel/setup.bash
-```
-- localization
-  - if `map_server` is already running
-    ```bash
-    roslaunch tiago_social_navigation gazebo_nav_base.launch state:=localization map:=none
-    ```
-  - if new map should be loaded (map path is just an example)
-    ```bash
-    roslaunch tiago_social_navigation gazebo_nav_base.launch state:=localization map:=$(rospack find hubero_bringup_gazebo_ros)/maps/living_room.yaml
-    ```
-
-- mapping (SLAM)
-  ```bash
-  roslaunch tiago_social_navigation gazebo_nav_base.launch state:=mapping map:=none
-  ```
-
-Alternatively, navigation modules can be ran using this command (will also open special `rviz` config provided by `PAL`):
-```bash
-roslaunch tiago_social_navigation gazebo_nav_tiago.launch map:=none
-```
-
-Custom rviz config:
-```bash
-rviz -d $(rospack find tiago_social_navigation)/rviz/tiago_navigation.rviz
-```
-
-NOTE: `tiago_social_navigation/gazebo_nav_tiago.launch` can only be used for localization.
+Packages for social navigation experiments based on a TIAGo robot. This repository stores common contents that are required for both real and simulated setups.
 
 ## Benchmarking
-First install dependencies of `NKU-MobFly-Robotics/local-planning-benchmark`:
+
+To benchmark different local planners, install dependencies of `NKU-MobFly-Robotics/local-planning-benchmark` first:
 
 ```bash
 sudo apt install libceres-dev
 ```
 
+## Launch system
+
+One should consider using the launch system provided for the [simulated](https://github.com/rayvburn/tiago_social_robot_sim) or the [real](https://github.com/rayvburn/tiago_social_robot_real) robot that were designed to wrap the launch files provided in this package.
+
 ## Troubleshooting
 
 ### Frame names
-This package does not fully overhaul PAL's launch ecosystem but only modifies some parts to make it usable with external maps, to allow easier override of parameters.
-User must beware of frame names as these are hard-coded in multiple places.
-Generally, frames should not be touched and valid setup consists of such frame names:
-- robot base frame -> `base_footprint`
-- odometry frame -> `odom`
-- map frame -> `map`
 
-### Stuck at AMCL launch
-If you're stuck on AMCL launched to this stage:
+This package does not fully overhaul PAL's launch ecosystem but only modifies some parts to make it usable with external maps, to allow easier override of parameters.
+Users must beware of frame names as these are hard-coded in multiple places.
+Generally, frames should not be touched. A valid setup consists of such frame names:
+
+- robot base frame -> `base_footprint`,
+- odometry frame -> `odom`,
+- map frame -> `map`.
+
+### Stuck at `AMCL` launch
+
+If you're stuck on `AMCL` launched to this stage:
 
 ```console
 [ INFO] [1646218893.974936024]: Done initializing likelihood field model.
@@ -91,7 +49,34 @@ then start with a system reset. At the next startup you'll probably see this kin
 [ INFO] [1646219081.903287792, 30.324000000]:     Subscribed to Topics: base_scan
 ```
 
-This mostly happens once robot is spawned along with navigation modules and then navigation modules are killed and then started again.
+This mostly happens once a simulated robot is spawned along with navigation modules and then navigation modules are killed and then started again.
+
+### Laser shows `Inf` all around the robot
+
+It is because the laser plugin is selected to `gpu_ray`. Make sure that you have GPU drivers installed.
+
+### Disabling laser rays
+
+Search for `pmb2_robot/pmb2_description/urdf/sensors/sick_tim571_laser.gazebo.xacro` (or file with a selected laser model, but this is the default) and set:
+
+```xml
+<visualize>false</visualize>
+```
+
+### `ros::ConflictingSubscriptionException`
+
+When getting this kind of output:
+
+```console
+[ INFO] [1704303096.648084758, 15.928000000]: Persons: [], Goal: []
+terminate called after throwing an instance of 'ros::ConflictingSubscriptionException'
+  what():  Tried to subscribe to a topic with the same name but different md5sum as a topic that was already subscribed [geometry_msgs/PoseStamped/d3812c3cbc69362b77dc0b19b345f8f5 vs. spencer_tracking_msgs/TrackedPersons/21c0b1a57c4933e68f39aa3802861828]
+[move_base-22] process has died [pid 5686, exit code -6, cmd /<ROS_WS_DIR>/devel/lib/move_base/move_base odom:=/mobile_base_controller/odom cmd_vel:=/nav_vel __name:=move_base __log:=/<USER_HOMEDIR>/.ros/log/5ce10b00-a8a0-11ee-be21-a4c4949b3b6a/move_base-22.log].
+log file: /<USER_HOMEDIR>/.ros/log/5ce10b00-a8a0-11ee-be21-a4c4949b3b6a/move_base-22*.log
+[move_base-22] restarting process
+```
+
+it seems that the selected `costmap_contexts` are `socially_normative`. In such a situation, make sure that the local planner selected is `srl_eband`. If the local planner is not intended to be `srl_eband`, change the `costmap_contexts` to, e.g., `social_extended`.
 
 ### Chaining multiple ROS workspaces
 

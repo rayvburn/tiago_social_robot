@@ -1,0 +1,6 @@
+# Parameters file based on:
+# https://github.com/rayvburn/drl_local_planner_ros_stable_baselines/blob/melodic-devel/rl_bringup/config/rl_params_exec.yaml
+
+scan_front_topic: /scan_narrow_rl_f
+scan_rear_topic: /scan_narrow_rl_b
+robot_radius: 0.275

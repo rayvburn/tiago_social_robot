@@ -1,0 +1,18 @@
+# A special configuration of plugins for the SRL Elastic Band local planner (srl_eband), ref:
+# Okal, Arras: "Learning Socially Normative Robot Navigation Behaviors using Bayesian Inverse Reinforcement Learning"
+
+# Independent settings for the planner's costmap
+global_costmap:
+  plugins:
+    - name: static_layer
+      type: 'costmap_2d::StaticLayer'
+    - name: obstacle_laser_layer
+      type: 'costmap_2d::ObstacleLayer'
+    - name: obstacle_rgbd_layer
+      type: 'costmap_2d::ObstacleLayer'
+    - name: inflation_layer
+      type: 'costmap_2d::InflationLayer'
+    - name: flow_behavior_layer
+      type: 'flow_behavior_layer::FlowBehaviorLayer'
+    - name: social_compliance_layer
+      type: 'social_compliance_layer::SocialComplianceLayer'

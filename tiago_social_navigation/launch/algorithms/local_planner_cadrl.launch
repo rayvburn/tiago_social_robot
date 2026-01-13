@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <!--
+        CADRL by default does not regard static obstacles in the environment; this parameter allows to select
+        whether to keep the original behaviour (false) or include obstacles detected by a LiDAR as other agents
+        in the environment (true)
+    -->
+    <arg name="obstacles_as_environment_agents" default="true" />
+
+    <!-- original topic with information about people in vicinity of robot -->
+    <arg name="people_topic" default="/people" />
+    <!-- <arg name="obstacles_scan_topic" default="/scan_narrow" /> -->
+    <arg name="obstacles_scan_topic" default="/scan_laser_rgbd_merged" />
+    <!-- Two scans merged to obtain a "2.5D projection" -->
+    <arg name="scan_laser_topic" value="/scan_narrow"/>
+    <arg name="scan_rgbd_topic" value="/rgbd_scan"/>
+
+    <!-- topics related to the planner node -->
+    <arg name="nodes_namespace" value="/move_base/local_planner" />
+    <arg name="goal_topic" default="/move_base_simple/goal" />
+    <arg name="marker_topic_ns" default="$(arg nodes_namespace)" />
+    <!-- command must be sent to the ExternalLocalPlannerROS plugin that passes it to the navigation stack -->
+    <arg name="cmd_vel_topic" default="/move_base/ExternalLocalPlannerROS/external_cmd_vel" />
+
+    <!-- topics related to interface nodes -->
+    <arg name="odom_topic" default="/mobile_base_controller/odom" />
+    <arg name="velocity_topic" default="/mobile_base_controller/velocity_global" />
+    <arg name="global_pose_topic" default="/amcl_pose" />
+    <arg name="pose_topic" default="/amcl_pose_wo_covariance" />
+    <arg name="pedestrian_clusters_topic" default="$(arg people_topic)/cadrl/clusters" />
+    <arg name="pedestrian_traj_topic" default="$(arg people_topic)/cadrl/pedtraj" />
+
+    <!-- Merge obstacle measurements obtained from the laser scanner and RGBD camera -->
+    <node pkg="ira_laser_tools" name="laserscan_multi_merger" type="laserscan_multi_merger" output="screen">
+      <param name="cloud_destination_topic" value="$(arg obstacles_scan_topic)_pcl"/>
+      <param name="scan_destination_topic" value="$(arg obstacles_scan_topic)"/>
+      <param name="laserscan_topics" value ="$(arg scan_laser_topic) $(arg scan_rgbd_topic)" />
+      <!-- params of the scan from the laser, knowing that it covers more area than the RGBD scan -->
+      <param name="destination_frame" value="base_laser_link"/>
+      <param name="time_increment" value ="0.0" />
+      <param name="scan_time" value ="0.0" />
+      <param name="range_min" value ="0.05" />
+      <param name="range_max" value ="25.0" />
+      <param name="angle_min" value ="-1.91986000538" />
+      <param name="angle_max" value ="+1.91986000538" />
+      <param name="angle_increment" value ="0.00577401509508" />
+    </node>
+
+    <!-- people data conversion -->
+    <node pkg="cadrl_ros_planner_interfaces" type="tracked_persons_to_cadrl_node" name="cadrl_pedestrian_conversion"
+        output="screen" ns="$(arg nodes_namespace)" unless="$(arg obstacles_as_environment_agents)"
+    >
+        <!-- subscriptions -->
+        <remap from="/people" to="$(arg people_topic)"/>
+        <!-- publications -->
+        <remap from="/ped_clusters" to="$(arg pedestrian_clusters_topic)"/>
+        <remap from="/ped_traj" to="$(arg pedestrian_traj_topic)"/>
+    </node>
+    <!-- people AND OBSTACLES data conversion -->
+    <node pkg="cadrl_ros_planner_interfaces" type="tracked_persons_and_obstacles_to_cadrl_node" name="cadrl_pedestrian_conversion"
+        output="screen" ns="$(arg nodes_namespace)" if="$(arg obstacles_as_environment_agents)"
+    >
+        <!-- subscriptions -->
+        <remap from="/people" to="$(arg people_topic)"/>
+        <remap from="/scan_combined" to="$(arg obstacles_scan_topic)"/>
+        <!-- publications -->
+        <remap from="/ped_clusters" to="$(arg pedestrian_clusters_topic)"/>
+        <remap from="/ped_traj" to="$(arg pedestrian_traj_topic)"/>
+    </node>
+
+    <!-- velocity from odometry conversion -->
+    <node pkg="cadrl_ros_planner_interfaces" type="vel_conversion_odometry_to_vector_node" name="cadrl_vel_conversion"
+        output="screen" ns="$(arg nodes_namespace)"
+    >
+        <!-- subscriptions -->
+        <remap from="/odom" to="$(arg odom_topic)"/>
+        <!-- publications -->
+        <remap from="/velocity" to="$(arg velocity_topic)"/>
+    </node>
+
+    <!-- pose from global localization conversion -->
+    <node pkg="cadrl_ros_planner_interfaces" type="pose_conversion_covariance_delete_node" name="cadrl_pose_conversion"
+        output="screen" ns="$(arg nodes_namespace)"
+    >
+        <!-- subscriptions -->
+        <remap from="/global_pose" to="$(arg global_pose_topic)"/>
+        <!-- publications -->
+        <remap from="/pose_stamped" to="$(arg pose_topic)"/>
+    </node>
+
+    <!-- launch the planner node (operates as the node instead of nav_core plugin) -->
+    <include file="$(find cadrl_ros)/launch/cadrl_node.launch">
+        <!-- launch configuration params -->
+        <arg name="node_namespace" value="$(arg nodes_namespace)" />
+
+        <!-- configuration of subscribed topics -->
+        <arg name="global_pose_topic" value="$(arg pose_topic)" />
+        <arg name="vel_topic" value="$(arg velocity_topic)" />
+        <arg name="goal_topic" value="$(arg goal_topic)" />
+        <arg name="pedestrian_clusters_topic" value="$(arg pedestrian_clusters_topic)" />
+        <arg name="pedestrians_topic" value="$(arg pedestrian_traj_topic)" />
+
+        <!-- configuration of published topics -->
+        <arg name="cmd_vel_topic" value="$(arg cmd_vel_topic)" />
+        <arg name="marker_topic_ns" value="$(arg marker_topic_ns)" />
+
+        <!-- robot parameters (values must be unified with other planners) -->
+        <arg name="robot_speed" value="0.5" />
+        <arg name="robot_radius" value="0.275" />
+        <arg name="max_rot_vel" value="1.05" />
+        <arg name="goal_tolerance" value="0.2" />
+    </include>
+
+    <!--
+        SRPB's logger will use computation times obtained from the external topic instead of counting
+        the execution time of computeVelocityCommands
+    -->
+    <param name="/move_base/srpb/external_computation_times_topic" value="/move_base/local_planner/cadrl_node/computation_time"/>
+    <param name="/move_base/srpb/external_computation_times_array_index" value="1"/>
+</launch>
